@@ -1,9 +1,19 @@
 .cardContainer {
     display: inline-grid;
     grid-template-areas:
-    "image name"
-    "image info";
-    
+        "image name"
+        "image info";
+
+    border: 1px solid gray;
+
+    &.ally {
+        border-color: green;
+    }
+
+    &.enemy {
+        border-color: red;
+    }
+
     &.vertical {
         gap: 20px;
     }
@@ -16,9 +26,23 @@
     }
 }
 
-.avatar {
-    grid-area: image;
+.avatarContainer {
+    background-color: red;
+    display: inherit;
+
+    .avatar {
+        grid-area: image;
+
+        .critical & {
+            animation: blinker 1s linear infinite;
+        }
+
+        .dead & {
+            filter: invert(1);
+        }
+    }
 }
+
 .characterName {
     grid-area: name;
     text-align: center;
@@ -27,4 +51,22 @@
 .characterInfo {
     grid-area: info;
     text-align: center;
+}
+
+.hp {
+    font-weight: bold;
+
+    .ally & {
+        color: green;
+    }
+
+    .enemy & {
+        color: red;
+    }
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0.7;
+    }
 }

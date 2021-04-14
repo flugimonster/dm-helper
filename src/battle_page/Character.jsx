@@ -3,11 +3,18 @@ import PropTypes from 'prop-types';
 import css from './Character.module.scss'
 import clsx from 'clsx'
 
-export const Character = ({name, image, maxHP, hp, faction, variant}) => {
-  return <div className={clsx([css.cardContainer, css[variant], css[faction]])}>
-    <div className={css.characterName}>{name}</div> 
-    <img className={css.avatar} src={image}/>
-    <div className={css.characterInfo}>{hp} / {maxHP}</div>
+export const Character = ({ name, image, maxHP, hp, faction, variant }) => {
+  return <div className={clsx([css.cardContainer, css[variant], css[faction], { [css.critical]: hp / maxHP < 0.33 && hp > 0, [css.dead]: hp <= 0 }])}>
+    <div className={css.characterName}>{name}</div>
+    <div className={css.avatarContainer}>
+      <img className={css.avatar} src={image} />
+
+    </div>
+    <div className={css.characterInfo}>
+      <div className={css.hp}>
+        {faction === 'ally' ? `${Math.max(hp, 0)} / ${maxHP}` : `${Math.max(hp - maxHP, 0)}`}
+      </div>
+    </div>
   </div>;
 };
 
