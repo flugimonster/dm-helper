@@ -1,0 +1,30 @@
+.cardContainer {
+    display: inline-grid;
+    grid-template-areas:
+    "image name"
+    "image info";
+    
+    &.vertical {
+        gap: 20px;
+    }
+
+    &.horizontal {
+        grid-template-areas:
+            "image"
+            "name"
+            "info";
+    }
+}
+
+.avatar {
+    grid-area: image;
+}
+.characterName {
+    grid-area: name;
+    text-align: center;
+}
+
+.characterInfo {
+    grid-area: info;
+    text-align: center;
+}
