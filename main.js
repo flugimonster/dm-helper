@@ -7,7 +7,8 @@ function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    frmae: false,
+    frame: false,
+    transparent: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
@@ -15,6 +16,8 @@ function createWindow () {
 
   // and load the index.html of the app.
   mainWindow.setAlwaysOnTop("true"); 
+
+  mainWindow.setMenu(null);
 
   mainWindow.loadURL('http://localhost:3000');
 

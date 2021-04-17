@@ -17,12 +17,12 @@
             "image"
             "name"
             "info";
-        grid-template-rows: 155px 2rem 2rem;
+        grid-template-rows: 100px 2rem 2rem;
     }
 
     &.vertical {
         grid-template-areas: "info name image";
-        grid-template-columns: 2rem 2rem 155px;
+        grid-template-columns: 2rem 2rem 100px;
     }
 
     &.highlight {
@@ -40,8 +40,8 @@
         transform: rotate(90deg);
     }
 
-    width: 155px;
-    height: 155px;
+    width: 100px;
+    height: 100px;
 
     .avatar {
         width: 100%;
@@ -64,7 +64,7 @@
     grid-area: name;
     text-align: center;
     border: 1px solid;
-
+    background-color: white;
     .vertical & {
         writing-mode: vertical-rl;
         text-orientation: mixed;
@@ -83,7 +83,7 @@
     padding: 5px;
     grid-area: info;
     text-align: center;
-
+    background-color: white;
     .vertical & {
         writing-mode: vertical-rl;
         text-orientation: mixed;

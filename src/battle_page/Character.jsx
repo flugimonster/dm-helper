@@ -3,10 +3,20 @@ import PropTypes from 'prop-types';
 import css from './Character.module.scss';
 import clsx from 'clsx';
 import genericEnemyImg from '../assets/GenericImage.jpg'
+import { useEffect } from 'react';
+import { useRef } from 'react';
 
 
 export const Character = ({ name, image, maxHP, hp, faction, variant, highlight }) => {
-  return <div className={
+  const elem = useRef();
+
+  useEffect(() => {
+    if (highlight) {
+      elem.current.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
+    }
+  }, [highlight])
+  
+  return <div ref={elem} className={
     clsx(
       [css.cardContainer,
       css[variant],

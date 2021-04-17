@@ -21,7 +21,7 @@ export const ListOfCharacters = ({ characters, variant }) => {
                 )
             }
         </div>
-        <button onClick={() => setCurrTurn((currTurn + 1) % sortedCharacters.length)}>Next Turn</button>
+        <button style={{position: 'fixed', top: 0, left: '50%', transform: 'translate(-50%)'}} onClick={() => setCurrTurn((currTurn + 1) % sortedCharacters.length)}>Next Turn</button>
     </div>
 }
 
@@ -31,7 +31,7 @@ ListOfCharacters.propTypes = {
 };
 
 ListOfCharacters.defaultProps = {
-    variant: 'horizontal',
+    variant: 'vertical',
 };
 
 
