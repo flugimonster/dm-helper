@@ -3,6 +3,7 @@
     grid-template-areas:
         "image name"
         "image info";
+    transition: 0.3s linear all;
 
     border: 1px solid gray;
 
@@ -24,14 +25,22 @@
             "name"
             "info";
     }
+
+    &.highlight {
+        box-shadow: 0 0 15px 15px #ffc800 inset;
+    }
 }
 
 .avatarContainer {
     background-color: red;
     display: inherit;
+    z-index: -1;
 
     .avatar {
         grid-area: image;
+        width: 155px;
+        height: 155px;
+        object-fit: cover;
 
         .critical & {
             animation: blinker 1s linear infinite;
@@ -46,11 +55,30 @@
 .characterName {
     grid-area: name;
     text-align: center;
+    border: 1px solid;
+
+    .ally & {
+        border-color: green;
+    }
+
+    .enemy & {
+        border-color: red;
+    }
 }
 
 .characterInfo {
     grid-area: info;
     text-align: center;
+
+    border: 1px solid;
+
+    .ally & {
+        border-color: green;
+    }
+
+    .enemy & {
+        border-color: red;
+    }
 }
 
 .hp {

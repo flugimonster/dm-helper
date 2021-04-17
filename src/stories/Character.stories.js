@@ -3,6 +3,7 @@ import React from 'react';
 import { Character } from '../battle_page/Character';
 
 import jonjonImg from '../assets/JonJonImage.JPG'
+import dezImg from '../assets/DezImage.JPG'
 
 export default {
   title: 'Battle/Character',
@@ -18,9 +19,27 @@ Default.args = {
   faction: 'ally',
   maxHP: 48,
   hp: 36,
+  highlight: true,
 };
 
+// export const Default = Template.bind({});
+// Default.args = {
+//   name: 'Dez-Mon',
+//   image: dezImg,
+//   faction: 'ally',
+//   maxHP: 43,
+//   hp: 43,
+//   highlight: true,
+// };
 
+export const Dez = Template.bind({});
+Dez.args = {
+  ...Default.arg,
+  name: 'Dez-Mon',
+  image: dezImg,
+  maxHP: 43,
+  hp: 43,
+}
 
 export const Dying = Template.bind({});
 Dying.args = {
