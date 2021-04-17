@@ -2,6 +2,8 @@ import jonjonImg from '../assets/JonJonImage.JPG'
 import sindriImg from '../assets/SinriImage.JPG'
 import regiImg from '../assets/RegiImage.JPG'
 import dezImg from '../assets/DezImage.JPG'
+import genericEnemyImg from '../assets/GenericImage.JPG'
+
 
 export const charactersData = [
     {

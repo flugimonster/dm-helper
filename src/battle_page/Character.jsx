@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import css from './Character.module.scss'
-import clsx from 'clsx'
+import css from './Character.module.scss';
+import clsx from 'clsx';
+import genericEnemyImg from '../assets/GenericImage.jpg'
+
 
 export const Character = ({ name, image, maxHP, hp, faction, variant, highlight }) => {
   console.log(clsx(
@@ -52,4 +54,5 @@ Character.propTypes = {
 
 Character.defaultProps = {
   variant: 'horizontal',
+  image: genericEnemyImg,
 };

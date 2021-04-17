@@ -15,10 +15,6 @@
         border-color: red;
     }
 
-    &.vertical {
-        gap: 20px;
-    }
-
     &.horizontal {
         grid-template-areas:
             "image"
@@ -35,9 +31,10 @@
     background-color: red;
     display: inherit;
     z-index: -1;
+    grid-area: image;
+    
 
     .avatar {
-        grid-area: image;
         width: 155px;
         height: 155px;
         object-fit: cover;
@@ -53,6 +50,7 @@
 }
 
 .characterName {
+    padding: 5px;
     grid-area: name;
     text-align: center;
     border: 1px solid;
@@ -67,6 +65,7 @@
 }
 
 .characterInfo {
+    padding: 5px;
     grid-area: info;
     text-align: center;
 
