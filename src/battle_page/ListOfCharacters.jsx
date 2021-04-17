@@ -13,12 +13,15 @@ export const ListOfCharacters = ({ characters, variant }) => {
 
     const [currTurn, setCurrTurn] = useState(0);
 
-    return <div className={clsx([css.container, css[variant]])}>
-        {
-            sortedCharacters.map((char, idx) =>
-                <Character variant={variant} highlight={idx === currTurn} name={char.name} image={char.image} maxHP={char.maxHP} hp={char.hp} faction={char.faction} />
-            )
-        }
+    return <div>
+        <div className={clsx([css.container, css[variant]])}>
+            {
+                sortedCharacters.map((char, idx) =>
+                    <Character variant={variant} highlight={idx === currTurn} name={char.name} image={char.image} maxHP={char.maxHP} hp={char.hp} faction={char.faction} />
+                )
+            }
+        </div>
+        <button onClick={() => setCurrTurn((currTurn + 1) % sortedCharacters.length)}>Next Turn</button>
     </div>
 }
 

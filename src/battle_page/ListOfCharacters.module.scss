@@ -7,11 +7,11 @@
     &.horizontal {
         flex-direction: row;
         width: 100%;
-        overflow-x: scroll;
+        overflow-x: auto;
     }
 
     &.vertical {
         height: 100%;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 }

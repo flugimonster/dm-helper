@@ -2,7 +2,9 @@ import jonjonImg from '../assets/JonJonImage.JPG'
 import sindriImg from '../assets/SindiImage.JPG'
 import regiImg from '../assets/RegiImage.jpg'
 import dezImg from '../assets/DezImage.JPG'
-import genericEnemyImg from '../assets/GenericImage.jpg'
+import iceTrollImg from '../assets/IceTroll.JPG'
+import roperImg from '../assets/Roper.JPG'
+import frostGiantImg from '../assets/FrostGiant.JPG'
 
 
 export const characters = [
@@ -44,28 +46,28 @@ export const characters = [
       },
       {
         name: 'Enemy 1',
-        image: genericEnemyImg,
+        image: iceTrollImg,
         faction: 'enemy',
-        maxHP: 59,
-        hp: 59,
+        maxHP: 115,
+        hp: 1,
         highlight: false,
         initiative: 15,
       },
       {
         name: 'Enemy 2',
-        image: genericEnemyImg,
+        image: roperImg,
         faction: 'enemy',
-        maxHP: 59,
-        hp: 59,
+        maxHP: 93,
+        hp: 51,
         highlight: false,
         initiative: 13,
       },
       {
         name: 'Enemy 3',
-        image: genericEnemyImg,
+        image: frostGiantImg,
         faction: 'enemy',
-        maxHP: 36,
-        hp: 36,
+        maxHP: 138,
+        hp: 50,
         highlight: false,
         initiative: 17,
       }

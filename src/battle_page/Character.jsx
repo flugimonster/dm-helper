@@ -25,7 +25,7 @@ export const Character = ({ name, image, maxHP, hp, faction, variant, highlight 
     </div>
     <div className={css.characterInfo}>
       <div className={css.hp}>
-        {faction === 'ally' ? `${Math.max(hp, 0)} / ${maxHP}` : `${Math.max(hp - maxHP, 0)}`}
+        {faction === 'ally' ? `${Math.max(hp, 0)} / ${maxHP}` : `${Math.min(hp - maxHP, 0)}`}
       </div>
     </div>
   </div>;

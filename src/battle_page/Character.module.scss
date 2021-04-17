@@ -21,11 +21,8 @@
     }
 
     &.vertical {
-        grid-template-areas:
-            "image"
-            "name"
-            "info";
-        grid-template-rows: 155px auto;
+        grid-template-areas: "info name image";
+        grid-template-columns: 2rem 2rem 155px;
     }
 
     &.highlight {
@@ -38,6 +35,10 @@
     display: inherit;
     z-index: -1;
     grid-area: image;
+
+    .vertical & {
+        transform: rotate(90deg);
+    }
 
     width: 155px;
     height: 155px;
@@ -64,6 +65,11 @@
     text-align: center;
     border: 1px solid;
 
+    .vertical & {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+    }
+
     .ally & {
         border-color: green;
     }
@@ -78,6 +84,10 @@
     grid-area: info;
     text-align: center;
 
+    .vertical & {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+    }
     border: 1px solid;
 
     .ally & {
