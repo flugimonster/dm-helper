@@ -1,11 +1,11 @@
 import jonjonImg from '../assets/JonJonImage.JPG'
-import sindriImg from '../assets/SinriImage.JPG'
-import regiImg from '../assets/RegiImage.JPG'
+import sindriImg from '../assets/SindiImage.JPG'
+import regiImg from '../assets/RegiImage.jpg'
 import dezImg from '../assets/DezImage.JPG'
-import genericEnemyImg from '../assets/GenericImage.JPG'
+import genericEnemyImg from '../assets/GenericImage.jpg'
 
 
-export const charactersData = [
+export const characters = [
     {
         name: 'JonJon',
         image: jonjonImg,
@@ -45,7 +45,7 @@ export const charactersData = [
       {
         name: 'Enemy 1',
         image: genericEnemyImg,
-        faction: 'ally',
+        faction: 'enemy',
         maxHP: 59,
         hp: 59,
         highlight: false,
@@ -54,7 +54,7 @@ export const charactersData = [
       {
         name: 'Enemy 2',
         image: genericEnemyImg,
-        faction: 'ally',
+        faction: 'enemy',
         maxHP: 59,
         hp: 59,
         highlight: false,
@@ -63,7 +63,7 @@ export const charactersData = [
       {
         name: 'Enemy 3',
         image: genericEnemyImg,
-        faction: 'ally',
+        faction: 'enemy',
         maxHP: 36,
         hp: 36,
         highlight: false,

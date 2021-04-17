@@ -1,4 +1,12 @@
-.listOfPlayersContainer {
-    display: inline-grid;
-    grid-template-areas: player 1,
+
+
+.container {
+    display: inline-flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 100%;
+
+    &.horizontal {
+        flex-direction: row;
+    }
 }
