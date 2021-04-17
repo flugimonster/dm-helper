@@ -6,17 +6,6 @@ import genericEnemyImg from '../assets/GenericImage.jpg'
 
 
 export const Character = ({ name, image, maxHP, hp, faction, variant, highlight }) => {
-  console.log(clsx(
-    [css.cardContainer,
-    css[variant],
-    css[faction],
-    {
-      [css.critical]: hp / maxHP < 0.33 && hp > 0,
-      [css.dead]: hp <= 0,
-      [css.highlight]: highlight
-    }]
-  ))
-  
   return <div className={
     clsx(
       [css.cardContainer,

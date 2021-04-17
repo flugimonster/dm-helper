@@ -8,17 +8,27 @@ import { Character } from './Character.jsx';
 // import {data} from './data';
 
 
-export const ListOfCharacters = ({ characters }) => {
+export const ListOfCharacters = ({ characters, variant }) => {
     const sortedCharacters = [...characters].sort((a, b) => a.initiative < b.initiative ? 1 : -1)
 
     const [currTurn, setCurrTurn] = useState(0);
 
-    return <div className={css.container}>
+    return <div className={clsx([css.container, css[variant]])}>
         {
             sortedCharacters.map((char, idx) =>
-                <Character variant="vertical" highlight={idx === currTurn} name={char.name} image={char.image} maxHP={char.maxHP} hp={char.hp} faction={char.faction} />
+                <Character variant={variant} highlight={idx === currTurn} name={char.name} image={char.image} maxHP={char.maxHP} hp={char.hp} faction={char.faction} />
             )
         }
     </div>
 }
+
+ListOfCharacters.propTypes = {
+    characters: PropTypes.any.isRequired,
+    variant: PropTypes.oneOf(['horizontal', 'vertical']),
+};
+
+ListOfCharacters.defaultProps = {
+    variant: 'horizontal',
+};
+
 

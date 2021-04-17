@@ -17,15 +17,15 @@
             "image"
             "name"
             "info";
-        grid-template-rows: 155px auto;
+        grid-template-rows: 155px 2rem 2rem;
     }
 
     &.vertical {
         grid-template-areas:
-            "image name"
-            "image info";
-
-        grid-template-columns: 155px auto;
+            "image"
+            "name"
+            "info";
+        grid-template-rows: 155px auto;
     }
 
     &.highlight {
