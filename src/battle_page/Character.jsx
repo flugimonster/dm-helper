@@ -29,9 +29,16 @@ export const Character = ({ name, image, maxHP, hp, faction, variant, highlight 
     )
   }>
     <div className={css.characterName}>{name}</div>
-    <div className={css.avatarContainer}>
+    <div className={
+      clsx(
+        [css.avatarContainer,
+          {
+            [css.highlight]: highlight
+          }
+        ]
+        )
+        }>
       <img className={css.avatar} src={image} />
-
     </div>
     <div className={css.characterInfo}>
       <div className={css.hp}>
