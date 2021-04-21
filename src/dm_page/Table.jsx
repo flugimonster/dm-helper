@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useTable, usePagination } from 'react-table';
+import { useTable, usePagination, useSortBy } from 'react-table';
 
 import { characters } from '../battle_page/data'
 
@@ -102,7 +102,9 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
             // That way we can call this function from our
             // cell renderer!
             updateMyData,
+            initialState: {sortBy: [{id: 'initiative', desc: true}]}
         },
+        useSortBy,
         usePagination
     )
 
@@ -139,9 +141,10 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
 function App() {
 
     const sortData = (original) => {
-        const newVal = [...original];
-        newVal.sort((a, b) => b.initiative - a.initiative);
-        return newVal;
+        // const newVal = [...original];
+        // newVal.sort((a, b) => b.initiative - a.initiative);
+        // return newVal;
+        return original
     }
 
     const columns = React.useMemo(
@@ -188,7 +191,7 @@ function App() {
     // original data
     const updateMyData = (rowIndex, columnId, value) => {
         // We also turn on the flag to not reset the page
-        console.log({rowIndex})
+        console.log({ rowIndex })
         setSkipPageReset(true)
         let newVal = data.map((row, index) => {
             if (index === rowIndex) {
