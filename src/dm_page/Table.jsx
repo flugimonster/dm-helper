@@ -1,10 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { useTable, usePagination, useSortBy } from 'react-table';
 
 import { characters } from '../battle_page/data'
 
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -82,7 +82,7 @@ const defaultColumn = {
 }
 
 // Be sure to pass our updateMyData and the skipPageReset option
-function Table({ columns, data, updateMyData, skipPageReset }) {
+function Table({ columns, data, updateMyData, skipPageReset, currentTurn }) {
     // For this example, we're using pagination to illustrate how to stop
     // the current page from resetting when our data changes
     // Otherwise, nothing is different here.
@@ -128,11 +128,7 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
                     {page.map((row, i) => {
                         prepareRow(row)
                         return (
-                            <tr {...row.getRowProps((_1, meta) => ({
-                                style: {
-                                    background: meta?.row.original.highlight ? 'gold' : 'white',
-                                },
-                            }))}>
+                            <tr style={{ background: currentTurn === i ? 'gold' : '' }} {...row.getRowProps()}>
                                 {row.cells.map(cell => {
                                     return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                 })}
@@ -153,6 +149,8 @@ function App() {
         // return newVal;
         return original
     }
+
+    const [currentTurn, setCurrentTurn] = useState(0);
 
     const columns = React.useMemo(
         () => [
@@ -225,11 +223,18 @@ function App() {
     // editing it, the page is reset
     React.useEffect(() => {
         setSkipPageReset(false)
-    }, [data])
+    }, [data]);
 
     return (
         <Styles>
+            <button onClick={() => {
+                setCurrentTurn((currentTurn - 1 + characters.length) % characters.length)
+            }}>PREV</button>
+            <button onClick={() => {
+                setCurrentTurn((currentTurn + 1 + characters.length) % characters.length)
+            }}>NEXT</button>
             <Table
+                currentTurn={currentTurn}
                 columns={columns}
                 data={data}
                 updateMyData={updateMyData}
