@@ -21,6 +21,9 @@ const Styles = styled.div`
       }
     }
 
+    input {
+        background: transparent;
+    }
     th,
     td {
       margin: 0;
@@ -102,7 +105,7 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
             // That way we can call this function from our
             // cell renderer!
             updateMyData,
-            initialState: {sortBy: [{id: 'initiative', desc: true}]}
+            initialState: { sortBy: [{ id: 'initiative', desc: true }] }
         },
         useSortBy,
         usePagination
@@ -125,7 +128,11 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
                     {page.map((row, i) => {
                         prepareRow(row)
                         return (
-                            <tr {...row.getRowProps()}>
+                            <tr {...row.getRowProps((_1, meta) => ({
+                                style: {
+                                    background: meta?.row.original.highlight ? 'gold' : 'white',
+                                },
+                            }))}>
                                 {row.cells.map(cell => {
                                     return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                 })}
