@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import css from './ListOfCharacters.module.scss';
 
 import { Character } from './Character.jsx';
-
+import { useEffect } from 'react';
 // import {data} from './data';
 
 
@@ -17,11 +17,11 @@ export const ListOfCharacters = ({ characters, variant }) => {
         <div className={clsx([css.container, css[variant]])}>
             {
                 sortedCharacters.map((char, idx) =>
-                    <Character variant={variant} highlight={idx === currTurn} name={char.name} image={char.image} maxHP={char.maxHP} hp={char.hp} faction={char.faction} />
+                    <Character key={char.name} variant={variant} highlight={idx === currTurn} name={char.name} image={char.image} maxHP={char.maxHP} hp={char.hp} faction={char.faction} />
                 )
             }
         </div>
-        <button style={{position: 'fixed', top: 0, left: '50%', transform: 'translate(-50%)', webkitAppRegion: 'no-drag'}} onClick={() => setCurrTurn((currTurn + 1) % sortedCharacters.length)}>Next Turn</button>
+        <button style={{ position: 'fixed', top: 0, left: '50%', transform: 'translate(-50%)', webkitAppRegion: 'no-drag' }} onClick={() => setCurrTurn((currTurn + 1) % sortedCharacters.length)}>Next Turn</button>
     </div>
 }
 

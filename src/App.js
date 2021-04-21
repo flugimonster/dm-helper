@@ -6,7 +6,7 @@ import { ListOfCharacters } from './battle_page/ListOfCharacters'
 function App() {
   return (
     <div className="App">
-      <ListOfCharacters variant='horizontal' characters={characters} />
+      <ListOfCharacters variant='vertical' characters={characters} />
     </div>
   );
 }
