@@ -200,6 +200,12 @@ function App() {
         setSkipPageReset(true)
         let newVal = data.map((row, index) => {
             if (index === rowIndex) {
+                if ((columnId === 'hp' || columnId === 'maxHP') && (value.startsWith?.('+') || value.startsWith?.('-'))) {
+                    return {
+                        ...data[rowIndex],
+                        [columnId]: Number(data[rowIndex][columnId]) + Number(value),
+                    }
+                }
                 return {
                     ...data[rowIndex],
                     [columnId]: value,
@@ -207,6 +213,8 @@ function App() {
             }
             return row
         });
+
+
 
         if (columnId === 'initiative') {
             newVal = sortData(newVal);
