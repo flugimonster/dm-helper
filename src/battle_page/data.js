@@ -16,6 +16,7 @@ export const characters = [
         hp: 0,
         highlight: true,
         initiative: 16,
+        ac: 15,
       },
       {
         name: 'Sindri',
@@ -25,6 +26,7 @@ export const characters = [
         hp: 43,
         highlight: false,
         initiative: 18,
+        ac: 15,
       },
       {
         name: 'Reginald',
@@ -34,6 +36,7 @@ export const characters = [
         hp: 2,
         highlight: false,
         initiative: 13,
+        ac: 15,
       },
       {
         name: 'Dez-Mon',
@@ -43,7 +46,8 @@ export const characters = [
         hp: 42,
         highlight: false,
         initiative: 1,
-      },
+
+ac: 15,      },
       {
         name: 'Enemy 1',
         image: iceTrollImg,
@@ -52,6 +56,7 @@ export const characters = [
         hp: 1,
         highlight: false,
         initiative: 15,
+        ac: 15,
       },
       {
         name: 'Enemy 2',
@@ -61,6 +66,7 @@ export const characters = [
         hp: 51,
         highlight: false,
         initiative: 13,
+        ac: 15,
       },
       {
         name: 'Enemy 3',
@@ -70,5 +76,6 @@ export const characters = [
         hp: 50,
         highlight: false,
         initiative: 17,
+        ac: 15,
       }
 ]
