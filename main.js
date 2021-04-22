@@ -21,6 +21,12 @@ function createWindow () {
   // and load the index.html of the app.
   // mainWindow.setAlwaysOnTop("true"); 
 
+  mainWindow.webContents.on('did-create-window', (childWindow) => {
+    // For example...
+    childWindow.setAlwaysOnTop("true");
+  })
+  
+
   mainWindow.setMenu(null);
 
   mainWindow.loadURL('http://localhost:3000');
