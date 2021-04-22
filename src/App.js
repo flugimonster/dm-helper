@@ -27,7 +27,7 @@ function App() {
           <Route path="/">
             <Table />
             <button style={{ position: 'absolute', left: '50%', transform: 'translate(-50%)', marginTop: 15 }} onClick={() => {
-              window.open('/battle', '_blank', 'frame=false')
+              window.open('/battle', '_blank', 'frame=false, width=240, height=800')
             }}>START</button>
           </Route>
         </Switch>

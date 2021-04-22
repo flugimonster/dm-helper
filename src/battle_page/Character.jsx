@@ -23,7 +23,7 @@ export const Character = ({ name, image, maxHP, hp, faction, variant, highlight 
       css[variant],
       css[faction],
       {
-        [css.critical]: hp / maxHP < 0.33 && hp > 0,
+        [css.critical]: hp / maxHP < 0.33 && hp > 0 && faction === 'ally',
         [css.dead]: hp <= 0 && faction !== 'ally',
         [css.dying]: hp <= 0 && faction === 'ally',
         [css.highlight]: highlight
@@ -45,7 +45,9 @@ export const Character = ({ name, image, maxHP, hp, faction, variant, highlight 
     </div>
     <div className={css.characterInfo}>
       <div className={css.hp}>
-        {faction === 'ally' ? `${Math.max(hp, 0)} / ${maxHP}` : `${Math.min(hp - maxHP, 0)}`}
+        {/* {faction === 'ally' ? `${Math.max(hp, 0)} / ${maxHP}` : `${Math.min(hp - maxHP, 0)}`} */}
+        {faction === 'ally' ? `${Math.max(hp, 0)} / ${maxHP}` : `???`}
+
       </div>
     </div>
   </div>;
