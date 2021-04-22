@@ -50,7 +50,6 @@ app.whenReady().then(() => {
   });
 
   ipcMain.on('message', (event, message) => {
-    console.log(message)
     child.webContents.send('turn', message)
   });
 })

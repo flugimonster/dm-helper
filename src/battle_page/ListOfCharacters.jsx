@@ -17,7 +17,7 @@ export const ListOfCharacters = ({ characters, variant }) => {
 
     useEffect(() => {
         ipcRenderer.on('turn', (e, a) => {
-            setCurrTurn((currTurn + a) % sortedCharacters.length)
+            setCurrTurn((currTurn + a + sortedCharacters.length) % sortedCharacters.length)
         })
         return () => ipcRenderer.removeAllListeners()
     }, [currTurn]);
@@ -30,11 +30,6 @@ export const ListOfCharacters = ({ characters, variant }) => {
                 )
             }
         </div>
-        <button
-            style={{ position: 'fixed', top: 0, left: '50%', transform: 'translate(-50%)', webkitAppRegion: 'no-drag' }}
-            onClick={() => {
-                setCurrTurn((currTurn + 1) % sortedCharacters.length)
-            }}>Next Turn</button>
     </div>
 }
 
