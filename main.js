@@ -52,6 +52,11 @@ app.whenReady().then(() => {
   ipcMain.on('message', (event, message) => {
     child.webContents.send('turn', message)
   });
+  
+  ipcMain.on('hp', (event, message) => {
+    child.webContents.send('hp', message)
+  });
+
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

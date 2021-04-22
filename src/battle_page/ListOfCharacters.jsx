@@ -11,16 +11,29 @@ const { ipcRenderer } = window.require('electron');
 
 export const ListOfCharacters = ({ characters, variant }) => {
 
-    const sortedCharacters = [...characters].sort((a, b) => a.initiative < b.initiative ? 1 : -1)
-
     const [currTurn, setCurrTurn] = useState(0);
+
+    const [sortedCharacters, setSortedCharacters] = useState(
+        [...characters].sort(
+            (a, b) => a.initiative < b.initiative ? 1 : -1
+        )
+    );
+
 
     useEffect(() => {
         ipcRenderer.on('turn', (e, a) => {
             setCurrTurn((currTurn + a + sortedCharacters.length) % sortedCharacters.length)
         })
-        return () => ipcRenderer.removeAllListeners()
+        return () => ipcRenderer.removeAllListeners('turn')
     }, [currTurn]);
+
+    useEffect(() => {
+        ipcRenderer.on('hp', (e, a) => {
+            sortedCharacters.find((c) => c.name === a.name).hp = a.value;
+            setSortedCharacters([...sortedCharacters]);
+        })
+        return () => ipcRenderer.removeAllListeners('hp')
+    }, [sortedCharacters]);
 
     return <div>
         <div className={clsx([css.container, css[variant]])}>

@@ -231,15 +231,20 @@ function App() {
         setSkipPageReset(true)
         let newVal = data.map((row, index) => {
             if (index === rowIndex) {
+                let finalValue = value;
                 if ((columnId === 'hp' || columnId === 'maxHP') && (value.startsWith?.('+') || value.startsWith?.('-'))) {
-                    return {
-                        ...data[rowIndex],
-                        [columnId]: Number(data[rowIndex][columnId]) + Number(value),
-                    }
+                    finalValue = Number(data[rowIndex][columnId]) + Number(value)
+                }
+
+                if (columnId === 'hp' || columnId === 'maxHP') {
+                    ipcRenderer.send('hp', {
+                        name: data[rowIndex].name,
+                        value: finalValue
+                    });
                 }
                 return {
                     ...data[rowIndex],
-                    [columnId]: value,
+                    [columnId]: finalValue,
                 }
             }
             return row
@@ -284,6 +289,11 @@ function App() {
                     updateMyData={updateMyData}
                     skipPageReset={skipPageReset}
                 />
+
+                <button style={{ position: 'absolute', left: '50%', transform: 'translate(-50%)', marginTop: 15 }} onClick={() => {
+                    setCurrentTurn(0);
+                    window.open('/battle', '_blank', 'frame=false, width=240, height=800, transparent=true')
+                }}>START</button>
             </div>
         </Styles>
     )
