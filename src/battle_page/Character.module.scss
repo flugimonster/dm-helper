@@ -77,6 +77,10 @@
         }
 
         .dead & {
+            // background-image: url("../assets/Skull.JPG");
+            // background-size: cover;
+            // background-position: center;
+            // background-repeat: no-repeat;
             filter: invert(1);
         }
     }

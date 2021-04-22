@@ -1,6 +1,8 @@
 
 
 .container {
+    -webkit-app-region: drag;
+
     display: inline-flex;
     flex-direction: column;
  

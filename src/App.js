@@ -12,7 +12,6 @@ import {
 
 import { useEffect } from 'react';
 
-
 function App() {
   useEffect(() => {
   }, [])
@@ -28,6 +27,7 @@ function App() {
           <Route path="/">
             <Table />
             <button style={{ position: 'absolute', left: '50%', transform: 'translate(-50%)', marginTop: 15 }} onClick={() => {
+              window.open('/battle', '_blank', 'frame=false')
             }}>START</button>
           </Route>
         </Switch>

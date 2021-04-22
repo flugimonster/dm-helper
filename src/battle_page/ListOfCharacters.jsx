@@ -7,11 +7,19 @@ import { Character } from './Character.jsx';
 import { useEffect } from 'react';
 // import {data} from './data';
 
+const electron = window.require('electron');
+
+
 
 export const ListOfCharacters = ({ characters, variant }) => {
+    
     const sortedCharacters = [...characters].sort((a, b) => a.initiative < b.initiative ? 1 : -1)
 
     const [currTurn, setCurrTurn] = useState(0);
+
+    useEffect(() => {
+        // electron.remote.BrowserWindow.setAlwaysOnTop("true")
+    }, [])
 
     return <div>
         <div className={clsx([css.container, css[variant]])}>

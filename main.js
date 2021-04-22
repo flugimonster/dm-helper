@@ -10,10 +10,15 @@ function createWindow () {
     // frame: false,
     // transparent: true,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true
+
     }
   })
 
+  // and load the index.html of the app.
   // mainWindow.setAlwaysOnTop("true"); 
 
   mainWindow.setMenu(null);
