@@ -1,12 +1,11 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { useTable, usePagination, useSortBy, useFlexLayout } from 'react-table';
-
-import { characters } from '../battle_page/data'
-
+import { characters } from '../battle_page/data';
 import clsx from 'clsx';
-
 import { useCallback, useEffect, useState } from 'react';
+const { ipcRenderer } = window.require('electron');
+
 
 const Styles = styled.div`
   padding: 1rem;
@@ -270,9 +269,11 @@ function App() {
             <div className="container">
                 <div className="actionRow">
                     <button onClick={() => {
+                        ipcRenderer.send('message', -1);
                         setCurrentTurn((currentTurn - 1 + characters.length) % characters.length)
                     }}>PREV</button>
                     <button style={{ position: 'absolute', right: 0 }} onClick={() => {
+                        ipcRenderer.send('message', 1);
                         setCurrentTurn((currentTurn + 1 + characters.length) % characters.length)
                     }}>NEXT</button>
                 </div>

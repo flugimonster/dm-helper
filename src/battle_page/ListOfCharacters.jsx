@@ -5,21 +5,22 @@ import css from './ListOfCharacters.module.scss';
 
 import { Character } from './Character.jsx';
 import { useEffect } from 'react';
+const { ipcRenderer } = window.require('electron');
+
 // import {data} from './data';
 
-const electron = window.require('electron');
-
-
-
 export const ListOfCharacters = ({ characters, variant }) => {
-    
+
     const sortedCharacters = [...characters].sort((a, b) => a.initiative < b.initiative ? 1 : -1)
 
     const [currTurn, setCurrTurn] = useState(0);
 
     useEffect(() => {
-        // electron.remote.BrowserWindow.setAlwaysOnTop("true")
-    }, [])
+        ipcRenderer.on('turn', (e, a) => {
+            setCurrTurn((currTurn + a) % sortedCharacters.length)
+        })
+        return () => ipcRenderer.removeAllListeners()
+    }, [currTurn]);
 
     return <div>
         <div className={clsx([css.container, css[variant]])}>
@@ -29,7 +30,11 @@ export const ListOfCharacters = ({ characters, variant }) => {
                 )
             }
         </div>
-        <button style={{ position: 'fixed', top: 0, left: '50%', transform: 'translate(-50%)', webkitAppRegion: 'no-drag' }} onClick={() => setCurrTurn((currTurn + 1) % sortedCharacters.length)}>Next Turn</button>
+        <button
+            style={{ position: 'fixed', top: 0, left: '50%', transform: 'translate(-50%)', webkitAppRegion: 'no-drag' }}
+            onClick={() => {
+                setCurrTurn((currTurn + 1) % sortedCharacters.length)
+            }}>Next Turn</button>
     </div>
 }
 
