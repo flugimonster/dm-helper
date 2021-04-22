@@ -239,6 +239,7 @@ function App() {
                 if (columnId === 'hp' || columnId === 'maxHP') {
                     ipcRenderer.send('hp', {
                         name: data[rowIndex].name,
+                        field: columnId,
                         value: finalValue
                     });
                 }

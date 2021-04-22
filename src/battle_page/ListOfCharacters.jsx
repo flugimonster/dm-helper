@@ -29,7 +29,7 @@ export const ListOfCharacters = ({ characters, variant }) => {
 
     useEffect(() => {
         ipcRenderer.on('hp', (e, a) => {
-            sortedCharacters.find((c) => c.name === a.name).hp = a.value;
+            sortedCharacters.find((c) => c.name === a.name)[a.field] = a.value;
             setSortedCharacters([...sortedCharacters]);
         })
         return () => ipcRenderer.removeAllListeners('hp')
