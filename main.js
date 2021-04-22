@@ -5,17 +5,16 @@ const path = require('path')
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 300,
-    height: 600,
-    frame: false,
-    transparent: true,
+    // width: 300,
+    // height: 600,
+    // frame: false,
+    // transparent: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
   })
 
-  // and load the index.html of the app.
-  mainWindow.setAlwaysOnTop("true"); 
+  // mainWindow.setAlwaysOnTop("true"); 
 
   mainWindow.setMenu(null);
 

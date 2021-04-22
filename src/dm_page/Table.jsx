@@ -283,11 +283,6 @@ function App() {
                     updateMyData={updateMyData}
                     skipPageReset={skipPageReset}
                 />
-                <div className="actionRow">
-                    <button style={{ position: 'absolute', left: '50%', transform: 'translate(-50%)', marginTop: 15}} onClick={() => {
-                        setCurrentTurn((currentTurn - 1 + characters.length) % characters.length)
-                    }}>START</button>
-                </div>
             </div>
         </Styles>
     )
