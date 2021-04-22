@@ -11,7 +11,7 @@ const Styles = styled.div`
 
   table {
     border-spacing: 0;
-    border: 1px solid black;
+    border: 5px solid black;
 
     tr {
       :last-child {
@@ -28,7 +28,7 @@ const Styles = styled.div`
     td {
       margin: 0;
       padding: 0.5rem;
-      border-bottom: 1px solid black;
+      border-bottom: 3px solid black;
       border-right: 1px solid black;
 
       :last-child {
@@ -73,7 +73,17 @@ const EditableCell = ({
         setValue(initialValue)
     }, [initialValue])
 
-    return <input value={value} onChange={onChange} onBlur={onBlur} />
+    const handleFocus = (event) => {
+        event.target.select();
+    }
+
+    const handleKeyPress = (e) => {
+        if (e.keyCode === 13) {
+            e.target.blur();
+        }
+    }
+
+    return <input value={value} onChange={onChange} onBlur={onBlur} onFocus={handleFocus} onKeyDown={handleKeyPress} />
 }
 
 // Set our editable cell renderer as the default Cell renderer
@@ -155,23 +165,25 @@ function App() {
     const columns = React.useMemo(
         () => [
             {
-                Header: 'Name', accessor: 'name'
-            }, {
-                Header: 'HP',
-                columns: [
-                    {
-                        Header: 'Current',
-                        accessor: 'hp',
-                    },
-                    {
-                        Header: 'Max',
-                        accessor: 'maxHP',
-                    },
-                ],
+                Header: 'Name',
+                accessor: 'name',
+                maxWidth: '15%  ',
+            },
+            {
+                Header: 'Current HP',
+                accessor: 'hp',
+            },
+            {
+                Header: 'Max HP',
+                accessor: 'maxHP',
             },
             {
                 Header: 'AC',
                 accessor: 'ac'
+            },
+            {
+                Header: 'DC',
+                accessor: 'dc'
             },
             {
                 Header: 'Faction',
@@ -196,7 +208,6 @@ function App() {
     // original data
     const updateMyData = (rowIndex, columnId, value) => {
         // We also turn on the flag to not reset the page
-        console.log({ rowIndex })
         setSkipPageReset(true)
         let newVal = data.map((row, index) => {
             if (index === rowIndex) {
@@ -238,7 +249,7 @@ function App() {
             <button onClick={() => {
                 setCurrentTurn((currentTurn - 1 + characters.length) % characters.length)
             }}>PREV</button>
-            <button onClick={() => {
+            <button style={{ position: 'absolute', left: '92%'}} onClick={() => {
                 setCurrentTurn((currentTurn + 1 + characters.length) % characters.length)
             }}>NEXT</button>
             <Table

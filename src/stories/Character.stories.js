@@ -15,7 +15,7 @@ const Template = (args) => <Character {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   name: 'JonJon',
-  // image: jonjonImg,
+  image: jonjonImg,
   faction: 'ally',
   maxHP: 48,
   hp: 36,

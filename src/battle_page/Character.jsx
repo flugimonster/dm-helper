@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import css from './Character.module.scss';
 import clsx from 'clsx';
 import genericEnemyImg from '../assets/GenericImage.jpg'
+import skullImg from '../assets/Skull.JPG'
 import { useEffect } from 'react';
 import { useRef } from 'react';
 
@@ -33,7 +34,8 @@ export const Character = ({ name, image, maxHP, hp, faction, variant, highlight 
       clsx(
         [css.avatarContainer,
           {
-            [css.highlight]: highlight
+            [css.highlight]: highlight,
+            // [css.skull]: skullImg
           }
         ]
         )
