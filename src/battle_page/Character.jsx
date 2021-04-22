@@ -24,7 +24,8 @@ export const Character = ({ name, image, maxHP, hp, faction, variant, highlight 
       css[faction],
       {
         [css.critical]: hp / maxHP < 0.33 && hp > 0,
-        [css.dead]: hp <= 0,
+        [css.dead]: hp <= 0 && faction !== 'ally',
+        [css.dying]: hp <= 0 && faction === 'ally',
         [css.highlight]: highlight
       }]
     )

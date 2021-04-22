@@ -36,10 +36,11 @@
     width: 150px;
     height: 150px;
 
-    .dead & {
-        background-image: url("../assets/Skull.JPG");
-        background-size: contain;
-        background-position-x: center;
+    .dying & {
+        background-image: url("../assets/Skull2.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
     overflow: hidden;
@@ -70,10 +71,13 @@
             animation: blinker 1s linear infinite;
         }
 
-        .dead & {
-            // filter: invert(1);
-            animation: blinker 1s linear infinite;
+        .dying & {
+            animation: blinker 1.2s linear infinite;
             filter: opacity(0.8);
+        }
+
+        .dead & {
+            filter: invert(1);
         }
     }
 }

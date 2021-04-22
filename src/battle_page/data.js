@@ -63,7 +63,7 @@ export const characters = [
     image: roperImg,
     faction: 'enemy',
     maxHP: 93,
-    hp: 51,
+    hp: 0,
     initiative: 13,
     ac: 15,
     dc: '-',

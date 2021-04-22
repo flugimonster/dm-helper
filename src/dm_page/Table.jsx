@@ -1,8 +1,10 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { useTable, usePagination, useSortBy } from 'react-table';
+import { useTable, usePagination, useSortBy, useFlexLayout } from 'react-table';
 
 import { characters } from '../battle_page/data'
+
+import clsx from 'clsx';
 
 import { useCallback, useEffect, useState } from 'react';
 
@@ -21,9 +23,6 @@ const Styles = styled.div`
       }
     }
 
-    input {
-        background: transparent;
-    }
     th,
     td {
       margin: 0;
@@ -36,6 +35,9 @@ const Styles = styled.div`
       }
 
       input {
+        width: 100%;
+        background: transparent;
+        text-align: center;
         font-size: 1rem;
         padding: 0;
         margin: 0;
@@ -46,6 +48,18 @@ const Styles = styled.div`
 
   .pagination {
     padding: 0.5rem;
+  }
+
+  tr {
+      transition: 0.2s all ease-in;
+  }
+  .activeRow {
+      background: gold;
+  }
+
+  .container {
+      display: inline-block;
+      position: relative;
   }
 `
 
@@ -118,7 +132,8 @@ function Table({ columns, data, updateMyData, skipPageReset, currentTurn }) {
             initialState: { sortBy: [{ id: 'initiative', desc: true }] }
         },
         useSortBy,
-        usePagination
+        usePagination,
+        useFlexLayout
     )
 
     // Render the UI for your table
@@ -137,8 +152,9 @@ function Table({ columns, data, updateMyData, skipPageReset, currentTurn }) {
                 <tbody {...getTableBodyProps()}>
                     {page.map((row, i) => {
                         prepareRow(row)
+                        console.log(i, currentTurn === i)
                         return (
-                            <tr style={{ background: currentTurn === i ? 'gold' : '' }} {...row.getRowProps()}>
+                            <tr className={clsx({ activeRow: currentTurn === i })} {...row.getRowProps()}>
                                 {row.cells.map(cell => {
                                     return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                 })}
@@ -167,31 +183,36 @@ function App() {
             {
                 Header: 'Name',
                 accessor: 'name',
-                maxWidth: '15%  ',
             },
             {
                 Header: 'Current HP',
                 accessor: 'hp',
+                width: 80,
             },
             {
                 Header: 'Max HP',
                 accessor: 'maxHP',
+                width: 80,
             },
             {
                 Header: 'AC',
-                accessor: 'ac'
+                accessor: 'ac',
+                width: 50
             },
             {
                 Header: 'DC',
-                accessor: 'dc'
+                accessor: 'dc',
+                width: 50
             },
             {
                 Header: 'Faction',
                 accessor: 'faction',
+                width: 80,
             },
             {
                 Header: 'Initiative',
                 accessor: 'initiative',
+                width: 80,
             },
         ],
         []
@@ -246,19 +267,23 @@ function App() {
 
     return (
         <Styles>
-            <button onClick={() => {
-                setCurrentTurn((currentTurn - 1 + characters.length) % characters.length)
-            }}>PREV</button>
-            <button style={{ position: 'absolute', left: '92%'}} onClick={() => {
-                setCurrentTurn((currentTurn + 1 + characters.length) % characters.length)
-            }}>NEXT</button>
-            <Table
-                currentTurn={currentTurn}
-                columns={columns}
-                data={data}
-                updateMyData={updateMyData}
-                skipPageReset={skipPageReset}
-            />
+            <div className="container">
+                <div className="actionRow">
+                    <button onClick={() => {
+                        setCurrentTurn((currentTurn - 1 + characters.length) % characters.length)
+                    }}>PREV</button>
+                    <button style={{ position: 'absolute', right: 0 }} onClick={() => {
+                        setCurrentTurn((currentTurn + 1 + characters.length) % characters.length)
+                    }}>NEXT</button>
+                </div>
+                <Table
+                    currentTurn={currentTurn}
+                    columns={columns}
+                    data={data}
+                    updateMyData={updateMyData}
+                    skipPageReset={skipPageReset}
+                />
+            </div>
         </Styles>
     )
 }
