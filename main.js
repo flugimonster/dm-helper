@@ -28,7 +28,6 @@ function createWindow() {
     child = childWindow;
   })
 
-
   mainWindow.setMenu(null);
 
   mainWindow.loadURL('http://localhost:3000');

@@ -22,7 +22,7 @@ function App() {
 
         <Switch>
           <Route path="/battle">
-            <ListOfCharacters variant='vertical' characters={characters} />
+            <ListOfCharacters variant='horizontal' characters={characters} />
           </Route>
           <Route path="/">
             <Table />

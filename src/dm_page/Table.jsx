@@ -11,6 +11,7 @@ const Styles = styled.div`
   padding: 1rem;
 
   table {
+    margin-top: 20px;
     border-spacing: 0;
     border: 5px solid black;
 
@@ -199,6 +200,11 @@ function App() {
                 width: 50
             },
             {
+                Header: 'To Hit',
+                accessor: 'toHit',
+                width: 50
+            },
+            {
                 Header: 'DC',
                 accessor: 'dc',
                 width: 50
@@ -274,7 +280,7 @@ function App() {
         <Styles>
             <div className="container">
                 <div className="actionRow">
-                    <button onClick={() => {
+                    <button style={{ position: 'absolute', left: 0 }} onClick={() => {
                         ipcRenderer.send('message', -1);
                         setCurrentTurn((currentTurn - 1 + characters.length) % characters.length)
                     }}>PREV</button>

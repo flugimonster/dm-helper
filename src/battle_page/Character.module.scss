@@ -43,6 +43,14 @@
         background-repeat: no-repeat;
     }
 
+    .dead & {
+        background-color: white;
+        background-image: url("../assets/Skull.JPG");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
     overflow: hidden;
 
     &::after {
@@ -73,15 +81,11 @@
 
         .dying & {
             animation: blinker 1.2s linear infinite;
-            filter: opacity(0.7);
+            filter: opacity(0.6);
         }
 
         .dead & {
-            // background-image: url("../assets/Skull.JPG");
-            // background-size: cover;
-            // background-position: center;
-            // background-repeat: no-repeat;
-            filter: invert(1);
+            filter: opacity(0);
         }
     }
 }
