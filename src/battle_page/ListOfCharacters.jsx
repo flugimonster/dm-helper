@@ -8,7 +8,6 @@ import { useEffect } from 'react';
 import { useMemo } from 'react';
 const { ipcRenderer } = window.require('electron');
 
-// import {data} from './data';
 
 export const ListOfCharacters = ({ characters, variant }) => {
 
@@ -20,8 +19,6 @@ export const ListOfCharacters = ({ characters, variant }) => {
         ),
         [characters]
     );
-
-
 
     useEffect(() => {
         ipcRenderer.on('turn', (e, a) => {
@@ -35,7 +32,16 @@ export const ListOfCharacters = ({ characters, variant }) => {
         <div className={clsx([css.container, css[variant]])}>
             {
                 sortedCharacters.map((char, idx) =>
-                    <Character key={char.name} variant={variant} highlight={idx === currTurn} name={char.name} image={char.image} maxHP={char.maxHP} hp={char.hp} faction={char.faction} />
+                    <Character
+                        key={char.name}
+                        variant={variant}
+                        highlight={idx === currTurn}
+                        name={char.name}
+                        image={char.image}
+                        maxHP={char.maxHP}
+                        hp={char.hp}
+                        faction={char.faction}
+                        showDead={char.showDead}/>
                 )
             }
         </div>

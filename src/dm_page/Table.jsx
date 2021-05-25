@@ -4,6 +4,7 @@ import { useTable, usePagination, useSortBy, useFlexLayout } from 'react-table';
 import { characters } from '../battle_page/data';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
+import { ActionCell } from './ActionCell';
 const { ipcRenderer } = window.require('electron');
 
 
@@ -178,11 +179,58 @@ function App() {
 
     const [currentTurn, setCurrentTurn] = useState(0);
 
+
+    const [data, setData] = React.useState(sortData(characters))
+    const [skipPageReset, setSkipPageReset] = React.useState(false)
+
+    // We need to keep the table from resetting the pageIndex when we
+    // Update data. So we can keep track of that flag with a ref.
+
+    // When our cell renderer calls updateMyData, we'll use
+    // the rowIndex, columnId and new value to update the
+    // original data
+    const updateMyData = useCallback((rowIndex, columnId, value) => {
+        // We also turn on the flag to not reset the page
+        setSkipPageReset(true)
+        let newVal = data.map((row, index) => {
+            if (index === rowIndex) {
+                let finalValue = value;
+                if ((columnId === 'hp' || columnId === 'maxHP') && (value.startsWith?.('+') || value.startsWith?.('-'))) {
+                    finalValue = Number(data[rowIndex][columnId]) + Number(value)
+                }
+
+                return {
+                    ...data[rowIndex],
+                    [columnId]: finalValue,
+                }
+            }
+            return row
+        });
+
+
+        if (columnId === 'initiative') {
+            newVal = sortData(newVal);
+        }
+
+        setData(
+            newVal,
+        )
+
+        ipcRenderer.send('dataUpdate', {
+            data: newVal,
+        });
+    }, [setData, data])
+    
     const columns = React.useMemo(
         () => [
             {
                 Header: 'Name',
                 accessor: 'name',
+            },
+            {
+                Header: 'Action',
+                accessor: '',
+                Cell: (props) => <ActionCell row={props.row} updateData={updateMyData} />
             },
             {
                 Header: 'Current HP',
@@ -220,50 +268,9 @@ function App() {
                 width: 80,
             },
         ],
-        []
+        [updateMyData]
     )
 
-    const [data, setData] = React.useState(sortData(characters))
-    const [skipPageReset, setSkipPageReset] = React.useState(false)
-
-    // We need to keep the table from resetting the pageIndex when we
-    // Update data. So we can keep track of that flag with a ref.
-
-    // When our cell renderer calls updateMyData, we'll use
-    // the rowIndex, columnId and new value to update the
-    // original data
-    const updateMyData = (rowIndex, columnId, value) => {
-        // We also turn on the flag to not reset the page
-        setSkipPageReset(true)
-        let newVal = data.map((row, index) => {
-            if (index === rowIndex) {
-                let finalValue = value;
-                if ((columnId === 'hp' || columnId === 'maxHP') && (value.startsWith?.('+') || value.startsWith?.('-'))) {
-                    finalValue = Number(data[rowIndex][columnId]) + Number(value)
-                }
-
-                return {
-                    ...data[rowIndex],
-                    [columnId]: finalValue,
-                }
-            }
-            return row
-        });
-
-
-
-        if (columnId === 'initiative') {
-            newVal = sortData(newVal);
-        }
-
-        setData(
-            newVal,
-        )
-
-        ipcRenderer.send('dataUpdate', {
-            data: newVal,
-        });
-    }
 
 
     // After data chagnes, we turn the flag back off

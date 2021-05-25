@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useRef } from 'react';
 
 
-export const Character = ({ name, image, maxHP, hp, faction, variant, highlight }) => {
+export const Character = ({ name, image, maxHP, hp, faction, variant, highlight, showDead = false }) => {
   const elem = useRef();
 
   useEffect(() => {
@@ -24,13 +24,13 @@ export const Character = ({ name, image, maxHP, hp, faction, variant, highlight 
       css[faction],
       {
         [css.critical]: hp / maxHP < 0.33 && hp > 0 && faction === 'ally',
-        [css.dead]: hp <= 0 && faction !== 'ally',
-        [css.dying]: hp <= 0 && faction === 'ally',
+        [css.dead]: hp <= 0 && (faction !== 'ally' || showDead),
+        [css.dying]: hp <= 0 && faction === 'ally' && !showDead,
         [css.highlight]: highlight
       }]
     )
   }>
-    <div className={css.characterName}>{name}</div>
+    <div className={css.characterName}>{name} {showDead ? 'a' : 'b'}</div>
     <div className={
       clsx(
         [css.avatarContainer,
