@@ -30,7 +30,7 @@ export const Character = ({ name, image, maxHP, hp, faction, variant, highlight,
       }]
     )
   }>
-    <div className={css.characterName}>{name} {showDead ? 'a' : 'b'}</div>
+    <div className={css.characterName}>{name}</div>
     <div className={
       clsx(
         [css.avatarContainer,
