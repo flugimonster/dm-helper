@@ -25,7 +25,6 @@ function App() {
         <Switch>
           <Route path="/battle">
             <BattleParser/>
-            {/* <ListOfCharacters variant='horizontal' characters={characters} /> */}
           </Route>
           <Route path="/">
             <Table />

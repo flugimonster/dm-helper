@@ -5,6 +5,7 @@ import css from './ListOfCharacters.module.scss';
 
 import { Character } from './Character.jsx';
 import { useEffect } from 'react';
+import { useMemo } from 'react';
 const { ipcRenderer } = window.require('electron');
 
 // import {data} from './data';
@@ -13,11 +14,13 @@ export const ListOfCharacters = ({ characters, variant }) => {
 
     const [currTurn, setCurrTurn] = useState(0);
 
-    const [sortedCharacters, setSortedCharacters] = useState(
-        [...characters].sort(
+    const sortedCharacters = useMemo(
+        () => [...characters].sort(
             (a, b) => a.initiative < b.initiative ? 1 : -1
-        )
+        ),
+        [characters]
     );
+
 
 
     useEffect(() => {
@@ -27,13 +30,6 @@ export const ListOfCharacters = ({ characters, variant }) => {
         return () => ipcRenderer.removeAllListeners('turn')
     }, [currTurn]);
 
-    useEffect(() => {
-        ipcRenderer.on('hp', (e, a) => {
-            sortedCharacters.find((c) => c.name === a.name)[a.field] = a.value;
-            setSortedCharacters([...sortedCharacters]);
-        })
-        return () => ipcRenderer.removeAllListeners('hp')
-    }, [sortedCharacters]);
 
     return <div>
         <div className={clsx([css.container, css[variant]])}>

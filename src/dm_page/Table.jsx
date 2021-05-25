@@ -242,13 +242,6 @@ function App() {
                     finalValue = Number(data[rowIndex][columnId]) + Number(value)
                 }
 
-                if (columnId === 'hp' || columnId === 'maxHP') {
-                    ipcRenderer.send('hp', {
-                        name: data[rowIndex].name,
-                        field: columnId,
-                        value: finalValue
-                    });
-                }
                 return {
                     ...data[rowIndex],
                     [columnId]: finalValue,
@@ -266,6 +259,10 @@ function App() {
         setData(
             newVal,
         )
+
+        ipcRenderer.send('dataUpdate', {
+            data: newVal,
+        });
     }
 
 

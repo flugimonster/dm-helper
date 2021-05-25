@@ -54,9 +54,9 @@ app.whenReady().then(() => {
     }
   });
 
-  ipcMain.on('hp', (event, message) => {
+  ipcMain.on('dataUpdate', (event, message) => {
     if (child && !child.isDestroyed()) {
-      child.webContents.send('hp', message)
+      child.webContents.send('dataUpdate', message)
     }
   });
 
