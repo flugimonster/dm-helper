@@ -5,8 +5,10 @@ import dezImg from '../assets/DezImage.JPG'
 // import iceTrollImg from '../assets/IceTroll.JPG'
 // import roperImg from '../assets/Roper.JPG'
 // import frostGiantImg from '../assets/FrostGiant.JPG'
-import guardImg from '../assets/guard.JPG'
-import mageImg from '../assets/mage.JPG'
+import ironGolem from '../assets/IronGolem.JPG'
+import clayGolem from '../assets/ClayGolem.JPG'
+import silverDragon from '../assets/YoungSilverDragon.JPG'
+import stoneGiant from '../assets/StoneGiant.JPG'
 
 export const characters = [
   {
@@ -15,7 +17,7 @@ export const characters = [
     faction: 'ally',
     maxHP: 48,
     hp: 48,
-    initiative: 16,
+    initiative: 22,
     toHit: '-',
     ac: 18,
     dc: 16,
@@ -26,7 +28,7 @@ export const characters = [
     faction: 'ally',
     maxHP: 56,
     hp: 56,
-    initiative: 18,
+    initiative: 8,
     toHit: '-',
     ac: 18,
     dc: 15,
@@ -37,7 +39,7 @@ export const characters = [
     faction: 'ally',
     maxHP: 61,
     hp: 61,
-    initiative: 13,
+    initiative: 15,
     toHit: '-',
     ac: 18,
     dc: '-',
@@ -48,42 +50,53 @@ export const characters = [
     faction: 'ally',
     maxHP: 43,
     hp: 43,
-    initiative: 13,
+    initiative: 5,
     toHit: '-',
     ac: 14,
     dc: 13,
   },
   {
-    name: 'Guard 1',
-    image: guardImg,
+    name: 'Clay Golem',
+    image: clayGolem,
     faction: 'enemy',
-    maxHP: 58,
-    hp: 58,
-    initiative: 15,
-    toHit: '-',
-    ac: 17,
-    dc: '-',
-  },
-  {
-    name: 'Guard 2',
-    image: guardImg,
-    faction: 'enemy',
-    maxHP: 71,
-    hp: 71,
-    initiative: 1,
-    toHit: '-',
-    ac: 17,
-    dc: '-',
-  },
-  {
-    name: 'SpellCaster',
-    image: mageImg,
-    faction: 'enemy',
-    maxHP: 42,
-    hp: 42,
+    maxHP: 133,
+    hp: 133,
     initiative: 17,
     toHit: '-',
-    ac: 13,
+    ac: 14,
+    dc: '15 con',
+  },
+  {
+    name: 'Iron Golem',
+    image: ironGolem,
+    faction: 'enemy',
+    maxHP: 210,
+    hp: 210,
+    initiative: 2,
+    toHit: '-',
+    ac: 20,
     dc: '-',
+  },
+  {
+    name: 'Stone Giant',
+    image: stoneGiant,
+    faction: 'enemy',
+    maxHP: 126,
+    hp: 126,
+    initiative: 20,
+    toHit: '-',
+    ac: 17,
+    dc: '-',
+  },
+  {
+    name: 'Silver Dragon',
+    image: silverDragon,
+    faction: 'enemy',
+    maxHP: 168,
+    hp: 168,
+    initiative: 13,
+    toHit: '-',
+    ac: 18,
+    dc: '17 con',
   }
 ]

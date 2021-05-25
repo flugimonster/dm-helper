@@ -3,6 +3,8 @@ import './App.css';
 import { characters } from './battle_page/data';
 import { ListOfCharacters } from './battle_page/ListOfCharacters';
 import Table from './dm_page/Table';
+import { BattleParser } from './battle_page/BattleParser';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,7 +24,8 @@ function App() {
 
         <Switch>
           <Route path="/battle">
-            <ListOfCharacters variant='horizontal' characters={characters} />
+            <BattleParser/>
+            {/* <ListOfCharacters variant='horizontal' characters={characters} /> */}
           </Route>
           <Route path="/">
             <Table />

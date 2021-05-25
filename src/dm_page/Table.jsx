@@ -207,7 +207,7 @@ function App() {
             {
                 Header: 'DC',
                 accessor: 'dc',
-                width: 50
+                width: 80
             },
             {
                 Header: 'Faction',
@@ -299,7 +299,7 @@ function App() {
 
                 <button style={{ position: 'absolute', left: '50%', transform: 'translate(-50%)', marginTop: 15 }} onClick={() => {
                     setCurrentTurn(0);
-                    window.open('/battle', '_blank', 'frame=false, width=240, height=800, transparent=true')
+                    window.open(`/battle?data=${JSON.stringify(data)}`, '_blank', 'frame=true, width=240, height=800')
                 }}>START</button>
             </div>
         </Styles>

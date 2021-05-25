@@ -1,7 +1,7 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path');
-let child =  null
+let child = null
 
 function createWindow() {
   // Create the browser window.
@@ -49,11 +49,15 @@ app.whenReady().then(() => {
   });
 
   ipcMain.on('message', (event, message) => {
-    child.webContents.send('turn', message)
+    if (child && !child.isDestroyed()) {
+      child.webContents.send('turn', message)
+    }
   });
-  
+
   ipcMain.on('hp', (event, message) => {
-    child.webContents.send('hp', message)
+    if (child && !child.isDestroyed()) {
+      child.webContents.send('hp', message)
+    }
   });
 
 })
