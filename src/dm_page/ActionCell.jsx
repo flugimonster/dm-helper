@@ -10,8 +10,8 @@ export function ActionCell({ row, updateData }) {
                 type="checkbox"
                 id="showDeadAlly"
                 name='showDeadAlly'
-                checked={showDead}
-                onClick={() => {
+                defaultChecked={showDead}
+                onChange={() => {
                     updateData(row.index, 'showDead', !showDead)
                 }}  />
             <label for="showDeadAlly"> Ally</label>

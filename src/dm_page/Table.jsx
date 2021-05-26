@@ -199,6 +199,10 @@ function App() {
                     finalValue = Number(data[rowIndex][columnId]) + Number(value)
                 }
 
+                if (columnId === 'hp' && (finalValue > 0) && data[rowIndex]['showDead']) {
+                    data[rowIndex]['showDead'] = false;
+                }
+
                 return {
                     ...data[rowIndex],
                     [columnId]: finalValue,
@@ -220,7 +224,7 @@ function App() {
             data: newVal,
         });
     }, [setData, data])
-    
+
     const columns = React.useMemo(
         () => [
             {
@@ -303,7 +307,8 @@ function App() {
 
                 <button style={{ position: 'absolute', left: '50%', transform: 'translate(-50%)', marginTop: 15 }} onClick={() => {
                     setCurrentTurn(0);
-                    window.open(`/battle?data=${JSON.stringify(data)}`, '_blank', 'frame=true, width=240, height=800')
+                    window.open(`/battle?data=${JSON.stringify(data)}`, '_blank', 'frame=false, useContentSize=true')
+                    // window.open(`/battle?data=${JSON.stringify(data)}`, '_blank', 'frame=true, width=240, height=800')
                 }}>START</button>
             </div>
         </Styles>

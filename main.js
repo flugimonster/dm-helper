@@ -10,6 +10,8 @@ function createWindow() {
     // height: 600,
     // frame: false,
     // transparent: true,
+    useContentSize: true,
+
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router'
 import { characters } from './data';
 import { ListOfCharacters } from './ListOfCharacters';
-const { ipcRenderer } = window.require('electron');
+const { ipcRenderer, remote } = window.require('electron');
 
 
 
@@ -15,9 +15,22 @@ export const BattleParser = () => {
   let q = useQuery();
   const [characters, setCharacters] = useState();
 
+  const [align, setAlign] = useState('vertical');
+
   useEffect(() => {
-    setCharacters(JSON.parse(q.get('data')))
+    setCharacters(JSON.parse(q.get('data')));
   }, []);
+
+  useEffect(() => {
+    const { width, height } = remote.screen.getPrimaryDisplay().bounds;
+
+    const IMAGE_HEIGHT = 233;
+    const IMAGE_WIDTH = 170;
+    if (characters) {
+      const [x, y] = align === 'vertical' ? [IMAGE_HEIGHT, IMAGE_WIDTH * characters.length] : [IMAGE_WIDTH * characters.length, IMAGE_HEIGHT]
+      remote.getCurrentWindow().setSize(Math.min(x, width), Math.min(y, height));
+    }
+  }, [align, characters])
 
   useEffect(() => {
     ipcRenderer.on('dataUpdate', (e, a) => {
@@ -28,7 +41,7 @@ export const BattleParser = () => {
 
 
   return <>
-    { characters && <ListOfCharacters variant='horizontal' characters={characters} />}
+    {characters && <ListOfCharacters variant='vertical' characters={characters} />}
   </>
 
 }
