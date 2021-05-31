@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useRef } from 'react';
 
 
-export const Character = ({ name, image, maxHP, hp, faction, variant, highlight, showDead = false }) => {
+export const Character = ({ name, image = genericEnemyImg, maxHP=1, hp=1, faction, variant = 'horizontal', highlight, showDead = false }) => {
   const elem = useRef();
 
   useEffect(() => {
@@ -63,7 +63,3 @@ Character.propTypes = {
   highlight: PropTypes.bool,
 };
 
-Character.defaultProps = {
-  variant: 'horizontal',
-  image: genericEnemyImg,
-};

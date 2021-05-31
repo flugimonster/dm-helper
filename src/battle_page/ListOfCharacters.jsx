@@ -15,7 +15,7 @@ export const ListOfCharacters = ({ characters, variant }) => {
 
     const sortedCharacters = useMemo(
         () => [...characters].sort(
-            (a, b) => a.initiative < b.initiative ? 1 : -1
+            (a, b) =>  (b?.initiative ?? 0) - (a?.initiative ?? 0)
         ),
         [characters]
     );

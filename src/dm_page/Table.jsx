@@ -130,7 +130,8 @@ function Table({ columns, data, updateMyData, skipPageReset, currentTurn }) {
             // That way we can call this function from our
             // cell renderer!
             updateMyData,
-            initialState: { sortBy: [{ id: 'initiative', desc: true }] }
+
+            initialState: { sortBy: [{ id: 'initiative', desc: true }], pageSize: 50 }
         },
         useSortBy,
         usePagination,
@@ -170,17 +171,10 @@ function Table({ columns, data, updateMyData, skipPageReset, currentTurn }) {
 
 function App() {
 
-    const sortData = (original) => {
-        // const newVal = [...original];
-        // newVal.sort((a, b) => b.initiative - a.initiative);
-        // return newVal;
-        return original
-    }
-
     const [currentTurn, setCurrentTurn] = useState(0);
 
 
-    const [data, setData] = React.useState(sortData(characters))
+    const [data, setData] = React.useState(characters)
     const [skipPageReset, setSkipPageReset] = React.useState(false)
 
     // We need to keep the table from resetting the pageIndex when we
@@ -210,11 +204,6 @@ function App() {
             }
             return row
         });
-
-
-        if (columnId === 'initiative') {
-            newVal = sortData(newVal);
-        }
 
         setData(
             newVal,
@@ -275,8 +264,6 @@ function App() {
         [updateMyData]
     )
 
-
-
     // After data chagnes, we turn the flag back off
     // so that if data actually changes when we're not
     // editing it, the page is reset
@@ -308,8 +295,11 @@ function App() {
                 <button style={{ position: 'absolute', left: '50%', transform: 'translate(-50%)', marginTop: 15 }} onClick={() => {
                     setCurrentTurn(0);
                     window.open(`/battle?data=${JSON.stringify(data)}`, '_blank', 'frame=false, useContentSize=true')
-                    // window.open(`/battle?data=${JSON.stringify(data)}`, '_blank', 'frame=true, width=240, height=800')
                 }}>START</button>
+
+                <button style={{ position: 'absolute', left: '90%', transform: 'translate(-50%)', marginTop: 15 }} onClick={() => {
+                    setData([...data, {}]);
+                }}>ADD ROW</button>
             </div>
         </Styles>
     )
