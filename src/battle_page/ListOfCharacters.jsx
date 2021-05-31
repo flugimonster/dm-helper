@@ -25,10 +25,11 @@ export const ListOfCharacters = ({ characters, variant }) => {
             setCurrTurn((currTurn + a + sortedCharacters.length) % sortedCharacters.length)
         })
         return () => ipcRenderer.removeAllListeners('turn')
-    }, [currTurn]);
+    }, [currTurn, sortedCharacters]);
 
 
     return <div>
+        {characters.length} {sortedCharacters.length} {currTurn}
         <div className={clsx([css.container, css[variant]])}>
             {
                 sortedCharacters.map((char, idx) =>

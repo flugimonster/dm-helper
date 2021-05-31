@@ -208,11 +208,7 @@ function App() {
         });
 
         setData(newVal);
-
-        ipcRenderer.send('dataUpdate', {
-            data: newVal,
-        });
-    }, [setData, data])
+    }, [setData, data]);
 
     const columns = React.useMemo(
         () => [
@@ -289,13 +285,22 @@ function App() {
 
     const handleItemClick = ({ event, props }) => console.log(event, props);
 
-    const addRow = () => setData([...data, {}]);
+    const addRow = () => {
+        setData([...data, {}]);
+    };
+    
     const duplicateRow = ({ event, props }) => {
         setData([...data, { ...data[props.rowID] }])
     };
     const removeRow = ({ event, props }) => {
         setData([...data.filter((element, index) => index != props.rowID)]);
     }
+    
+    useEffect(() => {
+        ipcRenderer.send('dataUpdate', {
+            data,
+        });
+    }, [data])
 
     useEffect(() => {console.log(data)}, [data])
 
