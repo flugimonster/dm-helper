@@ -290,9 +290,14 @@ function App() {
     const handleItemClick = ({ event, props }) => console.log(event, props);
 
     const addRow = () => setData([...data, {}]);
-    const duplicateItem = ({ event, props }) => {
+    const duplicateRow = ({ event, props }) => {
         setData([...data, { ...data[props.rowID] }])
     };
+    const removeRow = ({ event, props }) => {
+        setData([...data.filter((element, index) => index != props.rowID)]);
+    }
+
+    useEffect(() => {console.log(data)}, [data])
 
     return (
 
@@ -301,11 +306,11 @@ function App() {
                 <div className="actionRow">
                     <button style={{ position: 'absolute', left: 0 }} onClick={() => {
                         ipcRenderer.send('message', -1);
-                        setCurrentTurn((currentTurn - 1 + characters.length) % characters.length)
+                        setCurrentTurn((currentTurn - 1 + data.length) % data.length)
                     }}>PREV</button>
                     <button style={{ position: 'absolute', right: 0 }} onClick={() => {
                         ipcRenderer.send('message', 1);
-                        setCurrentTurn((currentTurn + 1 + characters.length) % characters.length)
+                        setCurrentTurn((currentTurn + 1 + data.length) % data.length)
                     }}>NEXT</button>
                 </div>
                 <Table
@@ -326,7 +331,8 @@ function App() {
             <Menu id={MENU_ID}>
                 <Item onClick={addRow}>Add Row</Item>
                 <Separator />
-                <Item onClick={duplicateItem}>Duplicate</Item>
+                <Item onClick={duplicateRow}>Duplicate Row</Item>
+                <Item onClick={removeRow}>Remove Row</Item>
             </Menu>
 
         </Styles>
