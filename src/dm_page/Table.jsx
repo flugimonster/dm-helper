@@ -1,12 +1,16 @@
 import React from 'react'
+import 'react-contexify/dist/ReactContexify.css';
+
 import styled, { css } from 'styled-components'
 import { useTable, usePagination, useSortBy, useFlexLayout } from 'react-table';
 import { characters } from '../battle_page/data';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 import { ActionCell } from './ActionCell';
+import { Menu, Item, Separator, Submenu, MenuProvider, useContextMenu } from 'react-contexify';
 const { ipcRenderer } = window.require('electron');
 
+const MENU_ID = 'blahblah';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -107,7 +111,7 @@ const defaultColumn = {
 }
 
 // Be sure to pass our updateMyData and the skipPageReset option
-function Table({ columns, data, updateMyData, skipPageReset, currentTurn }) {
+function Table({ columns, data, updateMyData, skipPageReset, currentTurn, handleContextMenu }) {
     // For this example, we're using pagination to illustrate how to stop
     // the current page from resetting when our data changes
     // Otherwise, nothing is different here.
@@ -136,7 +140,7 @@ function Table({ columns, data, updateMyData, skipPageReset, currentTurn }) {
         useSortBy,
         usePagination,
         useFlexLayout
-    )
+    );
 
     // Render the UI for your table
     return (
@@ -154,9 +158,8 @@ function Table({ columns, data, updateMyData, skipPageReset, currentTurn }) {
                 <tbody {...getTableBodyProps()}>
                     {page.map((row, i) => {
                         prepareRow(row)
-                        console.log(i, currentTurn === i)
                         return (
-                            <tr className={clsx({ activeRow: currentTurn === i })} {...row.getRowProps()}>
+                            <tr className={clsx({ activeRow: currentTurn === i })} onContextMenu={(event) => handleContextMenu(event, row.id, data)} {...row.getRowProps()}>
                                 {row.cells.map(cell => {
                                     return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                 })}
@@ -172,7 +175,6 @@ function Table({ columns, data, updateMyData, skipPageReset, currentTurn }) {
 function App() {
 
     const [currentTurn, setCurrentTurn] = useState(0);
-
 
     const [data, setData] = React.useState(characters)
     const [skipPageReset, setSkipPageReset] = React.useState(false)
@@ -205,9 +207,7 @@ function App() {
             return row
         });
 
-        setData(
-            newVal,
-        )
+        setData(newVal);
 
         ipcRenderer.send('dataUpdate', {
             data: newVal,
@@ -271,7 +271,31 @@ function App() {
         setSkipPageReset(false)
     }, [data]);
 
+    function handleContextMenu(event, rowID) {
+        event.preventDefault();
+        event.stopPropagation();
+        show(
+            event, {
+            props: {
+                key: 'value',
+                rowID
+            }
+        })
+    }
+
+    const { show } = useContextMenu({
+        id: MENU_ID,
+    });
+
+    const handleItemClick = ({ event, props }) => console.log(event, props);
+
+    const addRow = () => setData([...data, {}]);
+    const duplicateItem = ({ event, props }) => {
+        setData([...data, { ...data[props.rowID] }])
+    };
+
     return (
+
         <Styles>
             <div className="container">
                 <div className="actionRow">
@@ -290,17 +314,21 @@ function App() {
                     data={data}
                     updateMyData={updateMyData}
                     skipPageReset={skipPageReset}
+                    handleContextMenu={handleContextMenu}
                 />
 
                 <button style={{ position: 'absolute', left: '50%', transform: 'translate(-50%)', marginTop: 15 }} onClick={() => {
                     setCurrentTurn(0);
                     window.open(`/battle?data=${JSON.stringify(data)}`, '_blank', 'frame=false, useContentSize=true')
                 }}>START</button>
-
-                <button style={{ position: 'absolute', left: '90%', transform: 'translate(-50%)', marginTop: 15 }} onClick={() => {
-                    setData([...data, {}]);
-                }}>ADD ROW</button>
             </div>
+
+            <Menu id={MENU_ID}>
+                <Item onClick={addRow}>Add Row</Item>
+                <Separator />
+                <Item onClick={duplicateItem}>Duplicate</Item>
+            </Menu>
+
         </Styles>
     )
 }
