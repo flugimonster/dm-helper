@@ -199,6 +199,10 @@ function App() {
                     data[rowIndex]['showDead'] = false;
                 }
 
+                if (columnId === 'hp' && (finalValue > data[rowIndex]['maxHP'] / 4) && data[rowIndex]['showCritical']) {
+                    data[rowIndex]['showCritical'] = false;
+                }
+
                 return {
                     ...data[rowIndex],
                     [columnId]: finalValue,
@@ -288,21 +292,23 @@ function App() {
     const addRow = () => {
         setData([...data, {}]);
     };
-    
+
     const duplicateRow = ({ event, props }) => {
         setData([...data, { ...data[props.rowID] }])
     };
     const removeRow = ({ event, props }) => {
-        setData([...data.filter((element, index) => index != props.rowID)]);
+        if (window.confirm('Are you sure you wish to delete this Row?\nThis can not be undone!')) {
+            setData([...data.filter((element, index) => index != props.rowID)]);
+        }
     }
-    
+
     useEffect(() => {
         ipcRenderer.send('dataUpdate', {
             data,
         });
     }, [data])
 
-    useEffect(() => {console.log(data)}, [data])
+    useEffect(() => { console.log(data) }, [data])
 
     return (
 

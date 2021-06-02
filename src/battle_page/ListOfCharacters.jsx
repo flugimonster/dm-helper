@@ -29,7 +29,6 @@ export const ListOfCharacters = ({ characters, variant }) => {
 
 
     return <div>
-        {characters.length} {sortedCharacters.length} {currTurn}
         <div className={clsx([css.container, css[variant]])}>
             {
                 sortedCharacters.map((char, idx) =>
@@ -42,7 +41,8 @@ export const ListOfCharacters = ({ characters, variant }) => {
                         maxHP={char.maxHP}
                         hp={char.hp}
                         faction={char.faction}
-                        showDead={char.showDead}/>
+                        showDead={char.showDead}
+                        showCritical={char.showCritical}/>
                 )
             }
         </div>

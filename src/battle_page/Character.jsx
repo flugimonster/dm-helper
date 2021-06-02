@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useRef } from 'react';
 
 
-export const Character = ({ name, image = genericEnemyImg, maxHP=1, hp=1, faction, variant = 'horizontal', highlight, showDead = false }) => {
+export const Character = ({ name, image = genericEnemyImg, maxHP=1, hp=1, faction, variant = 'horizontal', highlight, showDead = false, showCritical = false }) => {
   const elem = useRef();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export const Character = ({ name, image = genericEnemyImg, maxHP=1, hp=1, factio
       css[variant],
       css[faction],
       {
-        [css.critical]: hp / maxHP < 0.33 && hp > 0 && faction === 'ally',
+        [css.critical]: (hp / maxHP < 0.33 && hp > 0 && faction === 'ally') || showCritical,
         [css.dead]: hp <= 0 && (faction !== 'ally' || showDead),
         [css.dying]: hp <= 0 && faction === 'ally' && !showDead,
         [css.highlight]: highlight
