@@ -1,9 +1,13 @@
 .cardContainer {
     display: inline-grid;
 
-    border: 1px solid gray;
+    border: 1px solid black;
 
     &.ally {
+        border-color: green;
+    }
+
+    &.friendly {
         border-color: green;
     }
 
@@ -91,6 +95,8 @@
 }
 
 .characterName {
+    font-weight: bold;
+    font-family: papyrus;
     padding: 5px;
     grid-area: name;
     text-align: center;
@@ -103,6 +109,10 @@
     }
 
     .ally & {
+        border-color: green;
+    }
+
+    .friendly & {
         border-color: green;
     }
 
@@ -127,6 +137,10 @@
         border-color: green;
     }
 
+    .friendly & {
+        border-color: green;
+    }
+
     .enemy & {
         border-color: red;
     }
@@ -136,6 +150,10 @@
     font-weight: bold;
 
     .ally & {
+        color: green;
+    }
+
+    .friendly & {
         color: green;
     }
 

@@ -8,6 +8,8 @@ import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 import { ActionCell } from './ActionCell';
 import { Menu, Item, Separator, Submenu, MenuProvider, useContextMenu } from 'react-contexify';
+import Dropdown from 'react-dropdown';
+
 const { ipcRenderer } = window.require('electron');
 
 const MENU_ID = 'blahblah';
@@ -254,6 +256,16 @@ function App() {
                 Header: 'Faction',
                 accessor: 'faction',
                 width: 80,
+                Cell: (props) => {
+                    let currentFaction = props.row.values.faction;
+                    let options = ['ally', 'enemy', 'friendly', 'neither'];
+                    return <select value={currentFaction}
+                        key={currentFaction}
+                        onChange={(e) => updateMyData(props.row.index, 'faction', e.target.value)}
+                        name='faction' id='faction-select'>
+                        {options.map((value) => <option>{value}</option>)}
+                    </select>
+                }
             },
             {
                 Header: 'Initiative',
