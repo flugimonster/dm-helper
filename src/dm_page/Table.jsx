@@ -302,7 +302,7 @@ function App() {
     const handleItemClick = ({ event, props }) => console.log(event, props);
 
     const addRow = () => {
-        setData([...data, {}]);
+        setData([...data, {name: ''}]);
     };
 
     const duplicateRow = ({ event, props }) => {

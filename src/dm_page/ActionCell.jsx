@@ -19,7 +19,7 @@ export function ActionCell({ row, updateData }) {
                 </>
             }
         </>
-        {(faction === 'enemy' && +hp < maxHP / 4) &&
+        {(faction !== 'ally' && +hp < maxHP / 3) &&
             <>
                 <input
                     type="checkbox"
