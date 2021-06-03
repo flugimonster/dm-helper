@@ -53,9 +53,3 @@ ListOfCharacters.propTypes = {
     characters: PropTypes.any.isRequired,
     variant: PropTypes.oneOf(['horizontal', 'vertical']),
 };
-
-ListOfCharacters.defaultProps = {
-    variant: 'vertical',
-};
-
-

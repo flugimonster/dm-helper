@@ -1,14 +1,13 @@
 import React from 'react'
 import 'react-contexify/dist/ReactContexify.css';
 
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { useTable, usePagination, useSortBy, useFlexLayout } from 'react-table';
 import { characters } from '../battle_page/data';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 import { ActionCell } from './ActionCell';
-import { Menu, Item, Separator, Submenu, MenuProvider, useContextMenu } from 'react-contexify';
-import Dropdown from 'react-dropdown';
+import { Menu, Item, Separator, useContextMenu } from 'react-contexify';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -117,6 +116,7 @@ function Table({ columns, data, updateMyData, skipPageReset, currentTurn, handle
     // For this example, we're using pagination to illustrate how to stop
     // the current page from resetting when our data changes
     // Otherwise, nothing is different here.
+
     const {
         getTableProps,
         getTableBodyProps,
@@ -178,8 +178,9 @@ function App() {
 
     const [currentTurn, setCurrentTurn] = useState(0);
 
-    const [data, setData] = React.useState(characters)
-    const [skipPageReset, setSkipPageReset] = React.useState(false)
+    const [data, setData] = React.useState(characters);
+    const [variant, setVariant] = React.useState('vertical');
+    const [skipPageReset, setSkipPageReset] = React.useState(false);
 
     // We need to keep the table from resetting the pageIndex when we
     // Update data. So we can keep track of that flag with a ref.
@@ -299,8 +300,6 @@ function App() {
         id: MENU_ID,
     });
 
-    const handleItemClick = ({ event, props }) => console.log(event, props);
-
     const addRow = () => {
         setData([...data, {name: ''}]);
     };
@@ -308,11 +307,17 @@ function App() {
     const duplicateRow = ({ event, props }) => {
         setData([...data, { ...data[props.rowID] }])
     };
+
     const removeRow = ({ event, props }) => {
         if (window.confirm('Are you sure you wish to delete this Row?\nThis can not be undone!')) {
-            setData([...data.filter((element, index) => index != props.rowID)]);
+            setData([...data.filter((element, index) => index !== props.rowID)]);
         }
     }
+
+    const changeVariant = useCallback(() => {
+        let align = variant === 'vertical' ? 'horizontal' : 'vertical';
+        setVariant(align);
+    }, [variant, setVariant])
 
     useEffect(() => {
         ipcRenderer.send('dataUpdate', {
@@ -320,7 +325,13 @@ function App() {
         });
     }, [data])
 
-    useEffect(() => { console.log(data) }, [data])
+    useEffect(() => {
+        ipcRenderer.send('variant', {
+            variant,
+        });
+    }, [variant])
+
+    // useEffect(() => { console.log(data) }, [data])
 
     return (
 
@@ -353,9 +364,10 @@ function App() {
 
             <Menu id={MENU_ID}>
                 <Item onClick={addRow}>Add Row</Item>
-                <Separator />
                 <Item onClick={duplicateRow}>Duplicate Row</Item>
                 <Item onClick={removeRow}>Remove Row</Item>
+                <Separator />
+                <Item onClick={changeVariant}>Change Variant</Item>
             </Menu>
 
         </Styles>

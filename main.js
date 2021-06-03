@@ -64,6 +64,13 @@ app.whenReady().then(() => {
     }
   });
 
+  ipcMain.on('variant', (event, message) => {
+    console.log(message)
+    if (child && !child.isDestroyed()) {
+      child.webContents.send('variant', message)
+    }
+  });
+
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

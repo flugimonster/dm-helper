@@ -13,9 +13,9 @@ function useQuery() {
 
 export const BattleParser = () => {
   let q = useQuery();
-  const [characters, setCharacters] = useState();
 
-  const [align, setAlign] = useState('vertical');
+  const [characters, setCharacters] = useState();
+  const [variant, setVariant] = useState('vertical');
 
   useEffect(() => {
     setCharacters(JSON.parse(q.get('data')));
@@ -23,25 +23,30 @@ export const BattleParser = () => {
 
   useEffect(() => {
     const { width, height } = remote.screen.getPrimaryDisplay().bounds;
-
     const IMAGE_HEIGHT = 233;
     const IMAGE_WIDTH = 170;
     if (characters) {
-      const [x, y] = align === 'vertical' ? [IMAGE_HEIGHT, IMAGE_WIDTH * characters.length] : [IMAGE_WIDTH * characters.length, IMAGE_HEIGHT]
+      const [x, y] = variant === 'vertical' ? [IMAGE_HEIGHT, IMAGE_WIDTH * characters.length] : [IMAGE_WIDTH * characters.length, IMAGE_HEIGHT]
       remote.getCurrentWindow().setSize(Math.min(x, width), Math.min(y, height));
     }
-  }, [align, characters])
+  }, [variant, characters])
 
   useEffect(() => {
     ipcRenderer.on('dataUpdate', (e, a) => {
-      setCharacters(a.data)
+      setCharacters(a.data);
     })
-    return () => ipcRenderer.removeAllListeners('hp')
+    return () => ipcRenderer.removeAllListeners('hp');
   }, [setCharacters])
 
+  useEffect(() => {
+    ipcRenderer.on('variant', (e, a) => {
+      setVariant(a.variant);
+    })
+    return () => ipcRenderer.removeAllListeners('variant');
+  }, [setVariant])
 
   return <>
-    {characters && <ListOfCharacters variant='vertical' characters={characters} />}
+    {characters && <ListOfCharacters variant={variant} characters={characters} />}
   </>
 
 }

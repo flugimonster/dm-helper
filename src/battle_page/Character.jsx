@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 import css from './Character.module.scss';
 import clsx from 'clsx';
 import genericEnemyImg from '../assets/GenericImage.jpg'
-import skullImg from '../assets/Skull.JPG'
 import { useEffect } from 'react';
 import { useRef } from 'react';
 
 
-export const Character = ({ name, image = genericEnemyImg, maxHP=1, hp=1, faction, variant = 'horizontal', highlight, showDead = false, showCritical = false }) => {
+export const Character = ({ name, image = genericEnemyImg, maxHP = 1, hp = 1, faction, variant = 'vertical', highlight, showDead = false, showCritical = false }) => {
   const elem = useRef();
 
   useEffect(() => {
     if (highlight) {
-      elem.current.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
+      elem.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
     }
   }, [highlight])
-  
+
   return <div ref={elem} className={
     clsx(
       [css.cardContainer,
@@ -34,13 +33,12 @@ export const Character = ({ name, image = genericEnemyImg, maxHP=1, hp=1, factio
     <div className={
       clsx(
         [css.avatarContainer,
-          {
-            [css.highlight]: highlight,
-            // [css.skull]: skullImg
-          }
+        {
+          [css.highlight]: highlight,
+        }
         ]
-        )
-        }>
+      )
+    }>
       <img className={css.avatar} src={image} />
     </div>
     <div className={css.characterInfo}>
