@@ -8,6 +8,8 @@ import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 import { ActionCell } from './ActionCell';
 import { Menu, Item, Separator, useContextMenu } from 'react-contexify';
+import CreatableSelect from 'react-select/creatable';
+import * as css from './Table.module.scss'
 
 const { ipcRenderer } = window.require('electron');
 
@@ -268,6 +270,30 @@ function App() {
                         {options.map((value) => <option>{value}</option>)}
                     </select>
                 }
+            },
+            {
+                Header: 'Conditions',
+                accessor: 'Conditions',
+                Cell: (props) => {
+                    return <CreatableSelect className={css.select} isMulti options={[
+                        {label: 'Blinded', value: 'Blinded'},
+                        {label: 'Charmed', value: 'Charmed'},
+                        {label: 'Deafened', value: 'Deafened'},
+                        {label: 'Frightened', value: 'Frightened'},
+                        {label: 'Grappled', value: 'Grappled'},
+                        {label: 'Incapacitated', value: 'Incapacitated'},
+                        {label: 'Invisible', value: 'Invisible'},
+                        {label: 'Paralyzed', value: 'Paralyzed'},
+                        {label: 'Petrified', value: 'Petrified'},
+                        {label: 'Poisoned', value: 'Poisoned'},
+                        {label: 'Prone', value: 'Prone'},
+                        {label: 'Restrained', value: 'Restrained'},
+                        {label: 'Stunned', value: 'Stunned'},
+                        {label: 'Unconscious', value: 'Unconscious'},
+                        {label: 'Exhaustion', value: 'Exhaustion'},
+                    ]}/>
+                },
+                width: 350,
             },
             {
                 Header: 'Initiative',
