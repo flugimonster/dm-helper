@@ -5,7 +5,7 @@ import dezImg from '../assets/DezImage.JPG'
 // import iceTrollImg from '../assets/IceTroll.JPG'
 // import roperImg from '../assets/Roper.JPG'
 // import frostGiantImg from '../assets/FrostGiant.JPG'
-import ironGolem from '../assets/IronGolem.JPG'
+import dormund from '../assets/dormund.JPG'
 import clayGolem from '../assets/ClayGolem.JPG'
 import silverDragon from '../assets/YoungSilverDragon.JPG'
 import stoneGiant from '../assets/StoneGiant.JPG'
@@ -21,6 +21,7 @@ export const characters = [
     toHit: '-',
     ac: 18,
     dc: 16,
+    uuid: 1,
   },
   {
     name: 'Sindri',
@@ -32,6 +33,7 @@ export const characters = [
     toHit: '-',
     ac: 18,
     dc: 15,
+    uuid: 2,
   },
   {
     name: 'Reginald',
@@ -43,6 +45,7 @@ export const characters = [
     toHit: '-',
     ac: 18,
     dc: '-',
+    uuid: 3,
   },
   {
     name: 'Dez-Mon',
@@ -54,49 +57,18 @@ export const characters = [
     toHit: '-',
     ac: 14,
     dc: 13,
+    uuid: 4
   },
   {
-    name: 'Clay Golem',
-    image: clayGolem,
-    faction: 'enemy',
-    maxHP: 133,
-    hp: 133,
-    initiative: 17,
-    toHit: '-',
-    ac: 14,
-    dc: '15 con',
-  },
-  {
-    name: 'Iron Golem',
-    image: ironGolem,
+    name: 'Dormund',
+    image: dormund,
     faction: 'enemy',
     maxHP: 210,
     hp: 210,
     initiative: 2,
     toHit: '-',
-    ac: 20,
+    ac: 21,
     dc: '-',
-  },
-  {
-    name: 'Stone Giant',
-    image: stoneGiant,
-    faction: 'enemy',
-    maxHP: 126,
-    hp: 126,
-    initiative: 20,
-    toHit: '-',
-    ac: 17,
-    dc: '-',
-  },
-  {
-    name: 'Silver Dragon',
-    image: silverDragon,
-    faction: 'enemy',
-    maxHP: 168,
-    hp: 168,
-    initiative: 13,
-    toHit: '-',
-    ac: 18,
-    dc: '17 con',
+    uuid: 5
   }
 ]

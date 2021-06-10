@@ -65,7 +65,6 @@ app.whenReady().then(() => {
   });
 
   ipcMain.on('variant', (event, message) => {
-    console.log(message)
     if (child && !child.isDestroyed()) {
       child.webContents.send('variant', message)
     }

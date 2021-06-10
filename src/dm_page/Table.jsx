@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import 'react-contexify/dist/ReactContexify.css';
 
 import styled from 'styled-components'
@@ -62,6 +62,10 @@ const Styles = styled.div`
   .activeRow {
       background: gold;
   }
+  
+  .hidden {
+      background: gray;      
+  }
 
   .container {
       display: inline-block;
@@ -112,7 +116,7 @@ const defaultColumn = {
 }
 
 // Be sure to pass our updateMyData and the skipPageReset option
-function Table({ columns, data, updateMyData, skipPageReset, currentTurn, handleContextMenu }) {
+function Table({ columns, data, updateMyData, skipPageReset, currentPlayer, handleContextMenu }) {
     // For this example, we're using pagination to illustrate how to stop
     // the current page from resetting when our data changes
     // Otherwise, nothing is different here.
@@ -137,7 +141,7 @@ function Table({ columns, data, updateMyData, skipPageReset, currentTurn, handle
             // cell renderer!
             updateMyData,
 
-            initialState: { sortBy: [{ id: 'initiative', desc: true }], pageSize: 50 }
+            initialState: { sortBy: [{ id: 'initiative', desc: true }, {id: 'name', desc: false}], pageSize: 50 }
         },
         useSortBy,
         usePagination,
@@ -161,7 +165,7 @@ function Table({ columns, data, updateMyData, skipPageReset, currentTurn, handle
                     {page.map((row, i) => {
                         prepareRow(row)
                         return (
-                            <tr className={clsx({ activeRow: currentTurn === i })} onContextMenu={(event) => handleContextMenu(event, row.id, data)} {...row.getRowProps()}>
+                            <tr className={clsx({ activeRow: row.original.uuid === currentPlayer, hidden: row.original.hidden })} onContextMenu={(event) => handleContextMenu(event, row.id, data)} {...row.getRowProps()}>
                                 {row.cells.map(cell => {
                                     return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                 })}
@@ -175,9 +179,6 @@ function Table({ columns, data, updateMyData, skipPageReset, currentTurn, handle
 }
 
 function App() {
-
-    const [currentTurn, setCurrentTurn] = useState(0);
-
     const [data, setData] = React.useState(characters);
     const [variant, setVariant] = React.useState('vertical');
     const [skipPageReset, setSkipPageReset] = React.useState(false);
@@ -192,7 +193,7 @@ function App() {
         // We also turn on the flag to not reset the page
         setSkipPageReset(true)
         let newVal = data.map((row, index) => {
-            if (index === rowIndex) {
+            if (index == rowIndex) {
                 let finalValue = value;
                 if ((columnId === 'hp' || columnId === 'maxHP') && (value.startsWith?.('+') || value.startsWith?.('-'))) {
                     finalValue = Number(data[rowIndex][columnId]) + Number(value)
@@ -239,13 +240,13 @@ function App() {
                 width: 80,
             },
             {
-                Header: 'AC',
-                accessor: 'ac',
+                Header: 'To Hit',
+                accessor: 'toHit',
                 width: 50
             },
             {
-                Header: 'To Hit',
-                accessor: 'toHit',
+                Header: 'AC',
+                accessor: 'ac',
                 width: 50
             },
             {
@@ -301,17 +302,27 @@ function App() {
     });
 
     const addRow = () => {
-        setData([...data, {name: ''}]);
+        setData([...data, { hp: 0, maxHP: 0, initiative: 0, name: '', hidden: true, uuid: Date.now() }]);
     };
 
     const duplicateRow = ({ event, props }) => {
-        setData([...data, { ...data[props.rowID] }])
+        setData([...data, { ...data[props.rowID], name: data[props.rowID].name + '*', uuid: Date.now() }])
     };
 
-    const removeRow = ({ event, props }) => {
+    const removeRow = ({ event, props: { rowID } }) => {
         if (window.confirm('Are you sure you wish to delete this Row?\nThis can not be undone!')) {
-            setData([...data.filter((element, index) => index !== props.rowID)]);
+            if (currentPlayer === data[rowID].uuid) {
+                moveTurn(1);
+            }
+            setData([...data.filter((element, index) => index != rowID)]);
         }
+    }
+
+    const hideCharacter = ({ props: { rowID } }) => {
+        if (currentPlayer === data[rowID].uuid) {
+            moveTurn(1);
+        }
+        updateMyData(rowID, 'hidden', true)
     }
 
     const changeVariant = useCallback(() => {
@@ -320,18 +331,38 @@ function App() {
     }, [variant, setVariant])
 
     useEffect(() => {
-        ipcRenderer.send('dataUpdate', {
-            data,
-        });
-    }, [data])
-
-    useEffect(() => {
         ipcRenderer.send('variant', {
             variant,
         });
     }, [variant])
 
-    // useEffect(() => { console.log(data) }, [data])
+    const turnOrder = useMemo(() => {
+        const temp = [...data].filter(d => d.hidden !== true);
+        temp.sort((a, b) => (b?.initiative ?? 0) - (a?.initiative ?? 0));
+        return temp.map(d => d.uuid);
+    }, [data]);
+
+    const [currentPlayer, setCurrentPlayer] = useState(turnOrder[0]);
+
+    const preprocessDataForChild = useCallback((data) =>
+        data.filter(d => !d.hidden).map(d => {
+            if (d.uuid !== currentPlayer) { return d; }
+            else {
+                return { ...d, highlight: true }
+            }
+        }, [data, currentPlayer]))
+
+    useEffect(() => {
+        ipcRenderer.send('dataUpdate', {
+            data: preprocessDataForChild(data),
+        });
+    }, [data, currentPlayer])
+
+    const moveTurn = (step) => {
+        const i = (turnOrder.findIndex(t => t === currentPlayer) + step + turnOrder.length) % turnOrder.length
+        setCurrentPlayer(turnOrder[i])
+    }
+
 
     return (
 
@@ -339,16 +370,14 @@ function App() {
             <div className="container">
                 <div className="actionRow">
                     <button style={{ position: 'absolute', left: 0 }} onClick={() => {
-                        ipcRenderer.send('message', -1);
-                        setCurrentTurn((currentTurn - 1 + data.length) % data.length)
+                        moveTurn(-1);
                     }}>PREV</button>
                     <button style={{ position: 'absolute', right: 0 }} onClick={() => {
-                        ipcRenderer.send('message', 1);
-                        setCurrentTurn((currentTurn + 1 + data.length) % data.length)
+                        moveTurn(1);
                     }}>NEXT</button>
                 </div>
                 <Table
-                    currentTurn={currentTurn}
+                    currentPlayer={currentPlayer}
                     columns={columns}
                     data={data}
                     updateMyData={updateMyData}
@@ -357,12 +386,13 @@ function App() {
                 />
 
                 <button style={{ position: 'absolute', left: '50%', transform: 'translate(-50%)', marginTop: 15 }} onClick={() => {
-                    setCurrentTurn(0);
-                    window.open(`/battle?data=${JSON.stringify(data)}`, '_blank', 'frame=false, useContentSize=true')
+                    window.open(`/battle?data=${JSON.stringify(preprocessDataForChild(data))}`, '_blank', 'frame=false, useContentSize=true')
                 }}>START</button>
             </div>
 
             <Menu id={MENU_ID}>
+                <Item onClick={hideCharacter}>Hide Character</Item>
+                <Separator />
                 <Item onClick={addRow}>Add Row</Item>
                 <Item onClick={duplicateRow}>Duplicate Row</Item>
                 <Item onClick={removeRow}>Remove Row</Item>

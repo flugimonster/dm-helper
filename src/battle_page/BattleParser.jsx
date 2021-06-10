@@ -23,8 +23,8 @@ export const BattleParser = () => {
 
   useEffect(() => {
     const { width, height } = remote.screen.getPrimaryDisplay().bounds;
-    const IMAGE_HEIGHT = 233;
-    const IMAGE_WIDTH = 170;
+    const IMAGE_HEIGHT = 216;
+    const IMAGE_WIDTH = 152;
     if (characters) {
       const [x, y] = variant === 'vertical' ? [IMAGE_HEIGHT, IMAGE_WIDTH * characters.length] : [IMAGE_WIDTH * characters.length, IMAGE_HEIGHT]
       remote.getCurrentWindow().setSize(Math.min(x, width), Math.min(y, height));

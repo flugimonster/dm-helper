@@ -2,7 +2,7 @@ import React from 'react';
 
 export function ActionCell({ row, updateData }) {
 
-    const { faction, hp, maxHP, showDead = false, showCritical = false } = row.original;
+    const { faction, hp, maxHP, showDead = false, showCritical = false, hidden = false } = row.original;
     return <div>
         <>
             {(faction === 'ally' && +hp === 0) &&
@@ -15,7 +15,7 @@ export function ActionCell({ row, updateData }) {
                         onChange={() => {
                             updateData(row.index, 'showDead', !showDead)
                         }} />
-                    <label for="showDeadAlly"> Ally</label>
+                    <label for="showDeadAlly"> Dead</label>
                 </>
             }
         </>
@@ -30,6 +30,12 @@ export function ActionCell({ row, updateData }) {
                         updateData(row.index, 'showCritical', !showCritical)
                     }} />
                 <label for="showCriticalEnemy">Show Critical</label>
+            </>
+        }
+        {(hidden) &&
+            <>
+                <button onClick={() => updateData(row.index, 'hidden', false)
+                }>Reshow</button>
             </>
         }
     </div>

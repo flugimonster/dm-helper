@@ -2,18 +2,16 @@
 
 .container {
     -webkit-app-region: drag;
-
+    overflow: hidden !important;
     display: inline-flex;
-    flex-direction: column;
  
     &.horizontal {
         flex-direction: row;
         width: 100%;
-        overflow-x: auto;
     }
 
     &.vertical {
+        flex-direction: column;
         height: 100%;
-        overflow-y: auto;
     }
 }

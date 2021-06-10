@@ -4,7 +4,6 @@ import clsx from 'clsx'
 import css from './ListOfCharacters.module.scss';
 
 import { Character } from './Character.jsx';
-import { useEffect } from 'react';
 import { useMemo } from 'react';
 const { ipcRenderer } = window.require('electron');
 
@@ -15,17 +14,10 @@ export const ListOfCharacters = ({ characters, variant }) => {
 
     const sortedCharacters = useMemo(
         () => [...characters].sort(
-            (a, b) =>  (b?.initiative ?? 0) - (a?.initiative ?? 0)
+            (a, b) => (b?.initiative ?? 0) - (a?.initiative ?? 0)
         ),
         [characters]
     );
-
-    useEffect(() => {
-        ipcRenderer.on('turn', (e, a) => {
-            setCurrTurn((currTurn + a + sortedCharacters.length) % sortedCharacters.length)
-        })
-        return () => ipcRenderer.removeAllListeners('turn')
-    }, [currTurn, sortedCharacters]);
 
 
     return <div>
@@ -33,9 +25,9 @@ export const ListOfCharacters = ({ characters, variant }) => {
             {
                 sortedCharacters.map((char, idx) =>
                     <Character
-                        key={char.name}
+                        key={char.uuid}
                         variant={variant}
-                        highlight={idx === currTurn}
+                        highlight={char.highlight}
                         name={char.name}
                         image={char.image}
                         maxHP={char.maxHP}
