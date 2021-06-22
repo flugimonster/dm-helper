@@ -11,6 +11,8 @@ import { Menu, Item, Separator, useContextMenu } from 'react-contexify';
 import CreatableSelect from 'react-select/creatable';
 import * as css from './Table.module.scss'
 
+const fs = window.require('fs');
+const { dialog } = window.require('electron').remote;
 const { ipcRenderer } = window.require('electron');
 
 const MENU_ID = 'blahblah';
@@ -142,8 +144,7 @@ function Table({ columns, data, updateMyData, skipPageReset, currentPlayer, hand
             // That way we can call this function from our
             // cell renderer!
             updateMyData,
-
-            initialState: { sortBy: [{ id: 'initiative', desc: true }, {id: 'name', desc: false}], pageSize: 50 }
+            initialState: { sortBy: [{ id: 'initiative', desc: true }, { id: 'name', desc: false }], pageSize: 50 }
         },
         useSortBy,
         usePagination,
@@ -276,22 +277,22 @@ function App() {
                 accessor: 'Conditions',
                 Cell: (props) => {
                     return <CreatableSelect className={css.select} isMulti options={[
-                        {label: 'Blinded', value: 'Blinded'},
-                        {label: 'Charmed', value: 'Charmed'},
-                        {label: 'Deafened', value: 'Deafened'},
-                        {label: 'Frightened', value: 'Frightened'},
-                        {label: 'Grappled', value: 'Grappled'},
-                        {label: 'Incapacitated', value: 'Incapacitated'},
-                        {label: 'Invisible', value: 'Invisible'},
-                        {label: 'Paralyzed', value: 'Paralyzed'},
-                        {label: 'Petrified', value: 'Petrified'},
-                        {label: 'Poisoned', value: 'Poisoned'},
-                        {label: 'Prone', value: 'Prone'},
-                        {label: 'Restrained', value: 'Restrained'},
-                        {label: 'Stunned', value: 'Stunned'},
-                        {label: 'Unconscious', value: 'Unconscious'},
-                        {label: 'Exhaustion', value: 'Exhaustion'},
-                    ]}/>
+                        { label: 'Blinded', value: 'Blinded' },
+                        { label: 'Charmed', value: 'Charmed' },
+                        { label: 'Deafened', value: 'Deafened' },
+                        { label: 'Frightened', value: 'Frightened' },
+                        { label: 'Grappled', value: 'Grappled' },
+                        { label: 'Incapacitated', value: 'Incapacitated' },
+                        { label: 'Invisible', value: 'Invisible' },
+                        { label: 'Paralyzed', value: 'Paralyzed' },
+                        { label: 'Petrified', value: 'Petrified' },
+                        { label: 'Poisoned', value: 'Poisoned' },
+                        { label: 'Prone', value: 'Prone' },
+                        { label: 'Restrained', value: 'Restrained' },
+                        { label: 'Stunned', value: 'Stunned' },
+                        { label: 'Unconscious', value: 'Unconscious' },
+                        { label: 'Exhaustion', value: 'Exhaustion' },
+                    ]} />
                 },
                 width: 350,
             },
@@ -389,6 +390,20 @@ function App() {
         setCurrentPlayer(turnOrder[i])
     }
 
+    const saveEncounter = async (characters) => {
+        const { filePath } = await dialog.showSaveDialog();
+        fs.writeFileSync(filePath + '.txt', JSON.stringify(characters), 'utf-8');
+    }
+
+    const loadEncounter = async () => {
+        const { filePaths } = await dialog.showOpenDialog();
+        console.log(filePaths);
+        filePaths.forEach((path) => {
+            const content = JSON.parse(fs.readFileSync(path, {encoding:'utf8', flag:'r'}));
+            setData(content)
+        })
+    }
+
 
     return (
 
@@ -410,10 +425,19 @@ function App() {
                     skipPageReset={skipPageReset}
                     handleContextMenu={handleContextMenu}
                 />
+                <div style={{ position: 'absolute', left: '50%', transform: 'translate(-50%)', marginTop: 15, width: '100%'}}>
+                    <button onClick={() => {
+                        window.open(`/battle?data=${JSON.stringify(preprocessDataForChild(data))}`, '_blank', 'frame=false, useContentSize=true')
+                    }}>START</button>
 
-                <button style={{ position: 'absolute', left: '50%', transform: 'translate(-50%)', marginTop: 15 }} onClick={() => {
-                    window.open(`/battle?data=${JSON.stringify(preprocessDataForChild(data))}`, '_blank', 'frame=false, useContentSize=true')
-                }}>START</button>
+                    <button style={{ marginLeft: 200 }} onClick={() => {
+                        saveEncounter(data);
+                    }}>Save Encounter</button>
+
+                    <button onClick={() => {
+                        loadEncounter();
+                    }}>Load Encounter</button>
+                </div>
             </div>
 
             <Menu id={MENU_ID}>
