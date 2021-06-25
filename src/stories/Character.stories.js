@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import { Character } from '../battle_page/Character';
+import { Character } from "../battle_page/Character";
 
-import jonjonImg from '../assets/JonJonImage.JPG'
-import dezImg from '../assets/DezImage.JPG'
+import jonjonImg from "../assets/JonJonImage.JPG";
+import dezImg from "../assets/DezImage.JPG";
 
 export default {
-  title: 'Battle/Character',
+  title: "Battle/Character",
   component: Character,
 };
 
@@ -14,9 +14,9 @@ const Template = (args) => <Character {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  name: 'JonJon',
+  name: "JonJon",
   image: jonjonImg,
-  faction: 'ally',
+  faction: "ally",
   maxHP: 48,
   hp: 36,
   highlight: true,
@@ -35,11 +35,11 @@ Default.args = {
 export const Dez = Template.bind({});
 Dez.args = {
   ...Default.arg,
-  name: 'Dez-Mon',
+  name: "Dez-Mon",
   image: dezImg,
   maxHP: 43,
   hp: 43,
-}
+};
 
 export const Dying = Template.bind({});
 Dying.args = {

@@ -1,17 +1,15 @@
-
-
 .container {
-    -webkit-app-region: drag;
-    overflow: hidden !important;
-    display: inline-flex;
- 
-    &.horizontal {
-        flex-direction: row;
-        width: 100%;
-    }
+  -webkit-app-region: drag;
+  overflow: hidden !important;
+  display: inline-flex;
 
-    &.vertical {
-        flex-direction: column;
-        height: 100%;
-    }
+  &.horizontal {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  &.vertical {
+    flex-direction: column;
+    height: 100%;
+  }
 }
