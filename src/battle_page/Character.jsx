@@ -54,7 +54,7 @@ export const Character = ({
           },
         ])}
       >
-        <img className={css.avatar} src={image} />
+        <img className={css.avatar} src={image} alt='' />
       </div>
       <div className={css.characterInfo}>
         <div className={css.hp}>

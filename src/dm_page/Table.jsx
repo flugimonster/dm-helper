@@ -75,6 +75,12 @@ const Styles = styled.div`
     display: inline-block;
     position: relative;
   }
+
+  .imageAvatar {
+    border-radius: 5px;
+    max-width: 75px;
+    max-height: 75px;
+  }
 `;
 
 // Create an editable cell renderer
@@ -264,6 +270,16 @@ function App() {
 
   const columns = React.useMemo(
     () => [
+      {
+        Header: "Image",
+        accessor: "image",
+        width: 85,
+        Cell: (props) => {
+          return props.value ?
+            < img src={props.value} className={"imageAvatar"} alt="" /> :
+            <button>UPLOAD IMAGE</button>
+        },
+      },
       {
         Header: "Name",
         accessor: "name",
