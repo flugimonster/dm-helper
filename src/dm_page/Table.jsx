@@ -265,7 +265,7 @@ function App() {
                     let currentFaction = props.row.values.faction;
                     let options = ['ally', 'enemy', 'friendly', 'neither'];
                     return <select value={currentFaction}
-                        key={currentFaction}
+                        key={props.row.index + 'select-faction'}
                         onChange={(e) => updateMyData(props.row.index, 'faction', e.target.value)}
                         name='faction' id='faction-select'>
                         {options.map((value) => <option>{value}</option>)}
@@ -391,19 +391,21 @@ function App() {
     }
 
     const saveEncounter = async (characters) => {
-        const { filePath } = await dialog.showSaveDialog();
-        fs.writeFileSync(filePath + '.txt', JSON.stringify(characters), 'utf-8');
+        const { filePath, canceled } = await dialog.showSaveDialog();
+        if (!canceled) {
+            fs.writeFileSync(filePath + '.txt', JSON.stringify(characters), 'utf-8');
+        }
     }
 
     const loadEncounter = async () => {
-        const { filePaths } = await dialog.showOpenDialog();
-        console.log(filePaths);
-        filePaths.forEach((path) => {
-            const content = JSON.parse(fs.readFileSync(path, {encoding:'utf8', flag:'r'}));
-            setData(content)
-        })
+        const { filePaths, canceled } = await dialog.showOpenDialog({ properties: ['multiSelections'] });
+        if (!canceled) {
+            filePaths.forEach((path) => {
+                const content = JSON.parse(fs.readFileSync(path, { encoding: 'utf8', flag: 'r' }));
+                setData([...data, ...content]);
+            })
+        }
     }
-
 
     return (
 
@@ -425,7 +427,7 @@ function App() {
                     skipPageReset={skipPageReset}
                     handleContextMenu={handleContextMenu}
                 />
-                <div style={{ position: 'absolute', left: '50%', transform: 'translate(-50%)', marginTop: 15, width: '100%'}}>
+                <div style={{ position: 'absolute', left: '50%', transform: 'translate(-50%)', marginTop: 15, width: '100%' }}>
                     <button onClick={() => {
                         window.open(`/battle?data=${JSON.stringify(preprocessDataForChild(data))}`, '_blank', 'frame=false, useContentSize=true')
                     }}>START</button>

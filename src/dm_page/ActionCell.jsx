@@ -15,7 +15,7 @@ export function ActionCell({ row, updateData }) {
                         onChange={() => {
                             updateData(row.index, 'showDead', !showDead)
                         }} />
-                    <label for="showDeadAlly"> Dead</label>
+                    <label htmlFor="showDeadAlly"> Dead</label>
                 </>
             }
         </>
@@ -29,7 +29,7 @@ export function ActionCell({ row, updateData }) {
                     onChange={() => {
                         updateData(row.index, 'showCritical', !showCritical)
                     }} />
-                <label for="showCriticalEnemy">Show Critical</label>
+                <label htmlFor="showCriticalEnemy">Show Critical</label>
             </>
         }
         {(hidden) &&
