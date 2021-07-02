@@ -10,10 +10,10 @@ TODOs:
         * ~~load and save encounter~~
     * ~~Add a button to reset the table~~
     * ~~Make filePaths constants~~
-    * Adjust table window size
-    * Add scroll to table window
+    * ~~Adjust table window size~~
+    * ~~Add scroll to table window~~
+    * __Clean all rows, add encounter => no one has initiative__ not importnat atm
     * Can't refresh or use dev tools from app
-    * Clean all rows, add encounter => no one has initiative
     * focus loss on remove row (may fix itself after UI overhaul)
     * Table sort is inconsistent with initiative order
 

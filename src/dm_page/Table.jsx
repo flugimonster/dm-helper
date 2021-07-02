@@ -24,8 +24,13 @@ const MENU_ID = "blahblah";
 const Styles = styled.div`
   padding: 1rem;
 
+  .tableWrapper {
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: auto;
+  }
+
   table {
-    margin-top: 20px;
     border-spacing: 0;
     border: 5px solid black;
 
@@ -80,8 +85,12 @@ const Styles = styled.div`
   }
 
   .container {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     position: relative;
+    height: 100%;
+
+    align-items:center;
   }
 
   .imageAvatar {
@@ -184,7 +193,7 @@ function Table({
 
   // Render the UI for your table
   return (
-    <>
+    <div className="tableWrapper">
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -219,7 +228,7 @@ function Table({
           })}
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
 
@@ -553,11 +562,10 @@ function App() {
   };
 
   return (
-    <Styles>
+    <Styles style={{height: '100%'}}>
       <div className="container">
         <div className="actionRow">
           <button
-            style={{ position: "absolute", left: 0 }}
             onClick={() => {
               moveTurn(-1);
             }}
@@ -565,7 +573,6 @@ function App() {
             PREV
           </button>
           <button
-            style={{ position: "absolute", right: 0 }}
             onClick={() => {
               moveTurn(1);
             }}
@@ -581,15 +588,7 @@ function App() {
           skipPageReset={skipPageReset}
           handleContextMenu={handleContextMenu}
         />
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            transform: "translate(-50%)",
-            marginTop: 15,
-            width: "100%",
-          }}
-        >
+        <div>
           <button
             onClick={() => {
               window.open(

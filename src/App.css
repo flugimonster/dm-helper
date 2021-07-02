@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  height: calc(100% - 20px);
   /* -webkit-app-region: drag; */
 }
 
@@ -40,4 +41,8 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+
+body, html {
+  height: 100%;
 }
