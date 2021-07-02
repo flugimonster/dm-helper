@@ -59,6 +59,10 @@ const Styles = styled.div`
     }
   }
 
+  button {
+    cursor: pointer;
+  }
+
   .pagination {
     padding: 0.5rem;
   }
@@ -80,6 +84,7 @@ const Styles = styled.div`
   }
 
   .imageAvatar {
+    cursor: pointer;
     border-radius: 5px;
     max-width: 75px;
     max-height: 75px;
@@ -281,8 +286,8 @@ function App() {
         Cell: (props) => {
           const path = props.value;
           return path ?
-            <img src={imageBank[path]} className={"imageAvatar"} alt="" /> :
-            <button onClick={() => { loadImage(props.row.index) }} >UPLOAD IMAGE</button>
+            <img src={imageBank[path]} onClick={() => { loadImage(props.row.index) }} className={"imageAvatar"} alt="" /> :
+            <button onClick={() => { loadImage(props.row.index) }}>UPLOAD IMAGE</button>
         },
       },
       {
@@ -501,7 +506,11 @@ function App() {
   };
 
   const loadImage = async (rowId) => {
-    const { filePaths, canceled } = await dialog.showOpenDialog();
+    const { filePaths, canceled } = await dialog.showOpenDialog({
+      title: "Choose an image to load",
+      defaultPath: app.getPath('pictures'),
+      filters: [{ name: 'Image', extensions: ['jpg', 'jpeg', 'png', 'bmp'] }],
+    });
     if (!canceled) {
       const savePath = path.join(app.getPath('userData'), `avatars/${Date.now()}_${path.basename(filePaths[0])}`);
       await sharp(filePaths[0]).resize({ width: 250 }).toFile(savePath);

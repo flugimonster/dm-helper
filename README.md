@@ -7,8 +7,8 @@ TODOs:
     * ~~On loadImage - should compress and save the image on a local folder and use that~~
     * Table sort is inconsistent with initiative order
     * focus loss on remove row (may fix itself after UI overhaul)
-    * verify file type
-        * loadImage 
+    * ~~verify file type~~
+        * ~~loadImage~~
         * ~~load and save encounter~~
     * A button to reset the table
     * Make filePaths constants
