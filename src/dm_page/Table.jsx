@@ -598,7 +598,7 @@ function App() {
           >
             START
           </button>
-
+          
           <button
             style={{ marginLeft: 200 }}
             onClick={() => {
@@ -615,13 +615,28 @@ function App() {
           >
             Load Encounter
           </button>
+
+          <button
+            onClick={() => {
+              addRow();
+            }}
+          >
+            Add Row
+          </button>
+
+          <button
+            onClick={() => {
+              setData([]);
+            }}
+          >
+            Clean Table
+          </button>
         </div>
       </div>
 
       <Menu id={MENU_ID}>
         <Item onClick={hideCharacter}>Hide Character</Item>
         <Separator />
-        <Item onClick={addRow}>Add Row</Item>
         <Item onClick={duplicateRow}>Duplicate Row</Item>
         <Item onClick={removeRow}>Remove Row</Item>
         <Separator />
