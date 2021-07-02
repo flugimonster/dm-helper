@@ -12,6 +12,8 @@ import CreatableSelect from "react-select/creatable";
 import * as css from "./Table.module.scss";
 
 const fs = window.require("fs");
+const sharp = window.require("sharp");
+
 const { remote: { dialog, app }, nativeImage } = window.require("electron");
 const { ipcRenderer } = window.require("electron");
 const path = window.require('path');
@@ -277,7 +279,6 @@ function App() {
         accessor: "image",
         width: 85,
         Cell: (props) => {
-          console.log("RENDER CELL")
           const path = props.value;
           return path ?
             <img src={imageBank[path]} className={"imageAvatar"} alt="" /> :
@@ -502,9 +503,11 @@ function App() {
   const loadImage = async (rowId) => {
     const { filePaths, canceled } = await dialog.showOpenDialog();
     if (!canceled) {
-      setImageBank({ ...imageBank, [filePaths[0]]: nativeImage.createFromPath(filePaths[0]).toDataURL() });
-      updateMyData(rowId, 'image', filePaths[0]);
-      return filePaths[0];
+      const savePath = path.join(app.getPath('userData'), `avatars/${Date.now()}_${path.basename(filePaths[0])}`);
+      await sharp(filePaths[0]).resize({ width: 250 }).toFile(savePath);
+      setImageBank({ ...imageBank, [savePath]: nativeImage.createFromPath(savePath).toDataURL() });
+      updateMyData(rowId, 'image', savePath);
+      return savePath;
     }
   }
 

@@ -45,6 +45,7 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   makeSureDirExists(path.join(app.getPath("userData"), "encounters"));
+  makeSureDirExists(path.join(app.getPath("userData"), "avatars"));
   createWindow();
 
   app.on("activate", function () {

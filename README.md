@@ -9,12 +9,16 @@ TODOs:
     * focus loss on remove row (may fix itself after UI overhaul)
     * verify file type
         * loadImage 
-        * load and save encounter
+        * ~~load and save encounter~~
+    * A button to reset the table
+    * Make filePaths constants
+    * Adjust table window size
+    * Add scroll to table window
     * Can't refresh or use dev tools from app
-    * a button to reset the table
-    * make filePaths constants
+    * Clean all rows, add encounter => no one has initiative
 
 * FEATURES
+    * Handle empty table \ add "add row" button
     * UX Overhaul
     * Bestiary
         * Nice To Have, autocomplete.
