@@ -12,8 +12,9 @@ import CreatableSelect from "react-select/creatable";
 import * as css from "./Table.module.scss";
 
 const fs = window.require("fs");
-const { remote: { dialog }, nativeImage } = window.require("electron");
+const { remote: { dialog, app }, nativeImage } = window.require("electron");
 const { ipcRenderer } = window.require("electron");
+const path = window.require('path');
 
 const MENU_ID = "blahblah";
 
@@ -508,21 +509,29 @@ function App() {
   }
 
   const saveEncounter = async (characters) => {
-    const { filePath, canceled } = await dialog.showSaveDialog();
+    const { filePath, canceled } = await dialog.showSaveDialog({
+      title: "Save encounter",
+      defaultPath: path.join(app.getPath('userData'), 'encounters/'),
+      filters: [{ name: 'Encounter', extensions: ['json'] }],
+    });
+
     if (!canceled) {
-      const toSave = characters.map(({ uuid, ...character }) => character)
-      fs.writeFileSync(filePath + ".txt", JSON.stringify(toSave), "utf-8");
+      const toSave = characters.map(({ uuid, ...character }) => character);
+      fs.writeFileSync(filePath, JSON.stringify(toSave), "utf-8");
     }
   };
 
   const loadEncounter = async () => {
     const { filePaths, canceled } = await dialog.showOpenDialog({
+      title: "Choose an encounter to load",
+      defaultPath: path.join(app.getPath('userData'), 'encounters/'),
+      filters: [{ name: 'Encounter', extensions: ['json'] }],
       properties: ["multiSelections"],
     });
     if (!canceled) {
       filePaths.forEach((path) => {
         const content = JSON.parse(fs.readFileSync(path, { encoding: "utf8", flag: "r" }));
-        const toLoad = content.map((c) => ({...c, uuid: Date.now() * Math.random()}));
+        const toLoad = content.map((c) => ({ ...c, uuid: Date.now() * Math.random() }));
         setData([...data, ...toLoad]);
       });
     }
