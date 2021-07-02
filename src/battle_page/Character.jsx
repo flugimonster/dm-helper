@@ -9,7 +9,7 @@ const { nativeImage } = window.require('electron')
 
 export const Character = ({
   name,
-  image = genericEnemyImg,
+  image,
   maxHP = 1,
   hp = 1,
   faction,
@@ -20,7 +20,7 @@ export const Character = ({
 }) => {
   const elem = useRef();
 
-  const avatarImage = useMemo(() => nativeImage.createFromPath(image).toDataURL(), [image]);
+  const avatarImage = useMemo(() => image ? nativeImage.createFromPath(image).toDataURL() : genericEnemyImg, [image]);
 
   useEffect(() => {
     if (highlight) {

@@ -240,7 +240,8 @@ function App() {
       // We also turn on the flag to not reset the page
       setSkipPageReset(true);
       let newVal = data.map((row, index) => {
-        if (index == rowIndex) {
+        // index returned from map is int whereas rowIndx is saved on react-table as a string
+        if (index === Number(rowIndex)) {
           let finalValue = value;
           if (
             (columnId === "hp" || columnId === "maxHP") &&
@@ -277,6 +278,21 @@ function App() {
     },
     [setData, data]
   );
+
+  const loadImage = useCallback(async (rowId) => {
+    const { filePaths, canceled } = await dialog.showOpenDialog({
+      title: "Choose an image to load",
+      defaultPath: app.getPath('pictures'),
+      filters: [{ name: 'Image', extensions: ['jpg', 'jpeg', 'png', 'bmp'] }],
+    });
+    if (!canceled) {
+      const savePath = path.join(avatarsPath, `${Date.now()}_${path.basename(filePaths[0])}`);
+      await sharp(filePaths[0]).resize({ width: 250 }).toFile(savePath);
+      setImageBank({ ...imageBank, [savePath]: nativeImage.createFromPath(savePath).toDataURL() });
+      updateMyData(rowId, 'image', savePath);
+      return savePath;
+    }
+  }, [imageBank, updateMyData])
 
   const columns = React.useMemo(
     () => [
@@ -387,7 +403,7 @@ function App() {
         width: 80,
       },
     ],
-    [updateMyData]
+    [updateMyData, loadImage, imageBank]
   );
 
   // After data chagnes, we turn the flag back off
@@ -446,7 +462,8 @@ function App() {
       if (currentPlayer === data[rowID].uuid) {
         moveTurn(1);
       }
-      setData([...data.filter((element, index) => index != rowID)]);
+      // index returned from map is int whereas rowIndx is saved on react-table as a string
+      setData([...data.filter((element, index) => index !== Number(rowID))]);
     }
   };
 
@@ -489,7 +506,7 @@ function App() {
         },
         [data, currentPlayer]
       )
-  );
+    , [currentPlayer]);
 
   useEffect(() => {
     ipcRenderer.send("dataUpdate", {
@@ -505,21 +522,6 @@ function App() {
       turnOrder.length;
     setCurrentPlayer(turnOrder[i]);
   };
-
-  const loadImage = async (rowId) => {
-    const { filePaths, canceled } = await dialog.showOpenDialog({
-      title: "Choose an image to load",
-      defaultPath: app.getPath('pictures'),
-      filters: [{ name: 'Image', extensions: ['jpg', 'jpeg', 'png', 'bmp'] }],
-    });
-    if (!canceled) {
-      const savePath = path.join(avatarsPath, `${Date.now()}_${path.basename(filePaths[0])}`);
-      await sharp(filePaths[0]).resize({ width: 250 }).toFile(savePath);
-      setImageBank({ ...imageBank, [savePath]: nativeImage.createFromPath(savePath).toDataURL() });
-      updateMyData(rowId, 'image', savePath);
-      return savePath;
-    }
-  }
 
   const saveEncounter = async (characters) => {
     const { filePath, canceled } = await dialog.showSaveDialog({

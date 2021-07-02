@@ -22,6 +22,7 @@ function createWindow() {
     },
   });
 
+  mainWindow.maximize();
   mainWindow.webContents.openDevTools();
 
   // and load the index.html of the app.

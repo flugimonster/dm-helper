@@ -15,8 +15,9 @@ export const BattleParser = () => {
   const [variant, setVariant] = useState("vertical");
 
   useEffect(() => {
-    remote.getCurrentWindow().toggleDevTools()
+    remote.getCurrentWindow().toggleDevTools(); 
     setCharacters(JSON.parse(q.get("data")));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

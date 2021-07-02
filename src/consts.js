@@ -1,9 +1,16 @@
+let path, app;
 
-const path = window.require("path");
-const app =  window.require("electron").remote.app;
+try {
+    path = window.require("path");
+    app = window.require("electron").remote.app;
+}
+catch {
+    path = require("path");
+    app = require("electron").app;
 
+}
 
-module.exports = { 
-    encountersPath: path.join(app.getPath("userData"), "encounters"), 
-    avatarsPath: path.join(app.getPath("userData"), "avatars") 
+module.exports = {
+    encountersPath: path.join(app.getPath("userData"), "encounters"),
+    avatarsPath: path.join(app.getPath("userData"), "avatars")
 }
