@@ -1,14 +1,14 @@
-import jonjonImg from "../assets/JonJonImage.JPG";
-import sindriImg from "../assets/SindiImage.JPG";
-import regiImg from "../assets/RegiImage.jpg";
-import dezImg from "../assets/DezImage.JPG";
-// import iceTrollImg from '../assets/IceTroll.JPG'
-// import roperImg from '../assets/Roper.JPG'
-// import frostGiantImg from '../assets/FrostGiant.JPG'
-import dormund from "../assets/dormund.JPG";
-import clayGolem from "../assets/ClayGolem.JPG";
-import silverDragon from "../assets/YoungSilverDragon.JPG";
-import stoneGiant from "../assets/StoneGiant.JPG";
+const jonjonImg = "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\JonJonImage.JPG";
+const sindriImg = "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\SindiImage.JPG";
+const regiImg = "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\RegiImage.jpg";
+const dezImg = "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\DezImage.JPG";
+// import iceTrollImg from 'D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\IceTroll.JPG'
+// import roperImg from 'D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\Roper.JPG'
+// import frostGiantImg from 'D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\FrostGiant.JPG'
+const dormund = "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\dormund.JPG";
+// import clayGolem from "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\ClayGolem.JPG";
+// import silverDragon from "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\YoungSilverDragon.JPG";
+// import stoneGiant from "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\StoneGiant.JPG";
 
 export const characters = [
   {

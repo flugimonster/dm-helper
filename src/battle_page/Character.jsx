@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import css from "./Character.module.scss";
 import clsx from "clsx";
 import genericEnemyImg from "../assets/GenericImage.jpg";
-import { useEffect } from "react";
-import { useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
+
+const { nativeImage } = window.require('electron')
 
 export const Character = ({
   name,
@@ -18,6 +19,8 @@ export const Character = ({
   showCritical = false,
 }) => {
   const elem = useRef();
+
+  const avatarImage = useMemo(() => nativeImage.createFromPath(image).toDataURL(), [image]);
 
   useEffect(() => {
     if (highlight) {
@@ -54,7 +57,7 @@ export const Character = ({
           },
         ])}
       >
-        <img className={css.avatar} src={image} alt='' />
+        <img className={css.avatar} src={avatarImage} alt='' />
       </div>
       <div className={css.characterInfo}>
         <div className={css.hp}>

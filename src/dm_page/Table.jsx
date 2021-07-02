@@ -12,7 +12,7 @@ import CreatableSelect from "react-select/creatable";
 import * as css from "./Table.module.scss";
 
 const fs = window.require("fs");
-const { dialog } = window.require("electron").remote;
+const { remote: { dialog }, nativeImage } = window.require("electron");
 const { ipcRenderer } = window.require("electron");
 
 const MENU_ID = "blahblah";
@@ -218,6 +218,7 @@ function App() {
   const [data, setData] = React.useState(characters);
   const [variant, setVariant] = React.useState("vertical");
   const [skipPageReset, setSkipPageReset] = React.useState(false);
+  const [imageBank, setImageBank] = React.useState(() => Object.fromEntries(characters.map(c => [c.image, nativeImage.createFromPath(c.image).toDataURL()])))
 
   // We need to keep the table from resetting the pageIndex when we
   // Update data. So we can keep track of that flag with a ref.
@@ -254,7 +255,7 @@ function App() {
           ) {
             data[rowIndex]["showCritical"] = false;
           }
-          
+
           return {
             ...data[rowIndex],
             [columnId]: finalValue,
@@ -275,8 +276,10 @@ function App() {
         accessor: "image",
         width: 85,
         Cell: (props) => {
-          return props.value ?
-            < img src={props.value} className={"imageAvatar"} alt="" /> :
+          console.log("RENDER CELL")
+          const path = props.value;
+          return path ?
+            <img src={imageBank[path]} className={"imageAvatar"} alt="" /> :
             <button onClick={() => { loadImage(props.row.index) }} >UPLOAD IMAGE</button>
         },
       },
@@ -502,11 +505,11 @@ function App() {
     }
   };
 
-
   const loadImage = async (rowId) => {
     const { filePaths, canceled } = await dialog.showOpenDialog();
     if (!canceled) {
-      updateMyData(rowId, 'image', `data:image/png;base64,${filePaths[0]}`);
+      setImageBank({ ...imageBank, [filePaths[0]]: nativeImage.createFromPath(filePaths[0]).toDataURL() });
+      updateMyData(rowId, 'image', filePaths[0]);
       return filePaths[0];
     }
   }
