@@ -9,7 +9,7 @@ TODOs:
         * ~~loadImage~~
         * ~~load and save encounter~~
     * ~~Add a button to reset the table~~
-    * Make filePaths constants
+    * ~~Make filePaths constants~~
     * Adjust table window size
     * Add scroll to table window
     * Can't refresh or use dev tools from app

@@ -10,6 +10,7 @@ import { ActionCell } from "./ActionCell";
 import { Menu, Item, Separator, useContextMenu } from "react-contexify";
 import CreatableSelect from "react-select/creatable";
 import * as css from "./Table.module.scss";
+import { avatarsPath, encountersPath } from '../consts'
 
 const fs = window.require("fs");
 const sharp = window.require("sharp");
@@ -512,7 +513,7 @@ function App() {
       filters: [{ name: 'Image', extensions: ['jpg', 'jpeg', 'png', 'bmp'] }],
     });
     if (!canceled) {
-      const savePath = path.join(app.getPath('userData'), `avatars/${Date.now()}_${path.basename(filePaths[0])}`);
+      const savePath = path.join(avatarsPath, `${Date.now()}_${path.basename(filePaths[0])}`);
       await sharp(filePaths[0]).resize({ width: 250 }).toFile(savePath);
       setImageBank({ ...imageBank, [savePath]: nativeImage.createFromPath(savePath).toDataURL() });
       updateMyData(rowId, 'image', savePath);
@@ -523,7 +524,7 @@ function App() {
   const saveEncounter = async (characters) => {
     const { filePath, canceled } = await dialog.showSaveDialog({
       title: "Save encounter",
-      defaultPath: path.join(app.getPath('userData'), 'encounters/'),
+      defaultPath: encountersPath,
       filters: [{ name: 'Encounter', extensions: ['json'] }],
     });
 
@@ -536,7 +537,7 @@ function App() {
   const loadEncounter = async () => {
     const { filePaths, canceled } = await dialog.showOpenDialog({
       title: "Choose an encounter to load",
-      defaultPath: path.join(app.getPath('userData'), 'encounters/'),
+      defaultPath: encountersPath,
       filters: [{ name: 'Encounter', extensions: ['json'] }],
       properties: ["multiSelections"],
     });
@@ -598,7 +599,7 @@ function App() {
           >
             START
           </button>
-          
+
           <button
             style={{ marginLeft: 200 }}
             onClick={() => {

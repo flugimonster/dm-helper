@@ -2,6 +2,7 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const fs = require("fs");
+const {avatarsPath, encountersPath} = require('./src/consts')
 let child = null;
 
 function createWindow() {
@@ -44,8 +45,8 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  makeSureDirExists(path.join(app.getPath("userData"), "encounters"));
-  makeSureDirExists(path.join(app.getPath("userData"), "avatars"));
+  makeSureDirExists(avatarsPath);
+  makeSureDirExists(encountersPath);
   createWindow();
 
   app.on("activate", function () {
