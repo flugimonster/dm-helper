@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import css from "./ListOfCharacters.module.scss";
 
 import { Character } from "./Character.jsx";
 import { useMemo } from "react";
-const { ipcRenderer } = window.require("electron");
 
 export const ListOfCharacters = ({ characters, variant }) => {
-  const [currTurn, setCurrTurn] = useState(0);
-
   const sortedCharacters = useMemo(
     () =>
       [...characters].sort(

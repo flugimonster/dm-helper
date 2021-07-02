@@ -254,7 +254,7 @@ function App() {
           ) {
             data[rowIndex]["showCritical"] = false;
           }
-
+          
           return {
             ...data[rowIndex],
             [columnId]: finalValue,
@@ -277,7 +277,7 @@ function App() {
         Cell: (props) => {
           return props.value ?
             < img src={props.value} className={"imageAvatar"} alt="" /> :
-            <button>UPLOAD IMAGE</button>
+            <button onClick={() => { loadImage(props.row.index) }} >UPLOAD IMAGE</button>
         },
       },
       {
@@ -484,7 +484,7 @@ function App() {
     ipcRenderer.send("dataUpdate", {
       data: preprocessDataForChild(data),
     });
-  }, [data, currentPlayer]);
+  }, [data, currentPlayer, preprocessDataForChild]);
 
   const moveTurn = (step) => {
     const i =
@@ -501,6 +501,15 @@ function App() {
       fs.writeFileSync(filePath + ".txt", JSON.stringify(characters), "utf-8");
     }
   };
+
+
+  const loadImage = async (rowId) => {
+    const { filePaths, canceled } = await dialog.showOpenDialog();
+    if (!canceled) {
+      updateMyData(rowId, 'image', `data:image/png;base64,${filePaths[0]}`);
+      return filePaths[0];
+    }
+  }
 
   const loadEncounter = async () => {
     const { filePaths, canceled } = await dialog.showOpenDialog({

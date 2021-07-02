@@ -1,7 +1,6 @@
-import react from "react";
+import React from "react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import { characters } from "./data";
 import { ListOfCharacters } from "./ListOfCharacters";
 const { ipcRenderer, remote } = window.require("electron");
 
@@ -16,6 +15,7 @@ export const BattleParser = () => {
   const [variant, setVariant] = useState("vertical");
 
   useEffect(() => {
+    remote.getCurrentWindow().toggleDevTools()
     setCharacters(JSON.parse(q.get("data")));
   }, []);
 
