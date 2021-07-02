@@ -408,8 +408,8 @@ function App() {
     setData([
       ...data,
       {
-        hp: 0,
-        maxHP: 0,
+        hp: 1,
+        maxHP: 1,
         initiative: 0,
         name: "",
         hidden: true,
@@ -498,13 +498,6 @@ function App() {
     setCurrentPlayer(turnOrder[i]);
   };
 
-  const saveEncounter = async (characters) => {
-    const { filePath, canceled } = await dialog.showSaveDialog();
-    if (!canceled) {
-      fs.writeFileSync(filePath + ".txt", JSON.stringify(characters), "utf-8");
-    }
-  };
-
   const loadImage = async (rowId) => {
     const { filePaths, canceled } = await dialog.showOpenDialog();
     if (!canceled) {
@@ -514,16 +507,23 @@ function App() {
     }
   }
 
+  const saveEncounter = async (characters) => {
+    const { filePath, canceled } = await dialog.showSaveDialog();
+    if (!canceled) {
+      const toSave = characters.map(({ uuid, ...character }) => character)
+      fs.writeFileSync(filePath + ".txt", JSON.stringify(toSave), "utf-8");
+    }
+  };
+
   const loadEncounter = async () => {
     const { filePaths, canceled } = await dialog.showOpenDialog({
       properties: ["multiSelections"],
     });
     if (!canceled) {
       filePaths.forEach((path) => {
-        const content = JSON.parse(
-          fs.readFileSync(path, { encoding: "utf8", flag: "r" })
-        );
-        setData([...data, ...content]);
+        const content = JSON.parse(fs.readFileSync(path, { encoding: "utf8", flag: "r" }));
+        const toLoad = content.map((c) => ({...c, uuid: Date.now() * Math.random()}));
+        setData([...data, ...toLoad]);
       });
     }
   };
