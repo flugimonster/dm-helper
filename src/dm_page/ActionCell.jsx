@@ -1,4 +1,8 @@
 import React from "react";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+
 
 export function ActionCell({ row, updateData }) {
   const {
@@ -12,40 +16,33 @@ export function ActionCell({ row, updateData }) {
   return (
     <div>
       <>
-        {faction === "ally" && +hp === 0 && (
+        {faction === "party" && +hp === 0 && (
           <>
-            <input
-              type="checkbox"
-              id="showDeadAlly"
-              name="showDeadAlly"
-              defaultChecked={showDead}
-              onChange={() => {
+            <FormControlLabel
+              control={<Checkbox color="primary" name="Dead" checked={showDead} onChange={() => {
                 updateData(row.index, "showDead", !showDead);
-              }}
+              }} />}
+              label="Dead"
             />
-            <label htmlFor="showDeadAlly"> Dead</label>
           </>
         )}
       </>
-      {faction !== "ally" && +hp < maxHP / 3 && (
+      {faction !== "party" && +hp < maxHP / 3 && (
         <>
-          <input
-            type="checkbox"
-            id="showCriticalEnemy"
-            name="showCriticalEnemy"
-            defaultChecked={showCritical}
-            onChange={() => {
-              updateData(row.index, "showCritical", !showCritical);
-            }}
+          <FormControlLabel
+            label="Critical"
+          control={<Checkbox
+              color="primary" name="showCriticalEnemy" checked={showCritical} onChange={() => {
+                updateData(row.index, "showCritical", !showCritical);
+              }} />}
           />
-          <label htmlFor="showCriticalEnemy">Show Critical</label>
         </>
       )}
       {hidden && (
         <>
-          <button onClick={() => updateData(row.index, "hidden", false)}>
+          <Button variant="contained" onClick={() => updateData(row.index, "hidden", false)}>
             Reshow
-          </button>
+          </Button>
         </>
       )}
     </div>
