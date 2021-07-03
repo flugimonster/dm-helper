@@ -13,9 +13,10 @@ TODOs:
     * ~~Adjust table window size~~
     * ~~Add scroll to table window~~
     * ~~Clean all rows, add encounter => no one has initiative~~
-    * Can't refresh or use dev tools from app
+    * ~~Can't refresh or use dev tools from app~~
     * focus loss on remove row (may fix itself after UI overhaul)
     * Table sort is inconsistent with initiative order
+    * Check if picture doesn't exist
 
 * FEATURES
     * ~~Handle empty table \ add "add row" button~~
