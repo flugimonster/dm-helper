@@ -2,8 +2,11 @@
   width: 100%;
 }
 
-th,
-td {
+th {
+  font-weight: bold !important;
+}
+
+th, td {
   display: flex !important;
   align-items: center;
 }
