@@ -20,11 +20,11 @@ TODOs:
 
 * FEATURES
     * ~~Handle empty table \ add "add row" button~~
-    * UX Overhaul
-    * Bestiary
-        * Nice To Have, autocomplete.
-    * NICE TO HAVE - Keybindings
-    * add executable
+    * ~~UX Overhaul~~
     * battle log
         * crashlog
+    * Bestiary
+        * Nice To Have, autocomplete.
+    * add executable
+    * NICE TO HAVE - Keybindings
     * NICE TO HAVE - Condition details on cursor hover
