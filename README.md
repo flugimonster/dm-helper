@@ -27,3 +27,4 @@ TODOs:
     * add executable
     * battle log
         * crashlog
+    * NICE TO HAVE - Condition details on cursor hover
