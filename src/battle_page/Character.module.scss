@@ -1,7 +1,7 @@
 .avatar {
   width: 150px !important;
   height: 150px !important;
-  border: 8px solid black;
+  border: 4px solid black;
 
   .party & {
     border-color: green;
@@ -47,7 +47,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  
+
   opacity: 0.3;
   animation: blinkerDying 2s ease-in-out infinite alternate;
 }
@@ -114,4 +114,8 @@
   50% {
     opacity: 0.4;
   }
+}
+
+.cardContainer.vertical {
+  transform: rotate(90deg);
 }

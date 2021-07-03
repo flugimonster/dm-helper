@@ -42,8 +42,7 @@ export const Character = ({
     <div
       ref={elem}
       className={clsx([
-        css.NEW,
-        css.cardContainer2,
+        css.cardContainer,
         css[variant],
         css[faction],
         {
