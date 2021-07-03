@@ -14,7 +14,7 @@ TODOs:
     * ~~Add scroll to table window~~
     * ~~Clean all rows, add encounter => no one has initiative~~
     * ~~Can't refresh or use dev tools from app~~
-    * focus loss on remove row (may fix itself after UI overhaul)
+    * ~~focus loss on remove row (may fix itself after UI overhaul) (DID FIX ITSELF AFTER OVERHAUL)~~
     * Table sort is inconsistent with initiative order
     * Check if picture doesn't exist
 
