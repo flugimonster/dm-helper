@@ -1,7 +1,5 @@
 import React, { useMemo } from "react";
 import "react-contexify/dist/ReactContexify.css";
-
-import styled from "styled-components";
 import { useTable, usePagination, useSortBy, useFlexLayout } from "react-table";
 import { characters } from "../battle_page/data";
 import clsx from "clsx";
@@ -10,7 +8,7 @@ import { ActionCell } from "./ActionCell";
 import { Menu, Item, Separator, useContextMenu } from "react-contexify";
 import CreatableSelect from "react-select/creatable";
 import * as css from "./Table.module.scss";
-import { avatarsPath, encountersPath } from '../consts'
+import { avatarsPath, encountersPath } from '../consts';
 
 const fs = window.require("fs");
 const sharp = window.require("sharp");
@@ -21,85 +19,6 @@ const path = window.require('path');
 
 const MENU_ID = "blahblah";
 
-const Styles = styled.div`
-  padding: 1rem;
-
-  .tableWrapper {
-    flex-grow: 1;
-    flex-shrink: 1;
-    overflow: auto;
-  }
-
-  table {
-    border-spacing: 0;
-    border: 5px solid black;
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 3px solid black;
-      border-right: 1px solid black;
-
-      :last-child {
-        border-right: 0;
-      }
-
-      input {
-        width: 100%;
-        background: transparent;
-        text-align: center;
-        font-size: 1rem;
-        padding: 0;
-        margin: 0;
-        border: 0;
-      }
-    }
-  }
-
-  button {
-    cursor: pointer;
-  }
-
-  .pagination {
-    padding: 0.5rem;
-  }
-
-  tr {
-    transition: 0.2s all ease-in;
-  }
-  .activeRow {
-    background: gold;
-  }
-
-  .hidden {
-    background: gray;
-  }
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    height: 100%;
-
-    align-items:center;
-  }
-
-  .imageAvatar {
-    cursor: pointer;
-    border-radius: 5px;
-    max-width: 75px;
-    max-height: 75px;
-  }
-`;
 
 // Create an editable cell renderer
 const EditableCell = ({
@@ -193,7 +112,7 @@ function Table({
 
   // Render the UI for your table
   return (
-    <div className="tableWrapper">
+    <div className={css.tableWrapper}>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -210,8 +129,8 @@ function Table({
             return (
               <tr
                 className={clsx({
-                  activeRow: row.original.uuid === currentPlayer,
-                  hidden: row.original.hidden,
+                  [css.activeRow]: row.original.uuid === currentPlayer,
+                  [css.hidden]: row.original.hidden,
                 })}
                 onContextMenu={(event) =>
                   handleContextMenu(event, row.id, data)
@@ -325,7 +244,7 @@ function App() {
         Cell: (props) => {
           const path = props.value;
           return path ?
-            <img src={imageBank[path]} onClick={() => { loadImage(props.row.index) }} className={"imageAvatar"} alt="" /> :
+            <img src={imageBank[path]} onClick={() => { loadImage(props.row.index) }} className={css.imageAvatar} alt="" /> :
             <button onClick={() => { loadImage(props.row.index) }}>UPLOAD IMAGE</button>
         },
       },
@@ -567,9 +486,9 @@ function App() {
   };
 
   return (
-    <Styles style={{ height: '100%' }}>
-      <div className="container">
-        <div className="actionRow">
+    <>
+      <div className={css.container}>
+        <div className={css.actionRow}>
           <button
             onClick={() => {
               moveTurn(-1);
@@ -640,7 +559,6 @@ function App() {
           </button>
         </div>
       </div>
-
       <Menu id={MENU_ID}>
         <Item onClick={hideCharacter}>Hide Character</Item>
         <Separator />
@@ -649,7 +567,7 @@ function App() {
         <Separator />
         <Item onClick={changeVariant}>Change Variant</Item>
       </Menu>
-    </Styles>
+    </>
   );
 }
 
