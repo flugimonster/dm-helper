@@ -26,7 +26,7 @@ const MENU_ID = "blahblah";
 
 export function DmPage() {
     const [data, setData] = React.useState(characters);
-    const [variant, setVariant] = React.useState("vertical");
+    const [variant, setVariant] = React.useState("horizontal");
     const [skipPageReset, setSkipPageReset] = React.useState(false);
     const [imageBank, setImageBank] = React.useState(() => Object.fromEntries(characters.map(c => [c.image, nativeImage.createFromPath(c.image).toDataURL()])))
 
@@ -441,7 +441,7 @@ export function DmPage() {
                             window.open(
                                 `/battle?data=${JSON.stringify(preprocessDataForChild(data))}`,
                                 "_blank",
-                                "frame=false, useContentSize=true"
+                                "frame=false, useContentSize=true, transparent=true"
                             );
                         }}
                     >

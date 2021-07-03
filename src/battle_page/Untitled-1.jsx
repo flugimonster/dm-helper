@@ -4,11 +4,8 @@ import css from "./Character.module.scss";
 import clsx from "clsx";
 import genericEnemyImg from "../assets/GenericImage.jpg";
 import { useEffect, useRef, useMemo } from "react";
-import Avatar from '@material-ui/core/Avatar';
-import Badge from '@material-ui/core/Badge';
-import skull from '../assets/Skull.JPG'
 
-const { nativeImage } = window.require('electron');
+const { nativeImage } = window.require('electron')
 
 export const Character = ({
   name,
@@ -20,7 +17,6 @@ export const Character = ({
   highlight,
   showDead = false,
   showCritical = false,
-  hasConditions = false,
 }) => {
   const elem = useRef();
 
@@ -36,49 +32,40 @@ export const Character = ({
     }
   }, [highlight]);
 
-  const isDead = hp <= 0 && (faction !== "party" || showDead);
-
   return (
     <div
       ref={elem}
       className={clsx([
-        css.NEW,
-        css.cardContainer2,
+        css.cardContainer,
         css[variant],
         css[faction],
         {
           [css.critical]:
             (hp / maxHP < 0.33 && hp > 0 && faction === "party") || showCritical,
+          [css.dead]: hp <= 0 && (faction !== "party" || showDead),
           [css.dying]: hp <= 0 && faction === "party" && !showDead,
           [css.highlight]: highlight,
         },
       ])}
     >
-      <Badge badgeContent={name}
-        color="primary"
-        overlap="circle"
+      <div className={css.characterName}>{name}</div>
+      <div
+        className={clsx([
+          css.avatarContainer,
+          {
+            [css.highlight]: highlight,
+          },
+        ])}
       >
-        <Badge badgeContent={`${hp} / ${maxHP}`}
-          color="primary" invisible={faction !== 'party'}
-          overlap="circle"
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}>
-          <Badge badgeContent={hasConditions}
-            invisible={!hasConditions}
-            color="error"
-            overlap="circle"
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-          >
-            <Avatar style={{}} alt="" src={!isDead ? avatarImage : skull} className={css.avatar} />
-          </Badge>
-        </Badge>
-      </Badge>
-    </div >
+        <img className={css.avatar} src={avatarImage} alt='' />
+      </div>
+      <div className={css.characterInfo}>
+        <div className={css.hp}>
+          {/* {faction === 'ally' ? `${Math.max(hp, 0)} / ${maxHP}` : `${Math.min(hp - maxHP, 0)}`} */}
+          {faction === "party" ? `${Math.max(hp, 0)} / ${maxHP}` : `???`}
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -22,8 +22,8 @@ export const BattlePage = () => {
 
   useEffect(() => {
     const { width, height } = remote.screen.getPrimaryDisplay().bounds;
-    const IMAGE_HEIGHT = 216;
-    const IMAGE_WIDTH = 152;
+    const IMAGE_HEIGHT = 200;
+    const IMAGE_WIDTH = 178;
     if (characters) {
       const [x, y] =
         variant === "vertical"
