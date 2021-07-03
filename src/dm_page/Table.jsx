@@ -4,6 +4,14 @@ import { useTable, usePagination, useSortBy, useFlexLayout } from "react-table";
 import clsx from "clsx";
 import * as css from "./Table.module.scss";
 
+import CssBaseline from '@material-ui/core/CssBaseline'
+import MaUTable from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+
+
 // Create an editable cell renderer
 const EditableCell = ({
   value: initialValue,
@@ -97,21 +105,21 @@ function Table({
   // Render the UI for your table
   return (
     <div className={css.tableWrapper}>
-      <table {...getTableProps()}>
-        <thead>
+      <MaUTable {...getTableProps()}>
+        <TableHead>
           {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
+            <TableRow {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                <TableCell {...column.getHeaderProps()}>{column.render("Header")}</TableCell>
               ))}
-            </tr>
+            </TableRow>
           ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
+        </TableHead>
+        <TableBody {...getTableBodyProps()}>
           {page.map((row, i) => {
             prepareRow(row);
             return (
-              <tr
+              <TableRow
                 className={clsx({
                   [css.activeRow]: row.original.uuid === currentPlayer,
                   [css.hidden]: row.original.hidden,
@@ -123,14 +131,14 @@ function Table({
               >
                 {row.cells.map((cell) => {
                   return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    <TableCell {...cell.getCellProps()}>{cell.render("Cell")}</TableCell>
                   );
                 })}
-              </tr>
+              </TableRow>
             );
           })}
-        </tbody>
-      </table>
+        </TableBody>
+      </MaUTable>
     </div>
   );
 }

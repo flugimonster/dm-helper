@@ -14,7 +14,7 @@ export function ActionCell({ row, updateData }) {
     hidden = false,
   } = row.original;
   return (
-    <div>
+    <div style={{display: "flex", alignItems: "center"}}>
       <>
         {faction === "party" && +hp === 0 && (
           <>

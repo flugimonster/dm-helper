@@ -4,8 +4,7 @@
 
 th,
 td {
-  display: flex;
-  justify-content: center;
+  display: flex !important;
   align-items: center;
 }
 
@@ -17,7 +16,6 @@ td {
 
 table {
   border-spacing: 0;
-  border: 5px solid black;
 
   tr {
     :last-child {
@@ -31,13 +29,10 @@ table {
   td {
     margin: 0;
     padding: 0.5rem;
-    border-bottom: 3px solid black;
-    border-right: 1px solid black;
 
     input {
       width: 100%;
       background: transparent;
-      text-align: center;
       font-size: 1rem;
       padding: 0;
       margin: 0;
@@ -57,6 +52,7 @@ button {
 tr {
   transition: 0.2s all ease-in;
 }
+
 .activeRow {
   background: gold;
 }
@@ -77,7 +73,7 @@ tr {
 .imageAvatar {
   cursor: pointer;
   border-radius: 5px;
-  max-width: 75px;
+  max-width: 100%;
   max-height: 75px;
 }
 
@@ -104,4 +100,8 @@ tr {
 
 :global(.react-confirm-alert-button-group) {
   justify-content: center;
+}
+
+:global(.MuiCheckbox-root) {
+  padding: 0;
 }

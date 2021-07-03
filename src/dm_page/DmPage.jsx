@@ -114,6 +114,7 @@ export function DmPage() {
                 Header: "Image",
                 accessor: "image",
                 width: 85,
+                
                 Cell: (props) => {
                     const path = props.value;
                     return path ?
