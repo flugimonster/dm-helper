@@ -8,6 +8,8 @@ import CreatableSelect from "react-select/creatable";
 import * as css from "./Table.module.scss";
 import { avatarsPath, encountersPath } from '../consts';
 import Table from './Table';
+import Button from '@material-ui/core/Button';
+
 
 const fs = window.require("fs");
 const sharp = window.require("sharp");
@@ -113,7 +115,7 @@ export function DmPage() {
                     const path = props.value;
                     return path ?
                         <img src={imageBank[path]} onClick={() => { loadImage(props.row.index) }} className={css.imageAvatar} alt="" /> :
-                        <button onClick={() => { loadImage(props.row.index) }}>UPLOAD IMAGE</button>
+                        <Button variant="contained" color="primary" onClick={() => { loadImage(props.row.index) }}>UPLOAD IMAGE</Button>
                 },
             },
             {
@@ -356,21 +358,21 @@ export function DmPage() {
     return (
         <>
             <div className={css.container}>
-                <div className={css.actionRow}>
-                    <button
+                <div className={css.buttonContainer}>
+                    <Button variant="contained"
                         onClick={() => {
                             moveTurn(-1);
                         }}
                     >
                         PREV
-                    </button>
-                    <button
+                    </Button>
+                    <Button variant="contained"
                         onClick={() => {
                             moveTurn(1);
                         }}
                     >
                         NEXT
-                    </button>
+                    </Button>
                 </div>
                 <Table
                     currentPlayer={currentPlayer}
@@ -380,8 +382,16 @@ export function DmPage() {
                     skipPageReset={skipPageReset}
                     handleContextMenu={handleContextMenu}
                 />
-                <div>
-                    <button
+                <div className={css.buttonContainer}>
+                    <Button variant="contained"
+                        onClick={() => {
+                            addRow();
+                        }}
+                    >
+                        Add Row
+                    </Button>
+                    
+                    <Button variant="contained" color="primary"
                         onClick={() => {
                             window.open(
                                 `/battle?data=${JSON.stringify(preprocessDataForChild(data))}`,
@@ -391,40 +401,35 @@ export function DmPage() {
                         }}
                     >
                         START
-                    </button>
+                    </Button>
 
-                    <button
-                        style={{ marginLeft: 200 }}
-                        onClick={() => {
-                            saveEncounter(data);
-                        }}
-                    >
-                        Save Encounter
-                    </button>
 
-                    <button
-                        onClick={() => {
-                            loadEncounter();
-                        }}
-                    >
-                        Load Encounter
-                    </button>
+                    <div className={css.buttonGroup}>
+                        <Button variant="contained"
+                            onClick={() => {
+                                saveEncounter(data);
+                            }}
+                        >
+                            Save Encounter
+                        </Button>
 
-                    <button
-                        onClick={() => {
-                            addRow();
-                        }}
-                    >
-                        Add Row
-                    </button>
+                        <Button variant="contained"
+                            onClick={() => {
+                                loadEncounter();
+                            }}
+                        >
+                            Load Encounter
+                        </Button>
 
-                    <button
-                        onClick={() => {
-                            setData([]);
-                        }}
-                    >
-                        Clean Table
-                    </button>
+                        <Button variant="contained" color="secondary"
+                            onClick={() => {
+                                setData([]);
+                            }}
+                        >
+                            Clean Table
+                        </Button>
+
+                    </div>
                 </div>
             </div>
             <Menu id={MENU_ID}>

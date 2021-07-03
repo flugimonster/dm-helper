@@ -66,7 +66,7 @@ tr {
 }
 
 .container {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   position: relative;
   height: 100%;
@@ -79,4 +79,19 @@ tr {
   border-radius: 5px;
   max-width: 75px;
   max-height: 75px;
+}
+
+
+.buttonContainer {
+  
+  width: 100%;
+  display: flex;
+  place-content: space-between;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  .buttonGroup button:not(:last-child) {
+    margin-right: 15px;
+  }
 }
