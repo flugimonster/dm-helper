@@ -15,8 +15,8 @@ export const BattleParser = () => {
   const [variant, setVariant] = useState("vertical");
 
   useEffect(() => {
-    remote.getCurrentWindow().toggleDevTools(); 
     setCharacters(JSON.parse(q.get("data")));
+  // parsing q should only happen on mount
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

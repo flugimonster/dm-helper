@@ -284,8 +284,6 @@ function App() {
             data[rowIndex]["showCritical"] = false;
           }
 
-          debugger
-
           if (columnId === "hidden" && finalValue === false && data.every(d => d.hidden)) {
             setCurrentPlayer(data[rowIndex].uuid);
           }
