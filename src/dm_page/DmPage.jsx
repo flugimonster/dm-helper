@@ -10,7 +10,8 @@ import { avatarsPath, encountersPath } from '../consts';
 import Table from './Table';
 import Button from '@material-ui/core/Button';
 import Select from 'react-select'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 
 const fs = window.require("fs");
@@ -270,17 +271,51 @@ export function DmPage() {
     };
 
     const removeRow = ({ event, props: { rowID } }) => {
-        if (
-            window.confirm(
-                "Are you sure you wish to delete this Row?\nThis can not be undone!"
-            )
-        ) {
-            if (currentPlayer === data[rowID].uuid) {
-                moveTurn(1);
-            }
-            // index returned from map is int whereas rowIndx is saved on react-table as a string
-            setData([...data.filter((element, index) => index !== Number(rowID))]);
-        }
+        confirmAlert({
+            title: <div className={css.popUpHeader}>Delete Row</div>,
+            message: <div className={css.popUpBody}>
+                <div>Are you sure you wish to delete this Row? </div>
+                <div>This can not be undone!</div>
+            </div>,
+
+            buttons: [
+                {
+                    label: 'Confirm',
+                    onClick: () => {
+                        if (currentPlayer === data[rowID].uuid) {
+                            moveTurn(1);
+                        }
+                        // index returned from map is int whereas rowIndx is saved on react-table as a string
+                        setData([...data.filter((element, index) => index !== Number(rowID))]);
+                    }
+                },
+                {
+                    label: 'Abort',
+                }
+            ]
+        });
+    };
+
+    const cleanTable = () => {
+        confirmAlert({
+        title: <div className={css.popUpHeader}>Clean Table</div>,
+            message: <div className={css.popUpBody}>
+                <div>Are you sure you wish to clear this table? </div>
+                <div>This can not be undone!</div>
+            </div>,
+
+            buttons: [
+                {
+                    label: 'Confirm',
+                    onClick: () => {
+                        setData([]);
+                    }
+                },
+                {
+                    label: 'Abort',
+                }
+            ]
+        });
     };
 
     const hideCharacter = ({ props: { rowID } }) => {
@@ -427,9 +462,7 @@ export function DmPage() {
                         </Button>
 
                         <Button variant="contained" color="secondary"
-                            onClick={() => {
-                                setData([]);
-                            }}
+                            onClick={cleanTable}
                         >
                             Clean Table
                         </Button>

@@ -81,9 +81,7 @@ tr {
   max-height: 75px;
 }
 
-
 .buttonContainer {
-  
   width: 100%;
   display: flex;
   place-content: space-between;
@@ -94,4 +92,16 @@ tr {
   .buttonGroup button:not(:last-child) {
     margin-right: 15px;
   }
+}
+
+.popUpBody {
+  text-align: center;
+}
+
+.popUpHeader {
+  text-align: center;
+}
+
+:global(.react-confirm-alert-button-group) {
+  justify-content: center;
 }

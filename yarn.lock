@@ -12229,6 +12229,11 @@ react-colorful@^5.0.1:
   resolved "https://registry.yarnpkg.com/react-colorful/-/react-colorful-5.1.2.tgz#5cb1506b8f9104b88d02d34984a36c2d1e477e9e"
   integrity sha512-FRt9jz6xjiPqQ6bIAQ26kd0oJhHbGBwsA4BDz/F8FDCFuQJDiEl0wVUARNiqRyvQjwfKuhM42P/bMYI0l92hRw==
 
+react-confirm-alert@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/react-confirm-alert/-/react-confirm-alert-2.7.0.tgz#7cdbf2e052e03554ac6a7d8956c9c227010c8a53"
+  integrity sha512-21NWtGK/e85+ZX3TLRpMc3IsU5Kj6Z9ElCOrkTIlwMzV9EancyXNlkqHGbtKP63a2iS6g5hOxROokmJOqKQiXA==
+
 react-contexify@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/react-contexify/-/react-contexify-5.0.0.tgz#11b477550a0ee5a9a144399bc17c7c56bbc60057"
