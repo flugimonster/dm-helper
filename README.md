@@ -12,7 +12,7 @@ TODOs:
     * ~~Make filePaths constants~~
     * ~~Adjust table window size~~
     * ~~Add scroll to table window~~
-    * __Clean all rows, add encounter => no one has initiative__ not importnat atm
+    * ~~Clean all rows, add encounter => no one has initiative~~
     * Can't refresh or use dev tools from app
     * focus loss on remove row (may fix itself after UI overhaul)
     * Table sort is inconsistent with initiative order

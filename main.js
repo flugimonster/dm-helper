@@ -1,8 +1,8 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, globalShortcut } = require("electron");
 const path = require("path");
 const fs = require("fs");
-const {avatarsPath, encountersPath} = require('./src/consts')
+const { avatarsPath, encountersPath } = require('./src/consts')
 let child = null;
 
 function createWindow() {
@@ -20,10 +20,29 @@ function createWindow() {
       contextIsolation: false,
       enableRemoteModule: true,
     },
+
   });
 
+  globalShortcut.register('f5', function () {
+    BrowserWindow.getFocusedWindow().reload();
+  });
+
+  globalShortcut.register('CommandOrControl+R', function () {
+    BrowserWindow.getFocusedWindow().reload();
+  });
+
+  globalShortcut.register('f11', function () {
+    BrowserWindow.getFocusedWindow().webContents.openDevTools();
+  });
+
+  globalShortcut.register('CommandOrControl+Shift+I', function () {
+    BrowserWindow.getFocusedWindow().webContents.openDevTools();
+  });
+
+
+
   mainWindow.maximize();
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   // and load the index.html of the app.
   // mainWindow.setAlwaysOnTop("true");

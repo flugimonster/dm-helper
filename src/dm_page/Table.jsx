@@ -238,6 +238,15 @@ function App() {
   const [skipPageReset, setSkipPageReset] = React.useState(false);
   const [imageBank, setImageBank] = React.useState(() => Object.fromEntries(characters.map(c => [c.image, nativeImage.createFromPath(c.image).toDataURL()])))
 
+
+  const turnOrder = useMemo(() => {
+    const temp = [...data].filter((d) => d.hidden !== true);
+    temp.sort((a, b) => (b?.initiative ?? 0) - (a?.initiative ?? 0));
+    return temp.map((d) => d.uuid);
+  }, [data]);
+
+  const [currentPlayer, setCurrentPlayer] = useState(turnOrder[0]);
+
   // We need to keep the table from resetting the pageIndex when we
   // Update data. So we can keep track of that flag with a ref.
 
@@ -275,6 +284,12 @@ function App() {
             data[rowIndex]["showCritical"] = false;
           }
 
+          debugger
+
+          if (columnId === "hidden" && finalValue === false && data.every(d => d.hidden)) {
+            setCurrentPlayer(data[rowIndex].uuid);
+          }
+
           return {
             ...data[rowIndex],
             [columnId]: finalValue,
@@ -285,7 +300,7 @@ function App() {
 
       setData(newVal);
     },
-    [setData, data]
+    [setData, data, setCurrentPlayer]
   );
 
   const loadImage = useCallback(async (rowId) => {
@@ -494,14 +509,6 @@ function App() {
     });
   }, [variant]);
 
-  const turnOrder = useMemo(() => {
-    const temp = [...data].filter((d) => d.hidden !== true);
-    temp.sort((a, b) => (b?.initiative ?? 0) - (a?.initiative ?? 0));
-    return temp.map((d) => d.uuid);
-  }, [data]);
-
-  const [currentPlayer, setCurrentPlayer] = useState(turnOrder[0]);
-
   const preprocessDataForChild = useCallback((data) =>
     data
       .filter((d) => !d.hidden)
@@ -562,7 +569,7 @@ function App() {
   };
 
   return (
-    <Styles style={{height: '100%'}}>
+    <Styles style={{ height: '100%' }}>
       <div className="container">
         <div className="actionRow">
           <button
