@@ -8,7 +8,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-export const BattleParser = () => {
+export const BattlePage = () => {
   let q = useQuery();
 
   const [characters, setCharacters] = useState();

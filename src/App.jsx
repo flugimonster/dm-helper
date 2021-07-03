@@ -1,24 +1,21 @@
 import "./App.css";
 
-import Table from "./dm_page/Table";
-import { BattleParser } from "./battle_page/BattleParser";
+import { DmPage } from "./dm_page/DmPage";
+import { BattlePage } from "./battle_page/BattlePage";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { useEffect } from "react";
-
 function App() {
-  useEffect(() => {}, []);
 
   return (
     <div className="App">
       <Router>
         <Switch>
           <Route path="/battle">
-            <BattleParser />
+            <BattlePage />
           </Route>
           <Route path="/">
-            <Table />
+            <DmPage />
           </Route>
         </Switch>
       </Router>
