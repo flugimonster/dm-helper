@@ -3,7 +3,7 @@
 
   border: 1px solid black;
 
-  &.ally {
+  &.party {
     border-color: green;
   }
 
@@ -108,7 +108,7 @@
     text-orientation: mixed;
   }
 
-  .ally & {
+  .party & {
     border-color: green;
   }
 
@@ -133,7 +133,7 @@
   }
   border: 1px solid;
 
-  .ally & {
+  .party & {
     border-color: green;
   }
 
@@ -149,7 +149,7 @@
 .hp {
   font-weight: bold;
 
-  .ally & {
+  .party & {
     color: green;
   }
 

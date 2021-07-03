@@ -14,7 +14,7 @@ export const characters = [
   {
     name: "JonJon",
     image: jonjonImg,
-    faction: "ally",
+    faction: "party",
     maxHP: 48,
     hp: 48,
     initiative: 22,
@@ -26,7 +26,7 @@ export const characters = [
   {
     name: "Sindri",
     image: sindriImg,
-    faction: "ally",
+    faction: "party",
     maxHP: 56,
     hp: 56,
     initiative: 8,
@@ -38,7 +38,7 @@ export const characters = [
   {
     name: "Reginald",
     image: regiImg,
-    faction: "ally",
+    faction: "party",
     maxHP: 61,
     hp: 61,
     initiative: 15,
@@ -50,7 +50,7 @@ export const characters = [
   {
     name: "Dez-Mon",
     image: dezImg,
-    faction: "ally",
+    faction: "party",
     maxHP: 43,
     hp: 43,
     initiative: 5,

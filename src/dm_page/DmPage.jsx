@@ -9,6 +9,8 @@ import * as css from "./Table.module.scss";
 import { avatarsPath, encountersPath } from '../consts';
 import Table from './Table';
 import Button from '@material-ui/core/Button';
+import Select from 'react-select'
+
 
 
 const fs = window.require("fs");
@@ -157,24 +159,27 @@ export function DmPage() {
             {
                 Header: "Faction",
                 accessor: "faction",
-                width: 80,
+                width: 130,
                 Cell: (props) => {
-                    let currentFaction = props.row.values.faction;
-                    let options = ["ally", "enemy", "friendly", "neither"];
+                    const factions = [
+                        { value: "party", label: "Party" },
+                        { value: "enemy", label: "Enemy" },
+                        { value: "friendly", label: "Ally" },
+                        { value: "neither", label: "Neither" },
+                    ]
+                    const currentFaction = factions.find(f => f.value === props.row.values.faction);
+
                     return (
-                        <select
+                        <Select className={css.select}
                             value={currentFaction}
                             key={props.row.index + "select-faction"}
-                            onChange={(e) =>
-                                updateMyData(props.row.index, "faction", e.target.value)
+                            onChange={(val) =>
+                                updateMyData(props.row.index, "faction", val.value)
                             }
                             name="faction"
                             id="faction-select"
-                        >
-                            {options.map((value) => (
-                                <option>{value}</option>
-                            ))}
-                        </select>
+                            options={factions}
+                        />
                     );
                 },
             },
@@ -390,7 +395,7 @@ export function DmPage() {
                     >
                         Add Row
                     </Button>
-                    
+
                     <Button variant="contained" color="primary"
                         onClick={() => {
                             window.open(

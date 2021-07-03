@@ -41,9 +41,9 @@ export const Character = ({
         css[faction],
         {
           [css.critical]:
-            (hp / maxHP < 0.33 && hp > 0 && faction === "ally") || showCritical,
-          [css.dead]: hp <= 0 && (faction !== "ally" || showDead),
-          [css.dying]: hp <= 0 && faction === "ally" && !showDead,
+            (hp / maxHP < 0.33 && hp > 0 && faction === "party") || showCritical,
+          [css.dead]: hp <= 0 && (faction !== "party" || showDead),
+          [css.dying]: hp <= 0 && faction === "party" && !showDead,
           [css.highlight]: highlight,
         },
       ])}
@@ -62,7 +62,7 @@ export const Character = ({
       <div className={css.characterInfo}>
         <div className={css.hp}>
           {/* {faction === 'ally' ? `${Math.max(hp, 0)} / ${maxHP}` : `${Math.min(hp - maxHP, 0)}`} */}
-          {faction === "ally" ? `${Math.max(hp, 0)} / ${maxHP}` : `???`}
+          {faction === "party" ? `${Math.max(hp, 0)} / ${maxHP}` : `???`}
         </div>
       </div>
     </div>
@@ -74,7 +74,7 @@ Character.propTypes = {
   image: PropTypes.string,
   maxHP: PropTypes.number.isRequired,
   hp: PropTypes.number.isRequired,
-  faction: PropTypes.oneOf(["ally", "enemy", "neutral"]).isRequired,
+  faction: PropTypes.oneOf(["party", "enemy", "neutral"]).isRequired,
   variant: PropTypes.oneOf(["horizontal", "vertical"]),
   highlight: PropTypes.bool,
 };

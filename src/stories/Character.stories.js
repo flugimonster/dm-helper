@@ -16,7 +16,7 @@ export const Default = Template.bind({});
 Default.args = {
   name: "JonJon",
   image: jonjonImg,
-  faction: "ally",
+  faction: "party",
   maxHP: 48,
   hp: 36,
   highlight: true,
