@@ -114,7 +114,7 @@ export function DmPage() {
                 Header: "Image",
                 accessor: "image",
                 width: 85,
-                
+
                 Cell: (props) => {
                     const path = props.value;
                     return path ?
@@ -187,12 +187,16 @@ export function DmPage() {
             },
             {
                 Header: "Conditions",
-                accessor: "Conditions",
+                accessor: "conditions",
                 Cell: (props) => {
                     return (
                         <CreatableSelect
                             className={css.select}
                             isMulti
+                            value={props.row.values.conditions}
+                            onChange={(val) => {
+                                updateMyData(props.row.index, "conditions", val);
+                            }}
                             options={[
                                 { label: "Blinded", value: "Blinded" },
                                 { label: "Charmed", value: "Charmed" },
@@ -299,7 +303,7 @@ export function DmPage() {
 
     const cleanTable = () => {
         confirmAlert({
-        title: <div className={css.popUpHeader}>Clean Table</div>,
+            title: <div className={css.popUpHeader}>Clean Table</div>,
             message: <div className={css.popUpBody}>
                 <div>Are you sure you wish to clear this table? </div>
                 <div>This can not be undone!</div>

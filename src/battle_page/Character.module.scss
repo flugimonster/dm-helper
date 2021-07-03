@@ -167,3 +167,45 @@
     opacity: 0.8;
   }
 }
+
+.NEW.cardContainer2 {
+}
+
+.avatar {
+  width: 150px !important;
+  height: 150px !important;
+  border: 8px solid black;
+
+  .party & {
+    border-color: green;
+  }
+
+  .friendly & {
+    border-color: green;
+  }
+
+  .enemy & {
+    border-color: red;
+  }
+}
+
+.name {
+  font-weight: bold;
+  font-family: papyrus;
+}
+
+.party :global(.MuiBadge-colorPrimary) {
+  background-color: green !important;
+}
+
+.friendly :global(.MuiBadge-colorPrimary) {
+  background-color: green !important;
+}
+
+.enemy :global(.MuiBadge-colorPrimary) {
+  background-color: red !important;
+}
+
+.neither :global(.MuiBadge-colorPrimary) {
+  background-color: black !important;
+}

@@ -2,6 +2,9 @@
   -webkit-app-region: drag;
   overflow: hidden !important;
   display: inline-flex;
+  gap: 10px;
+
+  width: 100%;
 
   &.horizontal {
     flex-direction: row;

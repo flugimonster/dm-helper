@@ -14,7 +14,7 @@ export const ListOfCharacters = ({ characters, variant }) => {
       ),
     [characters]
   );
-
+  
   return (
     <div>
       <div className={clsx([css.container, css[variant]])}>
@@ -30,6 +30,7 @@ export const ListOfCharacters = ({ characters, variant }) => {
             faction={char.faction}
             showDead={char.showDead}
             showCritical={char.showCritical}
+            hasConditions={char.conditions?.length > 0}
           />
         ))}
       </div>
