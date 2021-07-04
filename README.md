@@ -6,44 +6,55 @@ Adding a character:
 
 
 
+https://user-images.githubusercontent.com/33065842/124391360-f0823f80-dcf8-11eb-8efc-93db63ffdd0a.mp4
+
+
+
 
 This can be made and saved in advanced, then loaded at the table in order to save time.
 
 Saving an encounter \ character \ party \ enemies:
 
 
+https://user-images.githubusercontent.com/33065842/124391370-03950f80-dcf9-11eb-89a2-66d22b0380cf.mp4
+
 
 
 Loading an encounter:
 
 
+https://user-images.githubusercontent.com/33065842/124391377-07c12d00-dcf9-11eb-9c43-996170aff50f.mp4
+
+
 
 You can load several files into one encounter, making customizing encounters a breeze.
 
-Starting an encounter:
-
-
 
 Running a fight:
-The party encountered an old, grizzled fighter whom they knew and had a long standing fued with.
-JonJon, the Halfling Druid was quick on his feet and was the first one to react, he cast Call Lightning at 3rd level, causing Dormund 21 points of damage.
+Balloo and his friends were treading in the fabled uncharted territory of the leaving room, when suddenly they encountered a living Statue.
+Balloo, the party's leader was quick on his feet and was the first one to react, he cast Bark at 3rd level, the Statue 15 points of damage and ending his turn.
+
+
+https://user-images.githubusercontent.com/33065842/124391387-14de1c00-dcf9-11eb-8cbf-b0a14f203cd3.mp4
+
 
 
 
 The fight continued for several more rounds.
-Dormund used his items and wit to cause the party much angst.
-He saw Dez lying on the ground, grasping for air, fighting for his life.
-Without hesitation, the old veteran blew past Reginald, who took the attack of opportunity, dealing 16 points of damage and causing Dormund to become bloodied, then, with a swift swing of his massive sword, he detached Dez-Mon's head.
+The Statue used his strength and wit to cause the party much angst.
+He saw Cactus lying on the ground, grasping for air, fighting for his life.
+Without hesitation, the srtacture blew past Pinky, who took an attack of opportunity against him, dealing 15 points of damage and causing the statue start deteriorating, then, with a swift swing of his massive hands, squished poor old Cactus.
 
+
+https://user-images.githubusercontent.com/33065842/124391662-6a66f880-dcfa-11eb-9f43-ef0b1f0a92b9.mp4
 
 
 
 Action buttons can be used to differantiate between states.
-When Dormund took damage that made him bloodied, it was shown to the Players only after the DM wanted them to see it.
-Wehn Dez was dying and making saving throws his condition was shown to the players as his image was blinking in and out of existance, and a skull was shown behind. Wehn he was dead, with 1 push of a button the players saw their friend becoming a body.
+When the Statue took damage that made him bloodied, it was shown to the Players only after the DM wanted them to see it.
+Wehn Cactus was dying and making saving throws his condition was shown to the players as his image was blinking in and out of existance, and a skull was shown behind. Wehn he was dead, with 1 push of a button the players saw their friend becoming a body.
 
-There are many more features (like changing the players component's variant from horizontal to vertical and vice versa, deleting a row, hiding a row, duplicating a row and many more) to be explored.
-
+There are many more features (different factions that manifest in different ways, changing the players component's variant from horizontal to vertical and vice versa, deleting a row, hiding a row, duplicating a row and many more) to be explored.
 
 TODOs:
 
