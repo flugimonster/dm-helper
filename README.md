@@ -54,7 +54,7 @@ Action buttons can be used to differantiate between states.
 When the Statue took damage that made him bloodied, it was shown to the Players only after the DM wanted them to see it.
 Wehn Cactus was dying and making saving throws his condition was shown to the players as his image was blinking in and out of existance, and a skull was shown behind. Wehn he was dead, with 1 push of a button the players saw their friend becoming a body.
 
-There are many more features (different factions that manifest in different ways, changing the players component's variant from horizontal to vertical and vice versa, deleting a row, hiding a row, duplicating a row and many more) to be explored.
+There are many more features (Conditions, different factions that manifest in different ways, changing the players component's variant from horizontal to vertical and vice versa, deleting a row, hiding a row, duplicating a row and many more) to be explored.
 
 TODOs:
 
