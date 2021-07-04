@@ -1,6 +1,6 @@
 DM Helper is an app designed to help DM's run their games, keeping score of a multitude of things during battles, and showing the players exactly what they want them to see.
 
-DM Helper has two components - a control panel for the DM and a display component for the players.
+Written in Electron, JS and React, DM Helper has two components - a control panel for the DM and a display component for the players.
 
 DM Helper was designed to run in two seperate windows to allow it to be cast to a secondary screen.
 
