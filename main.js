@@ -31,9 +31,9 @@ function createWindow() {
     BrowserWindow.getFocusedWindow().reload();
   });
 
-  globalShortcut.register('f11', function () {
-    BrowserWindow.getFocusedWindow().webContents.openDevTools();
-  });
+  // globalShortcut.register('f11', function () {
+  //   BrowserWindow.getFocusedWindow().webContents.openDevTools();
+  // });
 
   globalShortcut.register('CommandOrControl+Shift+I', function () {
     BrowserWindow.getFocusedWindow().webContents.openDevTools();
