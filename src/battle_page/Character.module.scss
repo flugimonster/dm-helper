@@ -25,7 +25,7 @@
   left: 0;
   right: 0;
   background-color: red;
-
+  border-radius: 50%;
   opacity: 0;
   animation: blinker 0.8s linear infinite alternate;
 }
@@ -75,6 +75,8 @@
 }
 
 :global(.MuiBadge-colorPrimary) {
+  z-index: 9999 !important;
+
   font-family: papyrus !important;
   font-size: large !important;
 }
@@ -96,6 +98,13 @@
 
 .neither :global(.MuiBadge-colorPrimary) {
   background-color: black !important;
+}
+
+:global(.MuiBadge-colorError):not(:global(.MuiBadge-invisible)) {
+  font-size: 1.2rem !important;
+  left: 50% !important;
+  bottom: 0 !important;
+  transform: scale(1) translate(-50%, 50%) !important;
 }
 
 @keyframes glance {

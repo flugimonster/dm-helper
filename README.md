@@ -75,6 +75,8 @@ TODOs:
     * ~~Clean all rows, add encounter => no one has initiative~~
     * ~~Can't refresh or use dev tools from app~~
     * ~~focus loss on remove row (may fix itself after UI overhaul) (DID FIX ITSELF AFTER OVERHAUL)~~
+    * ~~Bloody animation vertical~~
+    * Change variant
     * Table sort is inconsistent with initiative order
     * Check if picture doesn't exist
     * Change font and avatar size

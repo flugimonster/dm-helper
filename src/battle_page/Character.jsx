@@ -10,6 +10,26 @@ import skull from '../assets/Skull.JPG'
 
 const { nativeImage } = window.require('electron');
 
+const CONDITION_TO_EMOJI = {
+  Blinded: '🙈',
+  Charmed: '😍',
+  Confused: '🥴',
+  Deafened: '🙉',
+  Frightened: '😱',
+  Grappled: '🥋',
+  Incapacitated: '❌',
+  Invisible: '👓',
+  Paralyzed: '😵',
+  Petrified: '🗿',
+  Poisoned: '🤢',
+  Prone: '🙇',
+  Restrained: '🥨',
+  Silenced: '🙊',
+  Stunned: '✨',
+  Unconscious: '😴',
+  Exhaustion: '🥱'
+};
+
 export const Character = ({
   name,
   image,
@@ -20,7 +40,7 @@ export const Character = ({
   highlight,
   showDead = false,
   showCritical = false,
-  hasConditions = false,
+  conditions = [],
 }) => {
   const elem = useRef();
   console.log("Character.jsx image: ", image);
@@ -59,14 +79,17 @@ export const Character = ({
         overlap="circle"
       >
         <Badge badgeContent={`${hp} / ${maxHP}`}
-          color="primary" invisible={faction !== 'party'}
+          color="primary"
+          invisible={faction !== 'party'}
           overlap="circle"
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'right',
           }}>
-          <Badge badgeContent={hasConditions}
-            invisible={!hasConditions}
+          <Badge
+            badgeContent={conditions.map(c => CONDITION_TO_EMOJI[c.value] || `❔`).join('')}
+            className="aaa"
+            invisible={conditions.length === 0}
             color="error"
             overlap="circle"
             anchorOrigin={{

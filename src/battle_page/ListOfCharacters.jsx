@@ -30,7 +30,7 @@ export const ListOfCharacters = ({ characters, variant }) => {
             faction={char.faction}
             showDead={char.showDead}
             showCritical={char.showCritical}
-            hasConditions={char.conditions?.length > 0}
+            conditions={char.conditions}
           />
         ))}
       </div>

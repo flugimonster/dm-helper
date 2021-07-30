@@ -96,7 +96,7 @@ export function DmPage() {
     const loadImage = useCallback(async (rowId) => {
         const { filePaths, canceled } = await dialog.showOpenDialog({
             title: "Choose an image to load",
-            defaultPath: app.getPath('pictures'),
+            // defaultPath: app.getPath('pictures'),
             filters: [{ name: 'Image', extensions: ['jpg', 'jpeg', 'png', 'bmp'] }],
         });
         if (!canceled) {
@@ -201,6 +201,7 @@ export function DmPage() {
                             options={[
                                 { label: "Blinded", value: "Blinded" },
                                 { label: "Charmed", value: "Charmed" },
+                                { label: "Confused", value: "Confused" },
                                 { label: "Deafened", value: "Deafened" },
                                 { label: "Frightened", value: "Frightened" },
                                 { label: "Grappled", value: "Grappled" },
@@ -211,6 +212,7 @@ export function DmPage() {
                                 { label: "Poisoned", value: "Poisoned" },
                                 { label: "Prone", value: "Prone" },
                                 { label: "Restrained", value: "Restrained" },
+                                { label: "Silenced", value: "Silenced" },
                                 { label: "Stunned", value: "Stunned" },
                                 { label: "Unconscious", value: "Unconscious" },
                                 { label: "Exhaustion", value: "Exhaustion" },
@@ -403,7 +405,7 @@ export function DmPage() {
                     }
                 });
 
-                setData([...data, ...toLoad]);
+                setData((previousData) => [...previousData, ...toLoad]);
             });
         }
     };
