@@ -28,7 +28,7 @@ export function DmPage() {
     const [data, setData] = React.useState(characters);
     const [variant, setVariant] = React.useState("horizontal");
     const [skipPageReset, setSkipPageReset] = React.useState(false);
-    const [imageBank, setImageBank] = React.useState(() => Object.fromEntries(characters.map(c => [c.image, nativeImage.createFromPath(c.image).toDataURL()])))
+    const [imageBank, setImageBank] = React.useState(() => Object.fromEntries(data.map(c => [c.image, nativeImage.createFromPath(c.image).toDataURL()])))
 
 
     const turnOrder = useMemo(() => {
@@ -116,6 +116,7 @@ export function DmPage() {
                 width: 85,
 
                 Cell: (props) => {
+                    console.log("DmPage.jsx image: ", props.value);
                     const path = props.value;
                     return path ?
                         <img src={imageBank[path]} onClick={() => { loadImage(props.row.index) }} className={css.imageAvatar} alt="" /> :
@@ -394,7 +395,14 @@ export function DmPage() {
         if (!canceled) {
             filePaths.forEach((path) => {
                 const content = JSON.parse(fs.readFileSync(path, { encoding: "utf8", flag: "r" }));
-                const toLoad = content.map((c) => ({ ...c, uuid: Date.now() * Math.random() }));
+                const toLoad = content.map((c) => {
+                    setImageBank((previousBank) => ({ ...previousBank, [c.image]: nativeImage.createFromPath(c.image).toDataURL() }));
+                    return {
+                        ...c,
+                        uuid: Date.now() * Math.random(),
+                    }
+                });
+
                 setData([...data, ...toLoad]);
             });
         }

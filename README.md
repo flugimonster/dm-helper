@@ -77,6 +77,9 @@ TODOs:
     * ~~focus loss on remove row (may fix itself after UI overhaul) (DID FIX ITSELF AFTER OVERHAUL)~~
     * Table sort is inconsistent with initiative order
     * Check if picture doesn't exist
+    * Change font and avatar size
+    * Change badges to appear on top and beneath the avatar and not on corners
+    * Improve visibility of the input boxes while hidden
 
 * FEATURES
     * ~~Handle empty table \ add "add row" button~~
@@ -88,3 +91,6 @@ TODOs:
     * add executable
     * NICE TO HAVE - Keybindings
     * NICE TO HAVE - Condition details on cursor hover
+    * Hide entire Battle Page
+    * Auto resize through window frame (drag)
+    * Add the ability to show different stats (like AC) and edit the format shown to the players

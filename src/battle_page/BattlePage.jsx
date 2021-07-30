@@ -16,14 +16,20 @@ export const BattlePage = () => {
 
   useEffect(() => {
     setCharacters(JSON.parse(q.get("data")));
-  // parsing q should only happen on mount
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // parsing q should only happen on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
+    // let largetWidth, largestHeight = 0;
+    // remote.screen.getAllDisplays().forEach((display) => {
+    //   const { currentWidth, currentHeight } = display.bounds;
+    //   if (currentWidth)
+    // })
+
     const { width, height } = remote.screen.getPrimaryDisplay().bounds;
-    const IMAGE_HEIGHT = 200;
-    const IMAGE_WIDTH = 200;
+    const IMAGE_HEIGHT = 300;
+    const IMAGE_WIDTH = 250;
     if (characters) {
       const [x, y] =
         variant === "vertical"

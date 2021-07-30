@@ -23,7 +23,7 @@ export const Character = ({
   hasConditions = false,
 }) => {
   const elem = useRef();
-
+  console.log("Character.jsx image: ", image);
   const avatarImage = useMemo(() => image ? nativeImage.createFromPath(image).toDataURL() : genericEnemyImg, [image]);
 
   useEffect(() => {
@@ -40,6 +40,7 @@ export const Character = ({
 
   return (
     <div
+      style={{ height: `100%` }}
       ref={elem}
       className={clsx([
         css.cardContainer,
@@ -47,7 +48,7 @@ export const Character = ({
         css[faction],
         {
           [css.critical]:
-            (hp / maxHP < 0.33 && hp > 0 && faction === "party") || showCritical,
+            ((hp / maxHP < 0.33 && hp > 0 && faction === "party") || showCritical) && hp > 0,
           [css.dying]: hp <= 0 && faction === "party" && !showDead,
           [css.highlight]: highlight,
         },
