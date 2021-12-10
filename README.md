@@ -86,6 +86,7 @@ TODOs:
 * FEATURES
     * ~~Handle empty table \ add "add row" button~~
     * ~~UX Overhaul~~
+    * Multi line edit. The ability to chose a bunch of characters and remove x hp from all of them.
     * battle log
         * crashlog
     * Bestiary
