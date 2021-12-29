@@ -76,7 +76,8 @@ TODOs:
     * ~~Can't refresh or use dev tools from app~~
     * ~~focus loss on remove row (may fix itself after UI overhaul) (DID FIX ITSELF AFTER OVERHAUL)~~
     * ~~Bloody animation vertical~~
-    * Change variant
+    * ~~Change variant~~ (Partial fix, need to change the way it is handled)
+    * Make sizes fully automatically adjustable. Right now it changes from one screen to the next and needs adjustments.
     * Table sort is inconsistent with initiative order
     * Check if picture doesn't exist
     * Change font and avatar size
@@ -86,6 +87,7 @@ TODOs:
 * FEATURES
     * ~~Handle empty table \ add "add row" button~~
     * ~~UX Overhaul~~
+    * Multi line edit. The ability to chose a bunch of characters and remove x hp from all of them.
     * battle log
         * crashlog
     * Bestiary

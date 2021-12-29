@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import Select from 'react-select'
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-
+// import { ExpandedRow } from "./ExpandedRow";
 
 const fs = window.require("fs");
 const sharp = window.require("sharp");
@@ -29,7 +29,7 @@ export function DmPage() {
     const [variant, setVariant] = React.useState("horizontal");
     const [skipPageReset, setSkipPageReset] = React.useState(false);
     const [imageBank, setImageBank] = React.useState(() => Object.fromEntries(data.map(c => [c.image, nativeImage.createFromPath(c.image).toDataURL()])))
-
+    const [lastImageDir, setLastImageDir] = React.useState(app.getPath('pictures'));
 
     const turnOrder = useMemo(() => {
         const temp = [...data].filter((d) => d.hidden !== true);
@@ -96,7 +96,7 @@ export function DmPage() {
     const loadImage = useCallback(async (rowId) => {
         const { filePaths, canceled } = await dialog.showOpenDialog({
             title: "Choose an image to load",
-            // defaultPath: app.getPath('pictures'),
+            defaultPath: lastImageDir,
             filters: [{ name: 'Image', extensions: ['jpg', 'jpeg', 'png', 'bmp'] }],
         });
         if (!canceled) {
@@ -104,12 +104,38 @@ export function DmPage() {
             await sharp(filePaths[0]).resize({ width: 250 }).toFile(savePath);
             setImageBank({ ...imageBank, [savePath]: nativeImage.createFromPath(savePath).toDataURL() });
             updateMyData(rowId, 'image', savePath);
+            setLastImageDir(path.dirname(filePaths[0]));
             return savePath;
         }
-    }, [imageBank, updateMyData])
+    }, [imageBank, updateMyData, lastImageDir])
 
     const columns = React.useMemo(
         () => [
+            // {
+                // Header: "Expand",
+                // accessor: 'exapndedRow',
+                // width: 30,
+                // Cell: (props) => {
+                //     return props.row.isExpanded ?
+                //         <Button onClick={() => props.row.isExpanded=true}>⬆️</Button> :
+                //         <Button onClick={() => props.row.isExpanded=false}>⬇️</Button>;
+                // }
+                //     row.canExpand ? (
+                //     <span
+                //         {...row.getToggleRowExpandedProps({
+                //             style: {
+                //                 // We can even use the row.depth property
+                //                 // and paddingLeft to indicate the depth
+                //                 // of the row
+                //                 paddingLeft: `${row.depth * 2}rem`,
+                //             },
+                //         })}
+                //     >
+                //         {row.isExpanded ? '👇' : '👉'}
+                //     </span>
+                // ) : null,
+                // (props) => (<ExpandedRow></ExpandedRow>)
+            // },
             {
                 Header: "Image",
                 accessor: "image",
@@ -199,6 +225,7 @@ export function DmPage() {
                                 updateMyData(props.row.index, "conditions", val);
                             }}
                             options={[
+                                { label: "Blessed", value: "Blessed" },
                                 { label: "Blinded", value: "Blinded" },
                                 { label: "Charmed", value: "Charmed" },
                                 { label: "Confused", value: "Confused" },

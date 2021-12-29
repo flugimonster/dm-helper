@@ -11,6 +11,7 @@ import skull from '../assets/Skull.JPG'
 const { nativeImage } = window.require('electron');
 
 const CONDITION_TO_EMOJI = {
+  Blessed: '🙏🏻',
   Blinded: '🙈',
   Charmed: '😍',
   Confused: '🥴',

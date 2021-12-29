@@ -12,7 +12,7 @@ export const BattlePage = () => {
   let q = useQuery();
 
   const [characters, setCharacters] = useState();
-  const [variant, setVariant] = useState("vertical");
+  const [variant, setVariant] = useState("horizontal");
 
   useEffect(() => {
     setCharacters(JSON.parse(q.get("data")));
@@ -27,17 +27,21 @@ export const BattlePage = () => {
     //   if (currentWidth)
     // })
 
-    const { width, height } = remote.screen.getPrimaryDisplay().bounds;
+    const { width, height } = remote.screen.getAllDisplays()[1].bounds;
     const IMAGE_HEIGHT = 300;
-    const IMAGE_WIDTH = 250;
+    const IMAGE_WIDTH = 230;
     if (characters) {
       const [x, y] =
         variant === "vertical"
           ? [IMAGE_HEIGHT, IMAGE_WIDTH * characters.length]
-          : [IMAGE_WIDTH * characters.length, IMAGE_HEIGHT];
+          : [IMAGE_WIDTH * (characters.length), IMAGE_HEIGHT];
       remote
         .getCurrentWindow()
         .setSize(Math.min(x, width), Math.min(y, height));
+        // console.log('x, y: ', x, y);
+        // console.log('width, height: ', width, height);
+        // console.log('window size: ', remote.getCurrentWindow().getSize());
+
     }
   }, [variant, characters]);
 

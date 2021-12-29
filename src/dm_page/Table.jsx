@@ -1,6 +1,6 @@
 import React from "react";
 import "react-contexify/dist/ReactContexify.css";
-import { useTable, usePagination, useSortBy, useFlexLayout } from "react-table";
+import { useTable, usePagination, useSortBy, useFlexLayout, useExpanded } from "react-table";
 import clsx from "clsx";
 import * as css from "./Table.module.scss";
 
