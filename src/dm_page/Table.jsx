@@ -1,6 +1,6 @@
 import React from "react";
 import "react-contexify/dist/ReactContexify.css";
-import { useTable, usePagination, useSortBy, useFlexLayout, useExpanded } from "react-table";
+import { useTable, usePagination, useSortBy, useFlexLayout } from "react-table";
 import clsx from "clsx";
 import * as css from "./Table.module.scss";
 
@@ -71,6 +71,8 @@ function Table({
   currentPlayer,
   handleContextMenu,
 }) {
+  const [expandedRows, setExpandedRows] = React.useState([]);
+
   // For this example, we're using pagination to illustrate how to stop
   // the current page from resetting when our data changes
   // Otherwise, nothing is different here.
@@ -119,22 +121,26 @@ function Table({
           {page.map((row, i) => {
             prepareRow(row);
             return (
-              <TableRow
-                className={clsx({
-                  [css.activeRow]: row.original.uuid === currentPlayer,
-                  [css.hidden]: row.original.hidden,
-                })}
-                onContextMenu={(event) =>
-                  handleContextMenu(event, row.id, data)
-                }
-                {...row.getRowProps()}
-              >
-                {row.cells.map((cell) => {
-                  return (
-                    <TableCell {...cell.getCellProps()}>{cell.render("Cell")}</TableCell>
-                  );
-                })}
-              </TableRow>
+              <>
+                <TableRow
+                  onClick={() => expandedRows.includes(row.id) ? setExpandedRows([...expandedRows.filter((rowId) => rowId !== row.id)]) : setExpandedRows([...expandedRows, row.id])}
+                  className={clsx({
+                    [css.activeRow]: row.original.uuid === currentPlayer,
+                    [css.hidden]: row.original.hidden,
+                  })}
+                  onContextMenu={(event) =>
+                    handleContextMenu(event, row.id, data)
+                  }
+                  {...row.getRowProps()}
+                >
+                  {row.cells.map((cell) => {
+                    return (
+                      <TableCell {...cell.getCellProps()}>{cell.render("Cell")}</TableCell>
+                    );
+                  })}
+                </TableRow>
+                {expandedRows.includes(row.id) && <div dangerouslySetInnerHTML={{__html: row.original.description}} />}
+              </>
             );
           })}
         </TableBody>

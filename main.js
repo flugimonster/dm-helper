@@ -50,6 +50,7 @@ function createWindow() {
   mainWindow.webContents.on("did-create-window", (childWindow) => {
     // For example...
     childWindow.setAlwaysOnTop("true");
+    childWindow.
     child = childWindow;
   });
 

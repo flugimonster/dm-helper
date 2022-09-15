@@ -419,13 +419,16 @@ export function DmPage() {
             title: "Choose an encounter to load",
             defaultPath: encountersPath,
             filters: [{ name: 'Encounter', extensions: ['json'] }],
-            properties: ["multiSelections"],
+            properties: ["openFile", "multiSelections"],
         });
         if (!canceled) {
             filePaths.forEach((path) => {
                 const content = JSON.parse(fs.readFileSync(path, { encoding: "utf8", flag: "r" }));
                 const toLoad = content.map((c) => {
-                    setImageBank((previousBank) => ({ ...previousBank, [c.image]: nativeImage.createFromPath(c.image).toDataURL() }));
+                    if (c.image) {
+                        setImageBank((previousBank) => ({ ...previousBank, [c.image]: nativeImage.createFromPath(c.image).toDataURL() }));
+                    }
+                    
                     return {
                         ...c,
                         uuid: Date.now() * Math.random(),
@@ -478,7 +481,7 @@ export function DmPage() {
                             window.open(
                                 `/battle?data=${JSON.stringify(preprocessDataForChild(data))}`,
                                 "_blank",
-                                "frame=false, useContentSize=true, transparent=true"
+                                "frame=false, useContentSize=true"
                             );
                         }}
                     >
