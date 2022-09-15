@@ -1,14 +1,14 @@
-const jonjonImg = "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\JonJonImage.JPG";
-const sindriImg = "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\SindiImage.JPG";
-const regiImg = "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\RegiImage.jpg";
-const dezImg = "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\DezImage.JPG";
-// import iceTrollImg from 'D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\IceTroll.JPG'
-// import roperImg from 'D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\Roper.JPG'
-// import frostGiantImg from 'D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\FrostGiant.JPG'
-const dormund = "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\dormund.JPG";
-// import clayGolem from "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\ClayGolem.JPG";
-// import silverDragon from "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\YoungSilverDragon.JPG";
-// import stoneGiant from "D:\\Orbis\\electron\\DM_Helper\\dm-helper\\src\\assets\\StoneGiant.JPG";
+const jonjonImg = "/Users/tomerflug/dm-helper/src/assets/JonJonImage.JPG";
+const sindriImg = "/Users/tomerflug/dm-helper/src/assets/SindiImage.JPG";
+const regiImg = "/Users/tomerflug/dm-helper/src/assets/RegiImage.jpg";
+const dezImg = "/Users/tomerflug/dm-helper/src/assets/DezImage.JPG";
+// import iceTrollImg from '/Users/tomerflug/dm-helper/src/assets/IceTroll.JPG'
+// import roperImg from '/Users/tomerflug/dm-helper/src/assets/Roper.JPG'
+// import frostGiantImg from '/Users/tomerflug/dm-helper/src/assets/FrostGiant.JPG'
+const dormund = "/Users/tomerflug/dm-helper/src/assets/dormund.JPG";
+// import clayGolem from "/Users/tomerflug/dm-helper/src/assets/ClayGolem.JPG";
+// import silverDragon from "/Users/tomerflug/dm-helper/src/assets/YoungSilverDragon.JPG";
+// import stoneGiant from "/Users/tomerflug/dm-helper/src/assets/StoneGiant.JPG";
 
 export const characters = [
   {
