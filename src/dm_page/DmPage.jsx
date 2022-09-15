@@ -13,7 +13,6 @@ import Select from 'react-select'
 import Switch from '@material-ui/core/Switch'
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-// import { ExpandedRow } from "./ExpandedRow";
 
 const fs = window.require("fs");
 const sharp = window.require("sharp");
@@ -113,31 +112,6 @@ export function DmPage() {
 
     const columns = React.useMemo(
         () => [
-            // {
-            // Header: "Expand",
-            // accessor: 'exapndedRow',
-            // width: 30,
-            // Cell: (props) => {
-            //     return props.row.isExpanded ?
-            //         <Button onClick={() => props.row.isExpanded=true}>⬆️</Button> :
-            //         <Button onClick={() => props.row.isExpanded=false}>⬇️</Button>;
-            // }
-            //     row.canExpand ? (
-            //     <span
-            //         {...row.getToggleRowExpandedProps({
-            //             style: {
-            //                 // We can even use the row.depth property
-            //                 // and paddingLeft to indicate the depth
-            //                 // of the row
-            //                 paddingLeft: `${row.depth * 2}rem`,
-            //             },
-            //         })}
-            //     >
-            //         {row.isExpanded ? '👇' : '👉'}
-            //     </span>
-            // ) : null,
-            // (props) => (<ExpandedRow></ExpandedRow>)
-            // },
             {
                 Header: "Image",
                 accessor: "image",
@@ -259,9 +233,12 @@ export function DmPage() {
             {
                 Header: "Reaction",
                 accessor: "reactionUsed",
-                width: 80,
+                width: 110,
                 Cell: (props) => {
-                    return <Switch checked={props.row.values.reactionUsed} onChange={(e, val) => updateMyData(props.row.index, "reactionUsed", val)}/>;
+                    return <Switch checked={props.row.values.reactionUsed} onClick={(e) => {
+                        updateMyData(props.row.index, "reactionUsed", !props.row.values.reactionUsed);
+                        e.stopPropagation()
+                    }}/>;
                 }
             },
         ],
@@ -410,6 +387,7 @@ export function DmPage() {
                 turnOrder.length) %
             turnOrder.length;
         setCurrentPlayer(turnOrder[i]);
+        updateMyData(turnOrder[i], 'reactionUsed', false);
     };
 
     const saveEncounter = async (characters) => {

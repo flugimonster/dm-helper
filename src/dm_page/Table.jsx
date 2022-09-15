@@ -123,10 +123,6 @@ function Table({
             return (
               <>
                 <TableRow
-                  onClick={() => {
-                    if (!row.original.description) return
-                    setExpandedRows(expandedRows.includes(row.id) ? [...expandedRows.filter((rowId) => rowId !== row.id)]: [...expandedRows, row.id])
-                  }}
                   className={clsx({
                     [css.activeRow]: row.original.uuid === currentPlayer,
                     [css.hidden]: row.original.hidden,
@@ -136,13 +132,19 @@ function Table({
                   }
                   {...row.getRowProps()}
                 >
-                  {row.cells.map((cell) => {
+                  {row.cells.map((cell, i, arr) => {
                     return (
-                      <TableCell {...cell.getCellProps()}>{cell.render("Cell")}</TableCell>
+                      <TableCell {...cell.getCellProps()}>{cell.render("Cell")}{(i === arr.length - 1) && row.original.description &&
+                      <div onClick={() => {
+                        if (!row.original.description) return
+                        setExpandedRows(expandedRows.includes(row.id) ? [...expandedRows.filter((rowId) => rowId !== row.id)] : [...expandedRows, row.id])
+                      }}
+                      style={{fontSize: "25px", cursor: "pointer"}}
+                      >{expandedRows.includes(row.id) ? "⬆️" : "⬇️"}</div>}</TableCell>
                     );
                   })}
                 </TableRow>
-                {expandedRows.includes(row.id) && <div style={{border: "1px solid lightgray", bqoxShadow: "3px 3px 8px lightgray", padding: 10}} dangerouslySetInnerHTML={{__html: row.original.description}} />}
+                {expandedRows.includes(row.id) && <div style={{ border: "1px solid lightgray", bqoxShadow: "3px 3px 8px lightgray", padding: 10 }} dangerouslySetInnerHTML={{ __html: row.original.description }} />}
               </>
             );
           })}
