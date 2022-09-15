@@ -22,6 +22,7 @@ export const characters = [
     ac: 18,
     dc: 16,
     uuid: 1,
+    "reactionUsed": false
   },
   {
     name: "Sindri",
@@ -34,6 +35,7 @@ export const characters = [
     ac: 18,
     dc: 15,
     uuid: 2,
+    "reactionUsed": false
   },
   {
     name: "Reginald",
@@ -46,6 +48,7 @@ export const characters = [
     ac: 18,
     dc: "-",
     uuid: 3,
+    "reactionUsed": false
   },
   {
     name: "Dez-Mon",
@@ -58,6 +61,7 @@ export const characters = [
     ac: 14,
     dc: 13,
     uuid: 4,
+    "reactionUsed": false
   },
   {
     name: "Dormund",
@@ -70,5 +74,6 @@ export const characters = [
     ac: 21,
     dc: "-",
     uuid: 5,
+    "reactionUsed": false
   },
 ];

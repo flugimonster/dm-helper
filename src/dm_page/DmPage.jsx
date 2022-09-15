@@ -10,6 +10,7 @@ import { avatarsPath, encountersPath } from '../consts';
 import Table from './Table';
 import Button from '@material-ui/core/Button';
 import Select from 'react-select'
+import Switch from '@material-ui/core/Switch'
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 // import { ExpandedRow } from "./ExpandedRow";
@@ -47,6 +48,7 @@ export function DmPage() {
     // original data
     const updateMyData = useCallback(
         (rowIndex, columnId, value) => {
+            debugger;
             // We also turn on the flag to not reset the page
             setSkipPageReset(true);
             let newVal = data.map((row, index) => {
@@ -254,6 +256,14 @@ export function DmPage() {
                 accessor: "initiative",
                 width: 80,
             },
+            {
+                Header: "Reaction",
+                accessor: "reactionUsed",
+                width: 80,
+                Cell: (props) => {
+                    return <Switch checked={props.row.values.reactionUsed} onChange={(e, val) => updateMyData(props.row.index, "reactionUsed", val)}/>;
+                }
+            },
         ],
         [updateMyData, loadImage, imageBank]
     );
@@ -290,6 +300,7 @@ export function DmPage() {
                 name: "",
                 hidden: true,
                 uuid: Date.now(),
+                reactionUsed: false
             },
         ]);
     };
