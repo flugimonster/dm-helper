@@ -123,7 +123,10 @@ function Table({
             return (
               <>
                 <TableRow
-                  onClick={() => expandedRows.includes(row.id) ? setExpandedRows([...expandedRows.filter((rowId) => rowId !== row.id)]) : setExpandedRows([...expandedRows, row.id])}
+                  onClick={() => {
+                    if (!row.original.description) return
+                    setExpandedRows(expandedRows.includes(row.id) ? [...expandedRows.filter((rowId) => rowId !== row.id)]: [...expandedRows, row.id])
+                  }}
                   className={clsx({
                     [css.activeRow]: row.original.uuid === currentPlayer,
                     [css.hidden]: row.original.hidden,
@@ -139,7 +142,7 @@ function Table({
                     );
                   })}
                 </TableRow>
-                {expandedRows.includes(row.id) && <div dangerouslySetInnerHTML={{__html: row.original.description}} />}
+                {expandedRows.includes(row.id) && <div style={{border: "1px solid lightgray", bqoxShadow: "3px 3px 8px lightgray", padding: 10}} dangerouslySetInnerHTML={{__html: row.original.description}} />}
               </>
             );
           })}
